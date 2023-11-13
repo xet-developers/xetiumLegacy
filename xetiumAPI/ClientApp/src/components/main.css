@@ -1,0 +1,111 @@
+body{
+    background: antiquewhite;
+
+}
+
+section{
+    color: #252525;
+    font-family: 'Montserrat Alternates', sans-serif;
+    margin: 13.65vh 23.8vw;
+    height: 72.7vh;
+    width: 52.4vw;
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    background-color: #C0CCF7;
+    background-image: url("images/икс.svg");
+    background-size: 800px;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.register-Field-left {
+    font-weight: 500;
+    background-color: #ffffff;
+    border-radius: 25px;
+    display: grid;
+    row-gap: 5%;
+    grid-template-rows: 15% 10% 10% 10% 10% 15%;
+    background-image: url("images/икс.svg");
+    background-size: 800px;
+    background-position: -105%;
+    background-repeat: no-repeat;
+}
+
+.register-Field-right{
+    font-weight: 500;
+    margin-top: 35%;
+    row-gap: 5%;
+    display: grid;
+    grid-template-rows: 12% 12% 12% 12%;
+}
+
+section h1{
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.register-Field-left-header{
+    text-align: center;
+}
+
+.register-Field-left-header p{
+    position: relative;
+    bottom: 22%;
+    font-size: 15px;
+}
+
+.register-Field-left-header a{
+    color: #F66450;
+    text-decoration: none;
+}
+
+.register-Field-left input{
+    font-weight: 500;
+
+    background: #D9D9D9;
+    border-radius: 7px;
+    border: 1px solid #7B7B7B;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    margin-right: 7%;
+    margin-left: 7%;
+    padding: 2.3%;
+}
+
+#register-button{
+    font-weight: 500;
+
+    margin-top: 5%;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 35px;
+    background: #F66450;
+    justify-self: center;
+    border: none;
+    width: 67%;
+    height: 60%;
+    color: white;
+    text-transform: uppercase;
+}
+
+.register-Field-right div{
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: 20% auto;
+    margin-left: 7%;
+    justify-content: center;
+}
+
+.register-Field-right div input{
+    width: 65%;
+    height: 65%;
+    align-self: center;
+    border-radius: 5px;
+    border: 1px solid #7B7B7B;
+}
+
+.register-Field-right div label{
+    align-self: center;
+}
+
