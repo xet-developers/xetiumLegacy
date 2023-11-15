@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Collections.Frozen;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
@@ -7,6 +8,12 @@ namespace xetiumAPI.Service
 {
     public class Analysis : IAnalysisService
     {
+        //Todo после реализации БД использовать этот объект для внесений в бд информации об индексе
+        private IAnalyticsRepository _analyticsRepository;
+        public Analysis(IAnalyticsRepository analyticsRepository)
+        {
+            _analyticsRepository = analyticsRepository;
+        }
         public async Task<int> GetPositionAsync(AnalysisData model, HttpClient client)
         {
             var response = await client.GetAsync($"https://google.com/search?q={model.Keyword}&num={model.Top}");

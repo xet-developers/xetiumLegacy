@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using xetiumAPI.Interfaces;
+using xetiumAPI.ServerApp.Dal.Models.Repository;
 using xetiumAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRegisterService, Register>();
 builder.Services.AddScoped<IAnalysisService, Analysis>();
+builder.Services.AddDbContext<AnalyticsContextDb>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IAnalyticsRepository, AnalitycsRepository>();
+
 
 var app = builder.Build();
 
