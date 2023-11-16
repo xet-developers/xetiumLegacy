@@ -4,6 +4,8 @@ namespace xetiumAPI.Interfaces
 {
     public interface IRegisterService
     {
-        public Task<string> GetJWTTokenAsync(User user);
+        public  Task<AuthenticateResponse> RegisterUser(UserRegisterModel userRegisterModel);
+        public Task<AuthenticateResponse> LoginUser(UserLoginModel userLoginModel);
+        public Task<string> GetJWTTokenAsync(UserRegisterModel userRegisterModel);
     }
 }

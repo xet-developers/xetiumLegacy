@@ -6,11 +6,11 @@ using xetiumAPI.Models;
 
 namespace xetiumAPI.Service
 {
-    public class Analysis : IAnalysisService
+    public class AnalysisService : IAnalysisService
     {
         //Todo после реализации БД использовать этот объект для внесений в бд информации об индексе
         private IAnalyticsRepository _analyticsRepository;
-        public Analysis(IAnalyticsRepository analyticsRepository)
+        public AnalysisService(IAnalyticsRepository analyticsRepository)
         {
             _analyticsRepository = analyticsRepository;
         }

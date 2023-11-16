@@ -1,6 +1,6 @@
 ﻿namespace xetiumAPI.Models
 {
-    public class User
+    public class UserRegisterModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
