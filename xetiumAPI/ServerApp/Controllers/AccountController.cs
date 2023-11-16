@@ -8,9 +8,10 @@ namespace xetiumAPI.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        public AccountController()
+        private IRegisterService _registerService;
+        public AccountController(IRegisterService registerService)
         {
-            
+            _registerService = registerService;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
