@@ -1,5 +1,4 @@
-﻿using System.Collections.Frozen;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
