@@ -1,19 +1,26 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import './custom.css';
+import React, {useState} from 'react';
+import {BrowserRouter} from 'react-router-dom';
+import {AuthContext} from "./contex/IsAuth";
+import CreateRouter from "./components/CreateRouter";
 
-export default class App extends Component {
-  static displayName = App.name;
 
-  render() {
+const App = () => {
+    const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+
+    const [isAuth, setIsAuth] = useState(false);
+
     return (
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
+        <AuthContext.Provider value={{
+            isAuth,
+            setIsAuth,
+        }}>
+            <BrowserRouter basename={baseUrl}>
+                <CreateRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>
+
     );
-  }
-}
+};
+
+
+export default App;
