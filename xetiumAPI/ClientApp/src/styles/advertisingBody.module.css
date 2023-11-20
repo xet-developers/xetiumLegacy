@@ -2,8 +2,10 @@
     padding-left: 11.3%;
     padding-right: 11.3%;
     background-color:#ffffff;
-    padding-top: 0;
     display: flex;
+    align-items: center;
+    padding-top: 5%;
+    justify-content: space-between;
 }
 
 .nameService {
@@ -12,7 +14,6 @@
     font-size: 25px;
     font-style: normal;
     font-weight: 500;
-    padding-top: 5%;
 }
 
 .advertisingH1 {
@@ -60,6 +61,6 @@
 }
 
 .advertisingPhoto {
-    height: 809px;
-    width: 558px;
+    height: 558px;
+    width: 809px;
 }

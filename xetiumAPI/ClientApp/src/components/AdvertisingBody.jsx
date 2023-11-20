@@ -29,7 +29,7 @@ const AdvertisingBody = () => {
                     </UIButton>
                 </Link>
             </div>
-            <img scr = { emptyImage} alt = "emptyAboba" className={Styles.advertisingPhoto}/>
+            <img src= {emptyImage} alt = "emptyAboba" className={Styles.advertisingPhoto}/>
         </div>
     );
 };
