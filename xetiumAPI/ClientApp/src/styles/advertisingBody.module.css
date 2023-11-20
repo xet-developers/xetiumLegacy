@@ -1,3 +1,65 @@
-.body{
-    padding-left: 11%;
+.body {
+    padding-left: 11.3%;
+    padding-right: 11.3%;
+    background-color:#ffffff;
+    padding-top: 0;
+    display: flex;
+}
+
+.nameService {
+    color: #F66450;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    padding-top: 5%;
+}
+
+.advertisingH1 {
+    color: #252525;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 70px;
+}
+
+.advertisingDescription {
+    color: #5F5F5F;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin-top: -30px;
+}
+
+.buttonFree {
+    border-radius: 54px;
+    border: none;
+    background: #F66450;
+    color: #ffffff;
+    width: 480px;
+    height: 98px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.buttonFree:hover {
+	background: rgba(255, 255, 255, 0);
+	color: #F66450;
+	box-shadow: inset 0 0 0 3px #F66450;
+}
+
+.nameButtonFree {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 70px;
+}
+
+.advertisingPhoto {
+    height: 809px;
+    width: 558px;
 }

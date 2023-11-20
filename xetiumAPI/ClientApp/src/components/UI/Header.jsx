@@ -15,14 +15,16 @@ const Header = ({headers}) => {
                 }
             </div>
 
-            <div>
+            <div className={Styles.headerRight}>
                 <Link
-                    to={'/authorization'}>Вход
+                    to={'/authorization'} className={Styles.headerText}>Вход
                 </Link>
-                <UIButton className={ButtonStyles.advertisingHeader}>
-                    <Link to={'/register'}>Попробовать бесплатно
-                    </Link>
-                </UIButton>
+
+                <Link to={'/register'}>
+                    <UIButton className={ButtonStyles.advertisingHeader}>
+                        <span className={Styles.headerText}>Попробовать бесплатно</span>
+                    </UIButton>
+                </Link>
             </div>
         </header>
     );

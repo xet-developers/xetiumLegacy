@@ -1,30 +1,45 @@
 
-.header{
+.header {
     display: flex;
     width: auto;
     background: #252525;
     height: 50px;
     align-items: center;
-    padding-right: 11%;
-    padding-left: 11%;
+    padding-right: 11.3%;
+    padding-left: 11.3%;
     justify-content: space-between;
 }
 
-.menuItem{
-    margin-left: 10px;
+.menuItem {
+    margin-right: 45px;
 }
 
-a{
+a {
     color: #ffffff;
     text-decoration: none;
 }
 
-.menuItems{
+.menuItems {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
     display: flex;
     align-self: center;
     justify-content: space-between;
     width: auto;
     margin-right: auto;
-    margin-left: 8%;
+    margin-left: 6%;
 }
 
+.headerText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.headerRight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+}
