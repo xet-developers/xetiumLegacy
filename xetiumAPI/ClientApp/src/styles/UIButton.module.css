@@ -1,0 +1,11 @@
+.advertisingHeader{
+    border-radius: 20px;
+    background: #F66450;
+    color: white;
+    border: none;
+    height: 30px;
+    margin-left: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
