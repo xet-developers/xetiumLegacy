@@ -5,6 +5,10 @@ import CurrentProject from "../pages/registered/CurrentProject";
 
 const PublicAppRoutes = [
     {
+        path: "/",
+        element: <Advertising/>
+    },
+    {
         path: "advertising",
         element: <Advertising/>
     },

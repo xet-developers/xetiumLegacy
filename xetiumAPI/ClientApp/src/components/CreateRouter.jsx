@@ -17,12 +17,13 @@ const CreateRouter = () => {
         <div>
             <Routes>
                 {curRoutes.map((route) => {
-                    const {element,path, ...rest} = route;
-                    return <Route key={path} {...rest} element={element}/>;
+                    const {element, ...rest} = route;
+                    return <Route key={rest.path} {...rest} element={element}/>;
                 })}
             </Routes>
         </div>
     );
 };
+
 
 export default CreateRouter

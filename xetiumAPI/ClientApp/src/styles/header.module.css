@@ -1,0 +1,29 @@
+
+.header{
+    padding-left: 10%;
+    padding-right: 10%;
+    display: flex;
+    width: 100%;
+    background: #252525;
+    height: 50px;
+    align-items: center;
+}
+
+.logo{
+    padding: 10px;
+}
+
+.menuItem{
+    color: #ffffff;
+    text-decoration: none;
+    padding-left: 2em;
+}
+
+.menuItems{
+    padding-left: 10%;
+}
+
+.right{
+    padding: 20em;
+    justify-self: flex-end;
+}

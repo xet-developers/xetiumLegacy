@@ -1,6 +1,7 @@
 body{
     background: antiquewhite;
-
+    margin: 0;
+    padding: 0;
 }
 
 form{
@@ -13,7 +14,7 @@ form{
     display: grid;
     grid-template-columns: 60% 40%;
     background-color: #C0CCF7;
-    background-image: url("../../public/images/икс.svg");
+    background-image: url("../images/икс.svg");
     background-size: 800px;
     background-position: right;
     background-repeat: no-repeat;
@@ -26,7 +27,7 @@ form{
     display: grid;
     row-gap: 5%;
     grid-template-rows: 15% 10% 10% 10% 10% 15%;
-    background-image: url("../../public/images/икс.svg");
+    background-image: url("../images/икс.svg");
     background-size: 800px;
     background-position: -105%;
     background-repeat: no-repeat;
