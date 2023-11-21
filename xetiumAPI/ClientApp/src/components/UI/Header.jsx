@@ -8,7 +8,7 @@ import ButtonStyles from "../../styles/UIButton.module.css"
 const Header = ({headers}) => {
     return (
         <header className={Styles.header}>
-            <img src={logo} alt="Logo" className={Styles.logo}/>
+            <img src={logo} alt="Logo"/>
             <div className={Styles.menuItems}>
                 {headers.map(el =>
                     <a className={Styles.menuItem} href={el}>{el}</a>)

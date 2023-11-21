@@ -1,0 +1,61 @@
+.menu{
+    display: flex;
+    padding-top: 13px;
+    padding-left: 13px;
+    width: 250px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 15px;
+    line-height: 15px;
+    max-width: 250px;
+    height: 100vh;
+    background-color: #252525;
+    flex-direction: column;
+}
+
+.upperMenu{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20%;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.upperMenuItems{
+    display: flex;
+    align-items: center;
+    max-height: 30px;
+}
+
+.upperMenuItemsText{
+    width: 170px;
+    padding-left: 15px;
+    color: #ffffff;
+}
+
+.MyProject{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow{
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.list{
+    margin: 0;
+}
+
+
+
+.listItem{
+    list-style-image: url(../images/Ellipse.svg);
+    margin-bottom: 20px;
+    vertical-align: middle;
+}
+
+.AddProject{
+    color: rgba(255, 255, 255, 0.50);
+    list-style-image: url(../images/icon-plus.svg);
+}
