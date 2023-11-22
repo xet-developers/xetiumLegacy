@@ -1,4 +1,4 @@
-.menu{
+.menuWithLogo{
     display: flex;
     padding-top: 13px;
     padding-left: 13px;
@@ -11,6 +11,12 @@
     background-color: #252525;
     flex-direction: column;
 }
+.menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+}
 
 .upperMenu{
     display: flex;
@@ -18,6 +24,15 @@
     padding-top: 20%;
     justify-content: space-between;
     gap: 40px;
+}
+
+.lowerMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 10px;
 }
 
 .upperMenuItems{
@@ -44,18 +59,24 @@
 }
 
 .list{
-    margin: 0;
+    list-style-type: none;
 }
 
-
+.empty{
+    padding-top: 5%;
+}
 
 .listItem{
-    list-style-image: url(../images/Ellipse.svg);
-    margin-bottom: 20px;
-    vertical-align: middle;
+    margin-bottom: 10%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .AddProject{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
     color: rgba(255, 255, 255, 0.50);
-    list-style-image: url(../images/icon-plus.svg);
 }
