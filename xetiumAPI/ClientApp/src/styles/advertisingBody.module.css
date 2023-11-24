@@ -1,7 +1,6 @@
 .body {
     padding-left: 11.3%;
     padding-right: 11.3%;
-    background-color:#ffffff;
     display: flex;
     align-items: center;
     padding-top: 5%;
@@ -23,6 +22,18 @@
     font-style: normal;
     font-weight: 800;
     line-height: 70px;
+}
+
+.advertisingH2 {
+    color: #252525;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 800;
+    align-items: center;
+    margin-top: 270px;
+    display: flex;
+    justify-content: center;
 }
 
 .advertisingDescription {
@@ -61,6 +72,133 @@
 }
 
 .advertisingPhoto {
-    height: 558px;
-    width: 809px;
+    height: 30%;
+    width: 50%;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 50px;
+}
+
+.columnItem {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    height: 30%;
+}
+
+.advertisingH3 {
+    color: #252525;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    text-align: center;
+}
+
+.iconFunction {
+    height: 200px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    justify-self: flex-start;
+    align-items: center;
+    margin-top: 10vh;
+    margin: auto;
+    padding-top: 10%;
+    text-align: center;
+}
+
+.description {
+    color: #252525;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding-bottom: 20%;
+}
+
+.buttonFreeSectionTwo {
+    border-radius: 54px;
+    background-color: #ffffff;
+    border-color: #F66450;
+    width: 919px;
+    height: 98px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.buttonFreeSectionTwo:hover {
+    background-color: #F66450;
+}
+
+.nameButtonFreeTwo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    color: #F66450;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100px;
+    width: 919px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.nameButtonFreeTwo:hover {
+    color: #ffffff;
+}
+
+.textSectionThree {
+    color: #252525;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.buttonProject {
+    border-radius: 54px;
+    background-color: #ffffff;
+    border-color: #5F5F5F;
+    width: 467px;
+    height: 79px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    gap: 5%
+}
+
+.buttonProject:hover {
+    border-color: #F66450;
+}
+
+.buttonTextProject {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    color: #F66450;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100px;
+    justify-content: center;
 }
