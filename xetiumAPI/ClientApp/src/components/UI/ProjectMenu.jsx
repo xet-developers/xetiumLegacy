@@ -13,6 +13,7 @@ import arrowUp from "../../images/arrow top.svg";
 import dot from "../../images/Ellipse.svg"
 import plus from "../../images/icon-plus.svg"
 import CreateProject from "./CreateProject";
+import Tutorial from '../Tutorial';
 
 
 const ProjectMenu = () => {
@@ -101,7 +102,7 @@ const ProjectMenu = () => {
                     <input placeholder="Название проекта" type="text" onChange={event => setProjectName(event.target.value)}
                            required/>
 
-                    <input placeholder="ссылка" type="text" onChange=
+                    <input placeholder="Cсылка" type="text" onChange=
                         {event => setProjectRef(event.target.value)} required/>
 
                     <input  placeholder="Описание" onChange={event => setProjectDescription(event.target.value)}

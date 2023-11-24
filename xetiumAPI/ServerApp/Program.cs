@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRegisterService, AccountService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
-builder.Services.AddDbContext<AnalyticsContextDb>( options=>
+builder.Services.AddDbContext<AnalyticsContextDb>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<UserContextDb>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
