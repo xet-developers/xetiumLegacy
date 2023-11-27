@@ -13,10 +13,10 @@ const Footer = () => {
                             <img className={Styles.logo} src={logo} alt='logo'/>
                         </a>
 
-                        <p className={Styles.document}>
+                        <div className={Styles.document}>
                             <p>Политика конфиденциальности</p>
                             <p>Соглашение на обработку персональных данных</p>
-                        </p>
+                        </div>
                     </div>
 
                     <div className = {Styles.columnItem}>

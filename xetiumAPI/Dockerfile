@@ -21,6 +21,12 @@ RUN dotnet build "xetiumAPI.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "xetiumAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+FROM node AS node-builder
+WORKDIR /node
+COPY ./ClientApp /node
+RUN npm install
+RUN npm build
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

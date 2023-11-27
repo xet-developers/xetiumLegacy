@@ -11,7 +11,7 @@ const Header = ({headers}) => {
             <img src={logo} alt="Logo"/>
             <div className={Styles.menuItems}>
                 {headers.map(el =>
-                    <a className={Styles.menuItem} href={el}>{el}</a>)
+                    <a key={el} className={Styles.menuItem} href={el}>{el}</a>)
                 }
             </div>
 

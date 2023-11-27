@@ -25,15 +25,13 @@
 }
 
 .advertisingH2 {
+    text-align: center;
     color: #252525;
     font-family: 'Montserrat', sans-serif;
     font-size: 45px;
     font-style: normal;
     font-weight: 800;
-    align-items: center;
     margin-top: 270px;
-    display: flex;
-    justify-content: center;
 }
 
 .advertisingDescription {

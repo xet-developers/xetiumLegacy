@@ -1,17 +1,12 @@
 import React from 'react';
-import Footer from "../../components/UI/Footer";
-import Styles from '../../styles/tutorial.module.css';
-import ProjectMenu from './UI/ProjectMenu';
+import Styles from '../styles/tutorial.module.css';
 import {Link} from "react-router-dom";
 import UIButton from "./UI/UIButton";
+import CreateProjectForm from "./UI/CreateProjectForm";
 
-const Tutorial = () => {
-
+const Tutorial = ({modal, setModal, setProjects, projects}) => {
     return (
-
-        <div>
-            <ProjectMenu/>
-            
+        <div style={{display: "flex"}}>
             <div>
                 <h1 className={Styles.tutorial}>
                     <p>Добро пожаловать в сервис анализа позиций сайта!</p>
@@ -20,15 +15,15 @@ const Tutorial = () => {
                 <div className={Styles.rectangle}></div>
                 <span>
                     <p className={Styles.textForButton}>Как только будете готовы создать проект, нажмите сюда</p>
-                    <Link to={'/register'}>
-                        <UIButton className={Styles.buttonGo}>
+                    <Link to={'/'}>
+                        <UIButton className={Styles.buttonGo} onClick={()=>setModal(true)}>
                             <span className={Styles.textGo}>Приступить!</span>
                         </UIButton>
                     </Link>
                 </span>
             </div>
+            <CreateProjectForm modal={modal} setModal={setModal} projects={projects} setProjects={setProjects}/>
 
-            <Footer/>
         </div>
     );
 };

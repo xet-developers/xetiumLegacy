@@ -75,6 +75,7 @@ const Register = () => {
 
         setIsAuth(true);
         console.log(res)
+
         let result = await fetch("register", params)
         console.log(await result.text())
     }

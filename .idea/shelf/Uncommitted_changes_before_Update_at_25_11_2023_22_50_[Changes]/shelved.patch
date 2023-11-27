@@ -1,0 +1,225 @@
+Index: xetiumAPI/ClientApp/src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport {BrowserRouter} from 'react-router-dom';\r\nimport {AuthContext} from \"./contex/IsAuth\";\r\nimport CreateRouter from \"./components/CreateRouter\";\r\n\r\n\r\nconst App = () => {\r\n    const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');\r\n\r\n    const [isAuth, setIsAuth] = useState(true);\r\n\r\n    return (\r\n        <AuthContext.Provider value={{\r\n            isAuth,\r\n            setIsAuth,\r\n        }}>\r\n            <BrowserRouter basename={baseUrl}>\r\n                <CreateRouter/>\r\n            </BrowserRouter>\r\n        </AuthContext.Provider>\r\n\r\n    );\r\n};\r\n\r\n\r\nexport default App;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/src/App.js b/xetiumAPI/ClientApp/src/App.js
+--- a/xetiumAPI/ClientApp/src/App.js	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/src/App.js	(date 1700745470743)
+@@ -7,7 +7,7 @@
+ const App = () => {
+     const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+ 
+-    const [isAuth, setIsAuth] = useState(true);
++    const [isAuth, setIsAuth] = useState(false);
+ 
+     return (
+         <AuthContext.Provider value={{
+Index: xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// This optional code is used to register a service worker.\r\n// register() is not called by default.\r\n\r\n// This lets the app load faster on subsequent visits in production, and gives\r\n// it offline capabilities. However, it also means that developers (and users)\r\n// will only see deployed updates on subsequent visits to a page, after all the\r\n// existing tabs open on the page have been closed, since previously cached\r\n// resources are updated in the background.\r\n\r\n// To learn more about the benefits of this model and instructions on how to\r\n// opt-in, read https://cra.link/PWA\r\n\r\nconst isLocalhost = Boolean(\r\n  window.location.hostname === 'localhost' ||\r\n    // [::1] is the IPv6 localhost address.\r\n    window.location.hostname === '[::1]' ||\r\n    // 127.0.0.0/8 are considered localhost for IPv4.\r\n    window.location.hostname.match(/^127(?:\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)\r\n);\r\n\r\nexport function register(config) {\r\n  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {\r\n    // The URL constructor is available in all browsers that support SW.\r\n    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);\r\n    if (publicUrl.origin !== window.location.origin) {\r\n      // Our service worker won't work if PUBLIC_URL is on a different origin\r\n      // from what our page is served on. This might happen if a CDN is used to\r\n      // serve assets; see https://github.com/facebook/create-react-app/issues/2374\r\n      return;\r\n    }\r\n\r\n    window.addEventListener('load', () => {\r\n      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;\r\n\r\n      if (isLocalhost) {\r\n        // This is running on localhost. Let's check if a service worker still exists or not.\r\n        checkValidServiceWorker(swUrl, config);\r\n\r\n        // Add some additional logging to localhost, pointing developers to the\r\n        // service worker/PWA documentation.\r\n        navigator.serviceWorker.ready.then(() => {\r\n          console.log(\r\n            'This web app is being served cache-first by a service ' +\r\n              'worker. To learn more, visit https://cra.link/PWA'\r\n          );\r\n        });\r\n      } else {\r\n        // Is not localhost. Just register service worker\r\n        registerValidSW(swUrl, config);\r\n      }\r\n    });\r\n  }\r\n}\r\n\r\nfunction registerValidSW(swUrl, config) {\r\n  navigator.serviceWorker\r\n    .register(swUrl)\r\n    .then((registration) => {\r\n      registration.onupdatefound = () => {\r\n        const installingWorker = registration.installing;\r\n        if (installingWorker == null) {\r\n          return;\r\n        }\r\n        installingWorker.onstatechange = () => {\r\n          if (installingWorker.state === 'installed') {\r\n            if (navigator.serviceWorker.controller) {\r\n              // At this point, the updated precached content has been fetched,\r\n              // but the previous service worker will still serve the older\r\n              // content until all client tabs are closed.\r\n              console.log(\r\n                'New content is available and will be used when all ' +\r\n                  'tabs for this page are closed. See https://cra.link/PWA.'\r\n              );\r\n\r\n              // Execute callback\r\n              if (config && config.onUpdate) {\r\n                config.onUpdate(registration);\r\n              }\r\n            } else {\r\n              // At this point, everything has been precached.\r\n              // It's the perfect time to display a\r\n              // \"Content is cached for offline use.\" message.\r\n              console.log('Content is cached for offline use.');\r\n\r\n              // Execute callback\r\n              if (config && config.onSuccess) {\r\n                config.onSuccess(registration);\r\n              }\r\n            }\r\n          }\r\n        };\r\n      };\r\n    })\r\n    .catch((error) => {\r\n      console.error('Error during service worker registration:', error);\r\n    });\r\n}\r\n\r\nfunction checkValidServiceWorker(swUrl, config) {\r\n  // Check if the service worker can be found. If it can't reload the page.\r\n  fetch(swUrl, {\r\n    headers: { 'Service-Worker': 'script' },\r\n  })\r\n    .then((response) => {\r\n      // Ensure service worker exists, and that we really are getting a JS file.\r\n      const contentType = response.headers.get('content-type');\r\n      if (\r\n        response.status === 404 ||\r\n        (contentType != null && contentType.indexOf('javascript') === -1)\r\n      ) {\r\n        // No service worker found. Probably a different app. Reload the page.\r\n        navigator.serviceWorker.ready.then((registration) => {\r\n          registration.unregister().then(() => {\r\n            window.location.reload();\r\n          });\r\n        });\r\n      } else {\r\n        // Service worker found. Proceed as normal.\r\n        registerValidSW(swUrl, config);\r\n      }\r\n    })\r\n    .catch(() => {\r\n      console.log('No internet connection found. App is running in offline mode.');\r\n    });\r\n}\r\n\r\nexport function unregister() {\r\n  if ('serviceWorker' in navigator) {\r\n    navigator.serviceWorker.ready\r\n      .then((registration) => {\r\n        registration.unregister();\r\n      })\r\n      .catch((error) => {\r\n        console.error(error.message);\r\n      });\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js b/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js
+--- a/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js	(date 1700741227292)
+@@ -18,6 +18,8 @@
+     window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+ );
+ 
++
++
+ export function register(config) {
+   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+     // The URL constructor is available in all browsers that support SW.
+Index: xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useContext, useState} from 'react';\r\nimport '../../styles/Register-authentication.css';\r\nimport {Await} from \"react-router-dom\";\r\nimport {AuthContext} from \"../../contex/IsAuth\";\r\n\r\nconst Register = () => {\r\n    const {isAuth, setIsAuth} = useContext(AuthContext)\r\n\r\n    return (\r\n        <div>\r\n            <form className=\"register-Field\" id=\"form\" onSubmit={sendData}>\r\n                <div className=\"register-Field-left\">\r\n                    <div className=\"register-Field-left-header\">\r\n                        <h1>Регистрация</h1>\r\n                        <p>Уже есть аккаунт? <a href=\"#\">Войти</a></p>\r\n                    </div>\r\n\r\n                    <input placeholder=\"Имя пользователя\" type=\"text\" maxLength=\"20\" name=\"name\"\r\n                           pattern=\"[A-Za-z]{5,20}\"\r\n                           title=\"Минимум 5 символов\" required/>\r\n\r\n                    <input placeholder=\"Е-mail\" type=\"email\" name=\"email\"\r\n                           pattern=\"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{1,63}$\" required/>\r\n\r\n                    <input placeholder=\"Пароль\" type=\"password\" id=\"password\" name=\"password\" minLength=\"8\"\r\n                           maxLength=\"16\"\r\n\r\n                           title=\"Длина от 8 до 16 символов, должна быть заглавная буква и спец.символ\" required/>\r\n\r\n                    <input placeholder=\"Повторите пароль\" type=\"password\" id=\"secpass\" name=\"secpassword\" minLength=\"8\"\r\n                           maxLength=\"16\"\r\n                           title=\"Пароли не совпадают\" required/>\r\n\r\n                    <input type=\"submit\" id=\"register-button\" value=\"Зарегистрироваться\"/>\r\n                </div>\r\n\r\n                <div className=\"register-Field-right\">\r\n                    <div>\r\n                        <input type=\"checkbox\" id=\"checkboxData\" name=\"checkboxData\" required/>\r\n                        <label htmlFor=\"checkboxData\">Даю свое согласие на обработку персональных данных</label>\r\n                    </div>\r\n                    <div>\r\n                        <input type=\"checkbox\" id=\"checkboxConf\" name=\"checkboxConf\" required/>\r\n                        <label htmlFor=\"checkboxConf\">Согласен с условиями пользования и политикой конфиденциальности</label>\r\n                    </div>\r\n                    <div>\r\n                        <input type=\"checkbox\" id=\"checkboxSpam\" name=\"checkboxSpam\"/>\r\n                        <label htmlFor=\"checkboxSpam\">Хочу получать вашу информационную рассылку</label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>)\r\n\r\n    async function sendData() {\r\n        const form = document.querySelector(\"#form\")\r\n        const formData = new FormData(form)\r\n        form.addEventListener('submit', event => {event.preventDefault()})\r\n\r\n        const res = {\r\n            name: formData.get(\"name\"),\r\n            email: formData.get(\"email\"),\r\n            password: formData.get(\"password\"),\r\n            checkboxData: !!formData.get(\"checkboxData\"),\r\n            checkboxConf: !!formData.get(\"checkboxConf\"),\r\n            checkboxSpam: !!formData.get(\"checkboxSpam\")\r\n        }\r\n\r\n        const params = {\r\n            method: 'POST',\r\n            headers: {\r\n                'Content-Type': \"application/problem+json; charset=utf-8\"\r\n            },\r\n            body: JSON.stringify(res)\r\n        };\r\n\r\n        setIsAuth(true);\r\n        console.log(res)\r\n        let result = await fetch(\"register\", params)\r\n        console.log(await result.text())\r\n    }\r\n};\r\n\r\nexport default Register;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx b/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx
+--- a/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx	(date 1700739167206)
+@@ -75,6 +75,7 @@
+ 
+         setIsAuth(true);
+         console.log(res)
++
+         let result = await fetch("register", params)
+         console.log(await result.text())
+     }
+Index: xetiumAPI/Dockerfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base\r\nWORKDIR /app\r\nEXPOSE 80\r\nEXPOSE 443\r\n\r\nFROM mcr.microsoft.com/dotnet/sdk:7.0 AS build\r\n\r\n# Install Node.js\r\nRUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \\\r\n    && apt-get install -y \\\r\n        nodejs \\\r\n    && rm -rf /var/lib/apt/lists/*\r\n\r\nWORKDIR /src\r\nCOPY [\"xetiumAPI/xetiumAPI.csproj\", \"xetiumAPI/\"]\r\nRUN dotnet restore \"xetiumAPI/xetiumAPI.csproj\"\r\nCOPY . .\r\nWORKDIR \"/src/xetiumAPI\"\r\nRUN dotnet build \"xetiumAPI.csproj\" -c Release -o /app/build\r\n\r\nFROM build AS publish\r\nRUN dotnet publish \"xetiumAPI.csproj\" -c Release -o /app/publish /p:UseAppHost=false\r\n\r\nFROM base AS final\r\nWORKDIR /app\r\nCOPY --from=publish /app/publish .\r\nENTRYPOINT [\"dotnet\", \"xetiumAPI.dll\"]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/Dockerfile b/xetiumAPI/Dockerfile
+--- a/xetiumAPI/Dockerfile	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/Dockerfile	(date 1700745251577)
+@@ -21,6 +21,12 @@
+ FROM build AS publish
+ RUN dotnet publish "xetiumAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ 
++FROM node AS node-builder
++WORKDIR /node
++COPY ./ClientApp /node
++RUN npm install
++RUN npm build
++
+ FROM base AS final
+ WORKDIR /app
+ COPY --from=publish /app/publish .
+Index: xetiumAPI/Properties/launchSettings.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"iisSettings\": {\r\n    \"windowsAuthentication\": false,\r\n    \"anonymousAuthentication\": true,\r\n    \"iisExpress\": {\r\n      \"applicationUrl\": \"http://localhost:47046\",\r\n      \"sslPort\": 44395\r\n    }\r\n  },\r\n  \"profiles\": {\r\n    \"xetiumAPI\": {\r\n      \"commandName\": \"Project\",\r\n      \"launchBrowser\": true,\r\n      \"applicationUrl\": \"https://localhost:7233;http://localhost:5110\",\r\n      \"environmentVariables\": {\r\n        \"ASPNETCORE_ENVIRONMENT\": \"Development\",\r\n        \"ASPNETCORE_HOSTINGSTARTUPASSEMBLIES\": \"Microsoft.AspNetCore.SpaProxy\"\r\n      }\r\n    },\r\n    \"IIS Express\": {\r\n      \"commandName\": \"IISExpress\",\r\n      \"launchBrowser\": true,\r\n      \"environmentVariables\": {\r\n        \"ASPNETCORE_ENVIRONMENT\": \"Development\",\r\n        \"ASPNETCORE_HOSTINGSTARTUPASSEMBLIES\": \"Microsoft.AspNetCore.SpaProxy\"\r\n      }\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/Properties/launchSettings.json b/xetiumAPI/Properties/launchSettings.json
+--- a/xetiumAPI/Properties/launchSettings.json	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/Properties/launchSettings.json	(date 1700745184374)
+@@ -1,21 +1,13 @@
+ {
+-  "iisSettings": {
+-    "windowsAuthentication": false,
+-    "anonymousAuthentication": true,
+-    "iisExpress": {
+-      "applicationUrl": "http://localhost:47046",
+-      "sslPort": 44395
+-    }
+-  },
+   "profiles": {
+     "xetiumAPI": {
+       "commandName": "Project",
+       "launchBrowser": true,
+-      "applicationUrl": "https://localhost:7233;http://localhost:5110",
+       "environmentVariables": {
+         "ASPNETCORE_ENVIRONMENT": "Development",
+         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+-      }
++      },
++      "applicationUrl": "https://localhost:7233;http://localhost:5110"
+     },
+     "IIS Express": {
+       "commandName": "IISExpress",
+@@ -24,6 +16,24 @@
+         "ASPNETCORE_ENVIRONMENT": "Development",
+         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+       }
++    },
++    "Docker": {
++      "commandName": "Docker",
++      "launchBrowser": true,
++      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
++      "environmentVariables": {
++        "ASPNETCORE_URLS": "https://+:443;http://+:80"
++      },
++      "publishAllPorts": true,
++      "useSSL": true
+     }
+-  }
+-}
++  },
++  "iisSettings": {
++    "windowsAuthentication": false,
++    "anonymousAuthentication": true,
++    "iisExpress": {
++      "applicationUrl": "http://localhost:47046/",
++      "sslPort": 44395
++    }
++  }
++}
+\ No newline at end of file
+Index: xetiumAPI/ClientApp/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"xetiumapi\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"bootstrap\": \"^5.2.3\",\r\n    \"http-proxy-middleware\": \"^2.0.6\",\r\n    \"jquery\": \"^3.6.4\",\r\n    \"madge\": \"^6.1.0\",\r\n    \"merge\": \"^2.1.1\",\r\n    \"oidc-client\": \"^1.11.5\",\r\n    \"react\": \"^18.2.0\",\r\n    \"react-dom\": \"^18.2.0\",\r\n    \"react-router-bootstrap\": \"^0.26.2\",\r\n    \"react-router-dom\": \"^6.11.0\",\r\n    \"react-scripts\": \"^5.0.1\",\r\n    \"reactstrap\": \"^9.1.9\",\r\n    \"rimraf\": \"^5.0.0\",\r\n    \"web-vitals\": \"^3.3.1\",\r\n    \"workbox-background-sync\": \"^6.5.4\",\r\n    \"workbox-broadcast-update\": \"^6.5.4\",\r\n    \"workbox-cacheable-response\": \"^6.5.4\",\r\n    \"workbox-core\": \"^6.5.4\",\r\n    \"workbox-expiration\": \"^6.5.4\",\r\n    \"workbox-google-analytics\": \"^6.5.4\",\r\n    \"workbox-navigation-preload\": \"^6.5.4\",\r\n    \"workbox-precaching\": \"^6.5.4\",\r\n    \"workbox-range-requests\": \"^6.5.4\",\r\n    \"workbox-routing\": \"^6.5.4\",\r\n    \"workbox-strategies\": \"^6.5.4\",\r\n    \"workbox-streams\": \"^6.5.4\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"ajv\": \"^8.12.0\",\r\n    \"cross-env\": \"^7.0.3\",\r\n    \"eslint\": \"^8.39.0\",\r\n    \"eslint-config-react-app\": \"^7.0.1\",\r\n    \"eslint-plugin-flowtype\": \"^8.0.3\",\r\n    \"eslint-plugin-import\": \"^2.27.5\",\r\n    \"eslint-plugin-jsx-a11y\": \"^6.7.1\",\r\n    \"eslint-plugin-react\": \"^7.32.2\",\r\n    \"nan\": \"^2.17.0\",\r\n    \"typescript\": \"^4.9.5\"\r\n  },\r\n  \"overrides\": {\r\n    \"autoprefixer\": \"10.4.5\",\r\n    \"nth-check\": \"2.1.1\",\r\n    \"webpack\": \"5.81.0\"\r\n  },\r\n  \"scripts\": {\r\n    \"prestart\": \"node aspnetcore-https && node aspnetcore-react\",\r\n    \"start\": \"rimraf ./build && react-scripts start\",\r\n    \"build\": \"react-scripts build\",\r\n    \"test\": \"cross-env CI=true react-scripts test --env=jsdom\",\r\n    \"eject\": \"react-scripts eject\",\r\n    \"lint\": \"eslint src\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": [\r\n      \"react-app\"\r\n    ]\r\n  },\r\n  \"browserslist\": {\r\n    \"production\": [\r\n      \">0.2%\",\r\n      \"not dead\",\r\n      \"not op_mini all\"\r\n    ],\r\n    \"development\": [\r\n      \"last 1 chrome version\",\r\n      \"last 1 firefox version\",\r\n      \"last 1 safari version\"\r\n    ]\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/package.json b/xetiumAPI/ClientApp/package.json
+--- a/xetiumAPI/ClientApp/package.json	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/package.json	(date 1700740955586)
+@@ -9,6 +9,7 @@
+     "madge": "^6.1.0",
+     "merge": "^2.1.1",
+     "oidc-client": "^1.11.5",
++    "process": "^0.11.10",
+     "react": "^18.2.0",
+     "react-dom": "^18.2.0",
+     "react-router-bootstrap": "^0.26.2",
+Index: xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport {Link} from \"react-router-dom\";\r\nimport Styles from \"../../styles/navMenu.module.css\"\r\n\r\nimport logo from \"../../images/logo.svg\";\r\nimport claster from \"../../images/icon-claster.svg\";\r\nimport acc from \"../../images/icon-account.svg\";\r\nimport report from \"../../images/icon-report.svg\";\r\nimport proj from \"../../images/icon-project.svg\";\r\nimport search from \"../../images/icon-position.svg\";\r\nimport arrow from \"../../images/arrow.svg\";\r\nimport arrowUp from \"../../images/arrow top.svg\";\r\nimport dot from \"../../images/Ellipse.svg\"\r\nimport plus from \"../../images/icon-plus.svg\"\r\nimport CreateProject from \"./CreateProject\";\r\n\r\n\r\nconst ProjectMenu = () => {\r\n    const [isProjectsOpen, setIsProjectsOpen] = useState(false)\r\n    const [projects, setProjects] = useState([\r\n        {name: \"Имя проекта 1\"},\r\n        {name: \"Имя проекта 2\"},\r\n        {name: \"Имя проекта 3\"}\r\n    ])\r\n    const [modal, setModal] = useState(false);\r\n\r\n    const createProject = (project) => {\r\n        setProjects([...projects, project])\r\n    }\r\n\r\n    const paths = [\r\n        {link: '/personalaccount', description: \"Личный кабинет\", pict: acc},\r\n        {\r\n            link: '/', description: \"Мои проекты\", pict: proj, button: (<img className={Styles.arrow} src={\r\n                isProjectsOpen\r\n                    ? arrow\r\n                    : arrowUp} onClick={() => setIsProjectsOpen(!isProjectsOpen)} alt={\"\"}/>)\r\n        },\r\n        {link: '/siteposition', description: \"Отслеживание позиций сайта\", pict: search},\r\n        {link: '/queryclustering', description: \"Кластеризация запросов\", pict: claster},\r\n        {link: '/report', description: \"Отчеты\", pict: report},]\r\n\r\n\r\n    const [projectName, setProjectName] = useState(\"\")\r\n    const [projectRef, setProjectRef] = useState(\"\")\r\n    const [projectDescription, setProjectDescription] = useState(\"\")\r\n\r\n    const sendProjectData = (e) => {\r\n        e.preventDefault()\r\n        setProjects([...projects, {name: projectName,description: projectDescription, ref: projectRef}])\r\n        setModal(false)\r\n    }\r\n\r\n    return (\r\n        <nav className={Styles.menuWithLogo}>\r\n            <img src={logo} alt=\"Logo\" width=\"180px\" height=\"50px\"/>\r\n            <div className={Styles.menu}>\r\n                <div className={Styles.upperMenu}>\r\n                    {paths.map((el) =>\r\n                        <div>\r\n                            <div className={Styles.MyProject}>\r\n                                <Link className={Styles.upperMenuItems} to={el.link}>\r\n                                    <img src={el.pict} alt={\"пум\"} height=\"25px\"/>\r\n                                    <p className={Styles.upperMenuItemsText}>{el.description}</p>\r\n                                </Link>\r\n                                {el.button}\r\n                            </div>\r\n\r\n                            {isProjectsOpen && el.button &&\r\n                                <div>\r\n                                    <div className={Styles.empty}/>\r\n                                    <ul className={Styles.list}>\r\n                                        {projects.map(project =>\r\n                                            <li className={Styles.listItem}>\r\n                                                <img src={dot} alt={\"\"}/>\r\n                                                <Link to={project.name}>\r\n                                                    <span>{project.name}</span>\r\n                                                </Link>\r\n                                            </li>)}\r\n\r\n                                        <li className={Styles.AddProject}>\r\n                                            <img src={plus} alt={\"\"}/>\r\n                                            <span onClick={() => {\r\n                                                setModal(true)\r\n                                            }}>Добавить проект</span>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>}\r\n                        </div>)\r\n                    }\r\n                </div>\r\n\r\n                <div className={Styles.lowerMenu}>\r\n                    <Link to={\"/support\"}>Поддержка</Link>\r\n                    <Link to={\"/confpolitic\"}>Политика конфиденциальности</Link>\r\n                </div>\r\n            </div>\r\n\r\n            <CreateProject visible={modal} setVisible={setModal}>\r\n                <form>\r\n                    <input placeholder=\"Название проекта\" type=\"text\" onChange={event => setProjectName(event.target.value)}\r\n                           required/>\r\n\r\n                    <input placeholder=\"ссылка\" type=\"text\" onChange=\r\n                        {event => setProjectRef(event.target.value)} required/>\r\n\r\n                    <input  placeholder=\"Описание\" onChange={event => setProjectDescription(event.target.value)}\r\n                            required/>\r\n\r\n                    <button onClick={sendProjectData}>dasdada</button>\r\n                </form>\r\n            </CreateProject>\r\n        </nav>\r\n    );\r\n};\r\n\r\nexport default ProjectMenu;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx b/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx
+--- a/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx	(date 1700673138943)
+@@ -17,11 +17,7 @@
+ 
+ const ProjectMenu = () => {
+     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
+-    const [projects, setProjects] = useState([
+-        {name: "Имя проекта 1"},
+-        {name: "Имя проекта 2"},
+-        {name: "Имя проекта 3"}
+-    ])
++    const [projects, setProjects] = useState([])
+     const [modal, setModal] = useState(false);
+ 
+     const createProject = (project) => {
+Index: xetiumAPI/ClientApp/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/xetiumAPI/ClientApp/package-lock.json b/xetiumAPI/ClientApp/package-lock.json
+--- a/xetiumAPI/ClientApp/package-lock.json	(revision 5c6b9db804727ef6bf16e0de000fe972860290b5)
++++ b/xetiumAPI/ClientApp/package-lock.json	(date 1700740956653)
+@@ -14,6 +14,7 @@
+         "madge": "^6.1.0",
+         "merge": "^2.1.1",
+         "oidc-client": "^1.11.5",
++        "process": "^0.11.10",
+         "react": "^18.2.0",
+         "react-dom": "^18.2.0",
+         "react-router-bootstrap": "^0.26.2",
+@@ -14976,6 +14977,14 @@
+         "url": "https://github.com/sponsors/sindresorhus"
+       }
+     },
++    "node_modules/process": {
++      "version": "0.11.10",
++      "resolved": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
++      "integrity": "sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==",
++      "engines": {
++        "node": ">= 0.6.0"
++      }
++    },
+     "node_modules/process-nextick-args": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",
+@@ -29003,6 +29012,11 @@
+         "parse-ms": "^2.1.0"
+       }
+     },
++    "process": {
++      "version": "0.11.10",
++      "resolved": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
++      "integrity": "sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A=="
++    },
+     "process-nextick-args": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",

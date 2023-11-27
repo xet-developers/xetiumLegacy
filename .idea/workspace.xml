@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="069f9cd4-fb15-4552-be64-0104b6a703d4" name="Changes" comment="dfhhdfs" />
+    <list default="true" id="069f9cd4-fb15-4552-be64-0104b6a703d4" name="Changes" comment="dfhhdfs">
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/AdvertisingBody/ThirdPart.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/AdvertisingBody/firstPart.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/AdvertisingBody/secondPart.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/CreateProjectForm.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/MyProject.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/UpperProjectMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/AdvertisingBody.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/AdvertisingBody.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/Tutorial.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/Tutorial.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/components/UI/ProjectMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/pages/registered/CurrentProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/pages/registered/CurrentProject.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/pages/unregistered/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/proxy/serviceWorkerRegistration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/router/AuthAppRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/router/AuthAppRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/styles/advertisingBody.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/ClientApp/src/styles/advertisingBody.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xetiumAPI/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/xetiumAPI/Properties/launchSettings.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,21 +52,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/turki/RiderProjects/xetium/xetiumAPI",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;frontArсhitectory&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/turki/RiderProjects/xetium&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\turki\WebstormProjects\xetiumAPI1\xetiumAPI\ClientApp\src" />
@@ -60,6 +83,9 @@
       <workItem from="1699877208422" duration="2719000" />
       <workItem from="1699891024686" duration="4008000" />
       <workItem from="1700348937111" duration="144000" />
+      <workItem from="1700934620993" duration="586000" />
+      <workItem from="1701081298794" duration="11510000" />
+      <workItem from="1701099401634" duration="5825000" />
     </task>
     <task id="LOCAL-00001" summary="dfhhdfs">
       <option name="closed" value="true" />
