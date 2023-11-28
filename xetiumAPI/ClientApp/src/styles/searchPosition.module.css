@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+}
+
+.headerText {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: #808080;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4%;
+}
+
+.arrow {
+    width: 35px;
+    align-items: center;
+    padding-left: 1%;
+    height: auto;
+}
+
+.line {
+
+}
+
+.sendKey {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: #808080;
+}
+
+.input {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: #808080;
+}
+
+.h {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: #808080;
+}
+
+.table {
+    display: table;
+    
+}

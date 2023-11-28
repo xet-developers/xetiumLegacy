@@ -1,11 +1,12 @@
 import React from 'react';
-import ProjectMenu from "../../components/UI/ProjectMenu";
+import ProjectMenu from '../../components/UI/ProjectMenu';
+import SpaceSEO from '../../components/UI/SpaceSEO';
 
 const SitePosition = () => {
     return (
-        <div>
-            SitePosition
-            <ProjectMenu />
+        <div style = {{display: "flex"}}>
+            <ProjectMenu/>
+            <SpaceSEO/>
         </div>
     );
 };

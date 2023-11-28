@@ -33,7 +33,7 @@ const UpperProjectMenu = ({projects, setModal}) => {
                 <div key={el.description}>
                     <div className={Styles.MyProject}>
                         <Link className={Styles.upperMenuItems} to={el.link}>
-                            <img src={el.pict} alt={"пум"} height="25px"/>
+                            <img src={el.pict} alt={"эл"} height="25px"/>
                             <p className={Styles.upperMenuItemsText}>{el.description}</p>
                         </Link>
                         {el.button}

@@ -10,7 +10,7 @@ const Tutorial = ({modal, setModal, setProjects, projects}) => {
             <div>
                 <h1 className={Styles.tutorial}>
                     <p>Добро пожаловать в сервис анализа позиций сайта!</p>
-                    <p>Информация по работе с сервисом:</p>
+                    <p>Скоро здесь будет написана подробная инструкция ♥</p>
                 </h1>
                 <div className={Styles.rectangle}></div>
                 <span>

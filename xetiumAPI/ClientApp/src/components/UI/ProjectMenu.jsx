@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
-import Styles from "../../styles/navMenu.module.css"
+import Styles from "../../styles/navMenu.module.css";
 
 import logo from "../../images/logo.svg";
 import CreateProjectForm from "./CreateProjectForm";
@@ -8,13 +8,13 @@ import UpperProjectMenu from "./UpperProjectMenu";
 
 
 const ProjectMenu = ({modal, setModal, setProjects, projects}) => {
-    console.log("dada")
+    console.log("kupi slona")
 
     return (
         <nav className={Styles.menuWithLogo}>
-            <img src={logo} alt="Logo" width="180px" height="50px"/>
+            <img src={logo} alt="logo" width="180px" height="50px"/>
             <div className={Styles.menu}>
-                <UpperProjectMenu projects={projects} setModal={setModal}/>)
+                <UpperProjectMenu projects={projects} setModal={setModal}/>
 
                 <div className={Styles.lowerMenu}>
                     <Link to={"/support"}>Поддержка</Link>

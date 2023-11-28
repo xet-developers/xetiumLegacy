@@ -1,16 +1,16 @@
 import React from 'react';
-import FirstPart from "./AdvertisingBody/firstPart";
-import SecondPart from "./AdvertisingBody/secondPart";
-import ThirdPart from "./AdvertisingBody/ThirdPart";
+import AdvertMeeting from "./AdvertisingBody/AdvertMeeting";
+import Function from "./AdvertisingBody/Function";
+import WordEnd from "./AdvertisingBody/WordEnd";
 
 const AdvertisingBody = () => {
     return (
         <div>
-            <FirstPart/>
+            <AdvertMeeting/>
 
-            <SecondPart/>
+            <Function/>
 
-            <ThirdPart/>
+            <WordEnd/>
         </div>
     );
 };
