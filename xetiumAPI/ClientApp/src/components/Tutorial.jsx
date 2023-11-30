@@ -12,9 +12,9 @@ const Tutorial = ({modal, setModal, setProjects, projects}) => {
                     <p>Добро пожаловать в сервис анализа позиций сайта!</p>
                     <p>Скоро здесь будет написана подробная инструкция ♥</p>
                 </h1>
-                <div className={Styles.rectangle}></div>
-                <span>
-                    <p className={Styles.textForButton}>Как только будете готовы создать проект, нажмите сюда</p>
+                <div></div>
+                <span className={Styles.creation}>
+                    <p className={Styles.textForButton}>Для создания проекта нажмите сюда:</p>
                     <Link to={'/'}>
                         <UIButton className={Styles.buttonGo} onClick={()=>setModal(true)}>
                             <span className={Styles.textGo}>Приступить!</span>
