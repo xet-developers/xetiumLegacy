@@ -1,11 +1,31 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Styles from "../../styles/searchPosition.module.css";
 import Arrow from "../../images/arrowSeo.svg";
 import Line from "../../images/line.svg";
 import axios from "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js";
+import { UserData } from './UserData';
+const API = '';
 
 const SpaceSEO = () => {
     const [inputValue, setInputValue] = useState('');
+    const [users, setUsers] = useState([]);
+    const fetchUsers = async (url) => {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data.length > 0) { 
+                setUsers(data) 
+            }
+            console.log(data);
+
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    useEffect( () => {
+        fetchUsers(API)
+    }, [])
 
     return (
         <div>
@@ -55,6 +75,22 @@ const SpaceSEO = () => {
 
                 
                 </div>
+            </section>
+
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Поисковая система</th>
+                            <th>Запрос</th>
+                            <th>Позиция</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <UserData users={users}/>
+                    </tbody>
+                </table>
             </section>
         </div>
     );
