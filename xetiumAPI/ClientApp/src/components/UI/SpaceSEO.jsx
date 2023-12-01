@@ -34,7 +34,7 @@ const SpaceSEO = () => {
                                 const keyWordsArray = inputValue.trim().split(',');
                                 console.log(keyWordsArray);
                                 await axios({
-                                    url: "http://localhost:8080",
+                                    url: "siteposition",
                                     headers: {
                                         'Content-Type': "application/problem+json; charset=utf-8"
                                     },
