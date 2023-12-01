@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xetium
+  namespace: xetdev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: xetium
+  template:
+    metadata:
+      labels:
+        project: xetium
+    spec:
+      containers:
+        - name: xetium
+          image: hub.66bit.ru/urfu-2023-rtf/xetdevelopment/xetdev:latest
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: xetium-secret

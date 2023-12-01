@@ -20,8 +20,13 @@ namespace xetiumAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> GetSitePosition([FromBody] AnalysisData site)
         {
+            if (!Enum.IsDefined(typeof(SearchSystem), site.SearchSystem))
+            {
+                return BadRequest("invalid search system");
+            }
+
             var positionResult = await _analysisService.GetPositionAsync(site, _client);
-            return Ok(positionResult);
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new {site.SearchSystem, positionResult }));
         }
     }
 }

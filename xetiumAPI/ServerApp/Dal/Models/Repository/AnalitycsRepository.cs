@@ -4,15 +4,23 @@ namespace xetiumAPI.ServerApp.Dal.Models.Repository;
 
 public class AnalitycsRepository: IAnalyticsRepository
 {
-    private readonly AnalyticsContextDb _contextDb;
-    public AnalitycsRepository(AnalyticsContextDb contextDb)
+    private AnalyticsContextDb _analyticsContextDb;
+    public AnalitycsRepository(AnalyticsContextDb analyticsContextDb)
     {
-        _contextDb = contextDb;
+        _analyticsContextDb = analyticsContextDb;
     }
-
-    //example method. Вовзращает все данные
-    public IEnumerable<AnalyticsDal> GetProducts()
+    
+    public async Task<ProjectDal?> FindProjectAsync(int projectId)
     {
-        return _contextDb.AnalyticsDals.ToList();
+        var dbSet = _analyticsContextDb.ProjectDbSet;
+        var project = await dbSet.FindAsync(projectId);
+        return project;
+    }
+    
+    public async Task AddSearchInformation (KeywordDal keywordDal, KeywordResultDal keywordResultDal)
+    {
+        await _analyticsContextDb.KeywordsDbSet.AddAsync(keywordDal);
+        await _analyticsContextDb.KeywordResultDal.AddAsync(keywordResultDal);
+        await _analyticsContextDb.SaveChangesAsync();
     }
 }

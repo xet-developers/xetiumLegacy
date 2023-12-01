@@ -1,0 +1,33 @@
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE:latest
+stages:
+  - make_docker_image
+  - deploy
+
+.before script docker registry login: &before-script-docker-registry-login
+  - mkdir ~/.docker
+  - cat $CR_CONFIG > ~/.docker/config.json
+
+make_docker_image:
+  stage: make_docker_image
+  image: docker:latest
+  before_script:
+    - *before-script-docker-registry-login
+  script:
+    - docker build --pull -t $TAG_LATEST .
+    - docker push $TAG_LATEST
+  when: manual
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  image: hub.66bit.ru/shared/stk8s:1.26.2
+  script:
+    - kubectl delete -f ./cicd/deployment.yaml
+    - kubectl apply -f ./cicd/persistent.yaml
+    - kubectl apply -f ./cicd/deployment.yaml
+  when: manual
+  only:
+    - main
+

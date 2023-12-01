@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: xetium-postgres
+  namespace: xetdev
+spec:
+  selector:
+    matchLabels:
+      app: xetium-postgres
+  replicas: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: xetium-postgres
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: xetium-postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: xetium-postgres-volume
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              value: xetium-user
+            - name: POSTGRES_PASSWORD
+              value: xetium-password
+            - name: POSTGRES_DB
+              value: xetium-db
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+      initContainers:
+        - name: xetium-rights-to-data
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "mkdir -p /var/lib/postgresql/data/pgdata && chown -R 999:999 /var/lib/postgresql/data/pgdata",
+            ]
+          securityContext:
+            runAsUser: 0
+            privileged: true
+          volumeMounts:
+            - name: xetium-postgres-volume
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: xetium-postgres-volume
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "rook-ceph-block"
+        resources:
+          requests:
+            storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xetium-postgres-service
+  namespace: xetdev
+spec:
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: xetium-postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xetium-service
+  namespace: xetdev
+spec:
+  selector:
+    project: xetium
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: xetium-ingress
+  namespace: xetdev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "xetdev.stk8s.66bit.ru"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: xetium-service
+                port:
+                  number: 80 
+
