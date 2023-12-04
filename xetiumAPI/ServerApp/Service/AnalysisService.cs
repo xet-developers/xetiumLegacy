@@ -55,7 +55,7 @@ namespace xetiumAPI.Service
                 {
                     Text = keyword
                 };
-                
+                await Task.Delay(1000);
                 var position = await method(model, client, keyword);
                 var keywordResult = new KeywordResultDal
                 {
@@ -70,7 +70,8 @@ namespace xetiumAPI.Service
 
             return statics;
         }
-
+        
+        //todo написать exception filter
         private static async Task<int> GetGooglePositionAsync(AnalysisData model, HttpClient client, string keyword)
         {
             var response = await client.GetAsync($"https://google.com/search?q={keyword}&num={model.Top}");
@@ -78,7 +79,7 @@ namespace xetiumAPI.Service
             var doc = new HtmlDocument();
             doc.LoadHtml(htmlContent);
             var searchResults = doc.DocumentNode.SelectNodes("//*[@id=\"main\"]/div/div/div/a/@href");
-
+            
             var index = 1;
             foreach (var searchResult in searchResults)
             {
