@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
+import {UserProjectsContext} from "../../contex/CurrentProject";
 
 const CurrentProject = () => {
-    const [projects, setProjects] = useState([])
+    const {userProjects, setProjects} = useContext(UserProjectsContext)
     const [modal, setModal] = useState(false);
 
-
-    if (projects.length === 0) {
+    if (userProjects.length === 0) {
         return (
-            <Tutorial modal={modal} setModal={setModal} projects={projects} setProjects={setProjects}/>
+            <Tutorial modal={modal} setModal={setModal}/>
         )
     }
 
     return (
         <div>
-            <ProjectMenu modal={modal} setModal={setModal} projects={projects} setProjects={setProjects}/>
+            <ProjectMenu modal={modal} setModal={setModal}/>
         </div>
     );
 };

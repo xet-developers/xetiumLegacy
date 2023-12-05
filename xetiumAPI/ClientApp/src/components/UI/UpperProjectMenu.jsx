@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import Styles from "../../styles/navMenu.module.css";
 import {Link} from "react-router-dom";
-import dot from "../../images/Ellipse.svg";
-import plus from "../../images/icon-plus.svg";
+
 import acc from "../../images/icon-account.svg";
 import proj from "../../images/icon-project.svg";
 import arrow from "../../images/arrow.svg";
@@ -40,7 +39,7 @@ const UpperProjectMenu = ({projects, setModal}) => {
                     </div>
 
                     {isProjectsOpen && el.button &&
-                        <MyProject projects={projects} setModal={setModal}/>
+                        <MyProject projects={projects} setModal={setModal} />
                     }
                 </div>)
             }

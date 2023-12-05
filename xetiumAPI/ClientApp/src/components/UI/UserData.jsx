@@ -1,14 +1,16 @@
-export const UserData = ( {users}) => {
+export const UserData = ({users}) => {
+    const a = [];
+    users.map((currentUser) => {
+        for (let key in currentUser) {
+            a.push((<tr>
+                <td>1</td>
+                <td>{key}</td>
+                <td>{currentUser[key]}</td>
+            </tr>))
+        }
+    })
+
     return (
-        users.map ( (currentUser) => {
-            const {system, keyWord, position} = currentUser;
-            return (
-                <tr>
-                    <td>{system}</td>
-                    <td>{keyWord}</td>
-                    <td>{position}</td>
-                </tr>
-            )
-        })
+        a.map(b => b)
     )
 }

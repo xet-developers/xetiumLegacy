@@ -1,23 +1,25 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import CreateProject from "./CreateProject";
+import {UserProjectsContext} from "../../contex/CurrentProject";
 
-const CreateProjectForm = ({modal, setModal, setProjects, projects}) => {
+const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
     const [projectRef, setProjectRef] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [nameIsCorrect, setNameIsCorrect] = useState(true)
+    const {userProjects, setUserProjects} = useContext(UserProjectsContext)
 
     const sendProjectData = (e) => {
         e.preventDefault()
 
-        if(projects.some(project => project.name === projectName)){
+        if(userProjects.some(project => project.name === projectName)){
             setNameIsCorrect(false)
             return
         }
 
         setNameIsCorrect(true)
         const newProject = {name: projectName,description: projectDescription, ref: projectRef, date: Date.now()}
-        setProjects([...projects, newProject])
+        setUserProjects([...userProjects, newProject])
         setModal(false)
     }
 

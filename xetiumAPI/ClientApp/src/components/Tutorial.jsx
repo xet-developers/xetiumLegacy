@@ -1,10 +1,9 @@
-import React from 'react';
 import Styles from '../styles/tutorial.module.css';
 import {Link} from "react-router-dom";
 import UIButton from "./UI/UIButton";
 import CreateProjectForm from "./UI/CreateProjectForm";
 
-const Tutorial = ({modal, setModal, setProjects, projects}) => {
+const Tutorial = ({modal, setModal}) => {
     return (
         <div style={{display: "flex"}}>
             <div>
@@ -22,7 +21,7 @@ const Tutorial = ({modal, setModal, setProjects, projects}) => {
                     </Link>
                 </span>
             </div>
-            <CreateProjectForm modal={modal} setModal={setModal} projects={projects} setProjects={setProjects}/>
+            <CreateProjectForm modal={modal} setModal={setModal}/>
 
         </div>
     );
