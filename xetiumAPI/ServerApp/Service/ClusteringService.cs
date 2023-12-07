@@ -15,7 +15,7 @@ public class ClusteringService : IClusteringService
     }
     public async Task<string> GetClusterQueriesUsingAiAsync(string querie)         
     {
-            var jsonContent = $@"{{
+        var jsonContent = $@"{{
                 ""modelUri"": ""gpt://b1gnogno2l3gvm4bj8cg/yandexgpt-lite"",
                 ""completionOptions"": {{
                     ""stream"": false,
@@ -33,19 +33,19 @@ public class ClusteringService : IClusteringService
                     }}
                 ]
             }}";
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://llm.api.cloud.yandex.net/foundationModels/v1/completion"),
-                Content = new StringContent(jsonContent, Encoding.UTF8, "application/json")
-            };
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri("https://llm.api.cloud.yandex.net/foundationModels/v1/completion"),
+            Content = new StringContent(jsonContent, Encoding.UTF8, "application/json")
+        };
 
-            request.Headers.Add("x-folder-id", FolderId);
-            request.Headers.Add("Authorization", ApiKey);
+        request.Headers.Add("x-folder-id", FolderId);
+        request.Headers.Add("Authorization", ApiKey);
 
-            var response = await _httpClient.SendAsync(request);
-            var responseBody = await response.Content.ReadAsStringAsync();
+        var response = await _httpClient.SendAsync(request);
+        var responseBody = await response.Content.ReadAsStringAsync();
 
-            return responseBody;
+        return responseBody;
     }
 }
