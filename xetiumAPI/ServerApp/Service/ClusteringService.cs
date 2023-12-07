@@ -7,7 +7,12 @@ public class ClusteringService : IClusteringService
 {
     private static readonly string FolderId = "aje8gb4fak8kgvlhgg42";
     private static readonly string ApiKey = "Api-Key AQVN2WKYnCn8f-vhljFQjlOU1vo-_4AMDfp3JItn";
-    private readonly HttpClient _httpClient = new HttpClient();
+    private readonly HttpClient _httpClient;
+
+    public ClusteringService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
     public async Task<string> GetClusterQueriesUsingAiAsync(string querie)         
     {
             var jsonContent = $@"{{
