@@ -6,7 +6,7 @@ namespace xetiumAPI.Service;
 
 public class ClusteringService : IClusteringService
 {
-    private static readonly string FolderId = "aje8gb4fak8kgvlhgg42";
+    private static readonly string FolderId = "b1gnogno2l3gvm4bj8cg";
     private static readonly string ApiKey = "Api-Key AQVN2WKYnCn8f-vhljFQjlOU1vo-_4AMDfp3JItn";
     private readonly HttpClient _httpClient;
 
