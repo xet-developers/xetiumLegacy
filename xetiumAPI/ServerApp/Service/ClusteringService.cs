@@ -1,4 +1,5 @@
 using System.Text;
+using Newtonsoft.Json;
 using xetiumAPI.Interfaces;
 
 namespace xetiumAPI.Service;
@@ -15,37 +16,31 @@ public class ClusteringService : IClusteringService
     }
     public async Task<string> GetClusterQueriesUsingAiAsync(string querie)         
     {
-            var jsonContent = $@"{{
-                ""modelUri"": ""gpt://b1gnogno2l3gvm4bj8cg/yandexgpt-lite"",
-                ""completionOptions"": {{
-                    ""stream"": false,
-                    ""temperature"": 0.1,
-                    ""maxTokens"": 1000
-                }},
-                ""messages"": [
-                    {{
-                        ""role"": ""system"",
-                        ""text"": ""Напиши кластеризацию запроса и выдай чисто варианты""
-                    }},
-                    {{
-                        ""role"": ""user"",
-                        ""text"": ""Запрос:""{querie}""
-                    }}
-                ]
-            }}";
-            var request = new HttpRequestMessage
+        _httpClient.DefaultRequestHeaders.Add("x-folder-id", "folder");
+        _httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+        _httpClient.DefaultRequestHeaders.Add("Authorization", "api");
+
+        var data = new
+        {
+            modelUri = "gpt://b1gnogno2l3gvm4bj8cg/yandexgpt-lite",
+            completionOptions = new
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://llm.api.cloud.yandex.net/foundationModels/v1/completion"),
-                Content = new StringContent(jsonContent, Encoding.UTF8, "application/json")
-            };
+                stream = false,
+                temperature = 0.1,
+                maxTokens = "1000"
+            },
+            messages = new object[]
+            {
+                new { role = "system", text = "Напиши кластеризацию запроса и выдай чисто варианты" },
+                new { role = "user", text = @"Запрос: {querie} "}
+            }
+        };
 
-            request.Headers.Add("x-folder-id", FolderId);
-            request.Headers.Add("Authorization", ApiKey);
+        var json = JsonConvert.SerializeObject(data);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.SendAsync(request);
-            var responseBody = await response.Content.ReadAsStringAsync();
-
+        var response = await _httpClient.PostAsync("https://llm.api.cloud.yandex.net/foundationModels/v1/completion", content);
+        var responseBody = await response.Content.ReadAsStringAsync();
             return responseBody;
     }
 }
