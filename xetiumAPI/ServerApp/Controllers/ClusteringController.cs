@@ -20,6 +20,6 @@ public class ClusteringController: Controller
     public async Task<ActionResult> GetClustering([FromBody] ClusteringData clusteringData)
     {
         var clustering = await _clusteringService.GetClusterQueriesUsingAiAsync(clusteringData.query);
-        return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new { clustering }));
+        return Ok(clustering);
     }
 }
