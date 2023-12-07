@@ -12,7 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRegisterService, AccountService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
-builder.Services.AddScoped(typeof(DbContext<>));
+builder.Services.AddScoped<IClusteringService, ClusteringService>();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AnalyticsContextDb>(options =>
@@ -22,7 +23,6 @@ builder.Services.AddDbContext<UserContextDb>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnalyticsRepository, AnalitycsRepository>();
-
 
 var app = builder.Build();
 

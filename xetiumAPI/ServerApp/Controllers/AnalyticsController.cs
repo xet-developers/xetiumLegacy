@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
 
-namespace xetiumAPI.Controllers
+namespace xetiumAPI.ServerApp.Controllers
 {
     [Route("abc")]
     [ApiController]
@@ -18,7 +17,7 @@ namespace xetiumAPI.Controllers
             _client = client;
         }
         [HttpPost]
-        public async Task<ActionResult<int>> GetSitePosition([FromBody] AnalysisData site)
+        public async Task<ActionResult> GetSitePosition([FromBody] AnalysisData site)
         {
             if (!Enum.IsDefined(typeof(SearchSystem), site.SearchSystem))
             {

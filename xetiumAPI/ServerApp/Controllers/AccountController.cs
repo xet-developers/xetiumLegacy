@@ -2,7 +2,7 @@
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
 
-namespace xetiumAPI.Controllers
+namespace xetiumAPI.ServerApp.Controllers
 {
     [Route("register")]
     [ApiController]
