@@ -5,7 +5,7 @@ namespace xetiumAPI.Service;
 
 public class ClusteringService : IClusteringService
 {
-    private static readonly string FolderId = "aje8gb4fak8kgvlhgg42";
+    private static readonly string FolderId = "b1gnogno2l3gvm4bj8cg";
     private static readonly string ApiKey = "Api-Key AQVN2WKYnCn8f-vhljFQjlOU1vo-_4AMDfp3JItn";
     private readonly HttpClient _httpClient;
 
@@ -16,20 +16,20 @@ public class ClusteringService : IClusteringService
     public async Task<string> GetClusterQueriesUsingAiAsync(string querie)         
     {
         var jsonContent = $@"{{
-                ""modelUri"": ""gpt://b1gnogno2l3gvm4bj8cg/yandexgpt-lite"",
+                ""modelUri"": ""gpt://b1gnogno2l3gvm4bj8cg/yandexgpt/latest"",
                 ""completionOptions"": {{
                     ""stream"": false,
                     ""temperature"": 0.1,
-                    ""maxTokens"": 1000
+                    ""maxTokens"": 4000
                 }},
                 ""messages"": [
                     {{
                         ""role"": ""system"",
-                        ""text"": ""Напиши кластеризацию запроса и выдай чисто варианты""
+                        ""text"": ""Для каждого запроса из списка определить его интент (коммерческий, информационный, обучающий, навигационный или другой).""
                     }},
                     {{
                         ""role"": ""user"",
-                        ""text"": ""Запрос:""{querie}""
+                        ""text"": ""Список:""{querie}""
                     }}
                 ]
             }}";
