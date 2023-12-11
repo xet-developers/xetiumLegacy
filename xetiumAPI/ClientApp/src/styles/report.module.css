@@ -1,0 +1,91 @@
+.report {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #252525;
+    padding-left: 2%;
+    padding-top: 2%;
+}
+
+.link {
+    color: #414141;
+    font-weight: 500;
+}
+
+.tableReport {
+    display: table;
+    border: 1px solid #808080;
+    width: 900px;
+    height: 200px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #414141;
+}
+
+th {
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+    white-space: 100px;
+    height: 40px;
+    width: 100px;
+}
+
+.template {
+    display: flex;
+    gap: 50px;
+}
+
+.formGeneration {
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+    color: #252525;
+}
+
+.downloadOne {
+    display: flex;
+    gap: 50px;
+}
+
+.buttonDownloadOne {
+    padding-left: 2%;
+}
+
+.date {
+    display: flex;
+    gap: 50px;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+}
+
+.button1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    background-color: #f55656;
+    margin: 5% 0;
+    width: 30vh;
+    height: 5vh;
+}
+
+.button2 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    border: none;
+    border-radius: 30px;
+    color: #ffffff;
+    background-color: #f55656;
+    width: 20vh;
+    height: 5vh;
+}

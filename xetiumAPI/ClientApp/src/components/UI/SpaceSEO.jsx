@@ -137,7 +137,7 @@ const SpaceSEO = () => {
                     </thead>
 
                     <tbody>
-                    <UserData users={usersReq}/>
+                        <UserData users={usersReq}/>
                     </tbody>
                 </table>
             </section>
