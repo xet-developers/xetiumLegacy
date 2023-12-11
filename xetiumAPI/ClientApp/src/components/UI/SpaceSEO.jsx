@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import Styles from "../../styles/searchPosition.module.css";
 import Arrow from "../../images/arrowSeo.svg";
 import Line from "../../images/line.svg";
-import axios from "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js";
+//import axios from "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js";
 import {UserData} from './UserData';
 import {CurrentProjectContext} from "../../contex/CurrentProject";
 
@@ -49,7 +49,7 @@ const SpaceSEO = () => {
     // }, [])
 
     return (
-        <div>
+        <div> 
             <section className={Styles.header}>
                 <div>
                     <img src={Arrow} alt="arrow" className={Styles.arrow}/>
@@ -62,9 +62,9 @@ const SpaceSEO = () => {
                 <div>
                     <p className={Styles.h}>Добавление ключевых слов</p>
 
-                    <input value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
+                    <input value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords" className={Styles.inputKey}/>
                     <br/>
-                    <label form="keyWords">Вводите запросы через запятую! До и после запятой не ставьте пробел.</label>
+                    <label form="keyWords" className={Styles.description}>Вводите запросы через запятую! До и после запятой не ставьте пробел.</label>
                     <br/>
                     <button
                         className={Styles.sendKey}
@@ -127,12 +127,12 @@ const SpaceSEO = () => {
             </section>
 
             <section>
-                <table>
+                <table className={Styles.table}>
                     <thead>
                     <tr>
-                        <th>Поисковая система</th>
-                        <th>Запрос</th>
-                        <th>Позиция</th>
+                        <th className={Styles.keyWordColumn}>Запрос</th>
+                        <th>Позиция в Яндексе</th>
+                        <th>Позиция в Гугле</th>
                     </tr>
                     </thead>
 
