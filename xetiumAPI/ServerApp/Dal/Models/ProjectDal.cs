@@ -8,7 +8,7 @@ public class ProjectDal
 {
     [Key]
     [Column("projid")]
-    public int ProjID { get; set; }
+    public Guid  ProjID { get; set; }
 
     [Required]
     [MaxLength(255)]

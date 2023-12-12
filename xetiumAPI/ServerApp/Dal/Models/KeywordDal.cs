@@ -9,7 +9,7 @@ public class KeywordDal
     [Key]
     [Column("keywordid")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int KeywordID { get; set; }
+    public Guid  KeywordID { get; set; }
 
     [Required]
     [Column("text")]

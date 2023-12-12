@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Medo;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
+using xetiumAPI.ServerApp.Dal;
 
 namespace xetiumAPI.ServerApp.Controllers
 {
@@ -16,7 +19,18 @@ namespace xetiumAPI.ServerApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {
-            return Ok();
+            var registerResult = await _registerService.RegisterUser(model);
+            
+            if (registerResult.Result.Succeeded)
+            {
+                return Created("Alyona Kupi", new { Id = registerResult.Id });
+            }
+
+            foreach (var error in registerResult.Result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return BadRequest(ModelState);
         }
 
         [HttpPost("login")]

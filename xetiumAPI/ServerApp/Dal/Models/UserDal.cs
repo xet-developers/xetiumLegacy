@@ -1,16 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace xetiumAPI.ServerApp.Dal;
 
 [Table("users")]
-public class UserDal
+public class UserDal : IdentityUser<Guid>
 {
-    [Key]
-    [MaxLength(255)]
-    [Column("username")]
-    public string UserName { get; set; }
-
     [Required]
     [Column("passworhash")]
     public byte[] PasswordHash { get; set; }
@@ -23,17 +19,8 @@ public class UserDal
     [MaxLength(255)]
     [Column("name")]
     public string Name { get; set; }
-
-    [Required]
-    [MaxLength(255)]
-    [Column("email")]
-    public string Email { get; set; }
-
-    [Required]
-    [MaxLength(255)]
-    [Column("phone")]
-    public string Phone { get; set; }
-
-    public TokenDal TokenDal { get; set; }
+    
+    // Остальные свойства класса
+    
     public List<ProjectDal> Projects { get; set; }
 }

@@ -7,10 +7,10 @@ namespace xetiumAPI.ServerApp.Dal;
 public class KeywordResultDal
 {
     [Key, Column("searchid",Order = 0), ForeignKey("SearchDal")]
-    public int SearchID { get; set; }
+    public Guid  SearchID { get; set; }
 
     [Key,Column("keywordid",Order = 1), ForeignKey("Keyword")]
-    public int KeywordID { get; set; }
+    public Guid  KeywordID { get; set; }
 
     [Required]
     [Column("position")]

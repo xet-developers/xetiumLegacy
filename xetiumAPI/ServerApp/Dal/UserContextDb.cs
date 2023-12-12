@@ -1,13 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp.Dal.Models;
 
 namespace xetiumAPI.ServerApp.Dal;
 
-public class UserContextDb : DbContext
+public class UserContextDb : IdentityDbContext<UserDal, IdentityRole<Guid>, Guid>
 {
     public DbSet<UserRegisterModel> Users { get; set; }
-    public DbSet<TokenDal> Tokens { get; set; }
 
     public UserContextDb(DbContextOptions<UserContextDb> options) : base(options)
     {

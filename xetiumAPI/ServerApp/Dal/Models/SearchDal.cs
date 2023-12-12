@@ -8,12 +8,11 @@ public class SearchDal
 {
     [Key]
     [Column("searchid")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int SearchID { get; set; }
+    public Guid SearchID { get; set; }
 
     [ForeignKey("Project")]
     [Column("projid")]
-    public int ProjID { get; set; }
+    public Guid  ProjID { get; set; }
 
     [Required]
     [Column("date")]

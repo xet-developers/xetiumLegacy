@@ -1,4 +1,6 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
+using Medo;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
@@ -9,20 +11,25 @@ namespace xetiumAPI.Service
     public class AccountService : IRegisterService
     {
         private IUserRepository _userRepository;
-        public AccountService(IUserRepository userRepository)
+        private  UserManager<UserDal> _userManager;
+        public AccountService(IUserRepository userRepository, UserManager<UserDal> userManager)
         {
             _userRepository = userRepository;
+            _userManager = userManager;
         }
-        public async Task<AuthenticateResponse> RegisterUser(UserRegisterModel userRegisterModel)
+        public async Task<AuthenticateResponseDto> RegisterUser(UserRegisterModel userRegisterModel)
         {
-            throw new NotImplementedException();
+            var id = new Uuid7().ToGuid();
+            var user = new UserDal { UserName = userRegisterModel.Name, Email = userRegisterModel.Email, Id = id };
+            var createResult =  await _userManager.CreateAsync(user, userRegisterModel.Password);
+            var result = new  AuthenticateResponseDto()
+            {
+                Result = createResult,
+                Id = id
+            };
+            return result;
         }
-
-        public async Task<AuthenticateResponse> LoginUser(UserLoginModel userLoginModel)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public async Task<string> GetJWTTokenAsync(UserRegisterModel userRegisterModel)
         {
             return @"
