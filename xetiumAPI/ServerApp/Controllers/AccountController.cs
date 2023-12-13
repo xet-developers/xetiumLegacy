@@ -7,7 +7,7 @@ using xetiumAPI.ServerApp.Dal;
 
 namespace xetiumAPI.ServerApp.Controllers
 {
-    [Route("register")]
+    [Route("account")]
     [ApiController]
     public class AccountController : Controller
     {
@@ -16,6 +16,7 @@ namespace xetiumAPI.ServerApp.Controllers
         {
             _registerService = registerService;
         }
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {

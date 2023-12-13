@@ -25,10 +25,10 @@ public class ProjectDal
     public string Description { get; set; }
 
     [Required]
-    [Column("username")]
+    [Column("userId")]
     [ForeignKey("UserDal")]
     public Guid UserID { get; set; }
 
-    public UserDal UserDal { get; set; }
+    public UserDal User { get; set; }
     public List<SearchDal> Searches { get; set; }
 }

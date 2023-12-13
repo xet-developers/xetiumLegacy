@@ -14,6 +14,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRegisterService, AccountService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<IClusteringService, ClusteringService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ApplicationContextDb>()
     .AddDefaultTokenProviders();
