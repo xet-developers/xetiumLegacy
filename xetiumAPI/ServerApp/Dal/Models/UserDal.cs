@@ -8,19 +8,9 @@ namespace xetiumAPI.ServerApp.Dal;
 public class UserDal : IdentityUser<Guid>
 {
     [Required]
-    [Column("passworhash")]
-    public byte[] PasswordHash { get; set; }
-
-    [Required]
-    [Column("salt")]
-    public Guid Salt { get; set; }
-
-    [Required]
     [MaxLength(255)]
     [Column("name")]
     public string Name { get; set; }
-    
-    // Остальные свойства класса
     
     public List<ProjectDal> Projects { get; set; }
 }

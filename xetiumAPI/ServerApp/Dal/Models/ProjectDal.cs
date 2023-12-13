@@ -27,7 +27,7 @@ public class ProjectDal
     [Required]
     [Column("username")]
     [ForeignKey("UserDal")]
-    public string UserName { get; set; }
+    public Guid UserID { get; set; }
 
     public UserDal UserDal { get; set; }
     public List<SearchDal> Searches { get; set; }
