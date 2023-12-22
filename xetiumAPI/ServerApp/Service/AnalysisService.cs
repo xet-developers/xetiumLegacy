@@ -17,7 +17,8 @@ namespace xetiumAPI.Service
         
         private Dictionary<SearchSystem, Func<AnalysisData, HttpClient, string, Task<int>>> _methods;
         private IAnalyticsRepository _analyticsRepository;
-        public AnalysisService(IAnalyticsRepository analyticsRepository)
+        private IProjectRepository _projectRepository;
+        public AnalysisService(IAnalyticsRepository analyticsRepository, IProjectRepository projectRepository)
         {
             _methods = new Dictionary<SearchSystem, Func<AnalysisData, HttpClient, string, Task<int>>>
                     {
@@ -25,12 +26,13 @@ namespace xetiumAPI.Service
                         { SearchSystem.Google, GetGooglePositionAsync }
                     };
             _analyticsRepository = analyticsRepository;
+            _projectRepository = projectRepository;
         }
 
         public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client)
         {
             var statics = new Dictionary<string, int>();
-            var project = await _analyticsRepository.FindProjectAsync(model.ProjId);
+            var project = await _projectRepository.GetProjectByIdAsync(model.ProjId);
             if (project is null)
             {
                 throw new KeyNotFoundException("Project doesn't found");

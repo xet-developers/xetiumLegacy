@@ -20,7 +20,7 @@ namespace xetiumAPI.Service
         public async Task<AuthenticateResponseDto> RegisterUser(UserRegisterModel userRegisterModel)
         {
             var id = new Uuid7().ToGuid();
-            var user = new UserDal { UserName = userRegisterModel.Name, Email = userRegisterModel.Email, Id = id };
+            var user = new UserDal { UserName = userRegisterModel.UserName, Email = userRegisterModel.Email, Id = id, Name = userRegisterModel.Name};
             var createResult =  await _userManager.CreateAsync(user, userRegisterModel.Password);
             var result = new  AuthenticateResponseDto()
             {

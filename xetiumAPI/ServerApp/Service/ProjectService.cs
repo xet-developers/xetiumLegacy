@@ -2,6 +2,7 @@ using Medo;
 using Microsoft.AspNetCore.Identity;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
+using xetiumAPI.ServerApp;
 using xetiumAPI.ServerApp.Dal;
 
 namespace xetiumAPI.Service;
@@ -20,11 +21,7 @@ public class ProjectService: IProjectService
         var userInfo = await _userManager.FindByIdAsync(modelCreate.userId.ToString());
         if (userInfo is null)
         {
-            return new ProjectResponseDto()
-            {
-                CreationResult = false,
-                projectId = Guid.Empty
-            };
+            throw new KeyNotFoundException("User not found");
         }
         
         var projectId =  new Uuid7().ToGuid();
@@ -35,15 +32,34 @@ public class ProjectService: IProjectService
             URL = modelCreate.Url,
             UserID = modelCreate.userId,
             User = userInfo,
-            Searches = new List<SearchDal>()
+            Searches = new List<SearchDal>(),
+            Description = modelCreate.Description
         };
 
-        var result =await _projectRepository.CreateProjectAsync(project);
+        await _projectRepository.CreateProjectAsync(project);
         return new ProjectResponseDto()
         {
-            CreationResult = result,
             projectId = projectId
         };
     }
-    
+
+    public async Task<List<ProjectDto>> GetAllProjectsAsync(Guid userId)
+    {
+        var projects = await _projectRepository.GetAllUserProjectAsync(userId);
+        var allProjects = projects
+            .Select(p => new ProjectDto()
+        {
+            Name = p.Name,
+            Url = p.URL,
+            Description = p.Description,
+            Searches = p.Searches
+        }).ToList();
+        
+        return allProjects;
+    }
+
+    public async Task DeleteProjectAsync(Guid userId)
+    {
+        throw new NotImplementedException();
+    }
 }
