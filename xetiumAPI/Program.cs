@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using xetiumAPI.Interfaces;
+using xetiumAPI.ServerApp;
 using xetiumAPI.ServerApp.Dal;
 using xetiumAPI.ServerApp.Dal.Models.Repository;
 using xetiumAPI.Service;
@@ -11,14 +15,49 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IRegisterService, AccountService>();
+builder.Services.AddScoped<IAuthenticationService, AccountService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<IClusteringService, ClusteringService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>()
+builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+    })
     .AddEntityFrameworkStores<ApplicationContextDb>()
     .AddDefaultTokenProviders();
-// Register UserManager
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = AuthOptions.AUDIENCE,
+        ValidIssuer = AuthOptions.ISSUER,
+        RequireExpirationTime = true,
+        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    // options.AddPolicy("stamp", policyBuilder =>
+    //  {
+    //     policyBuilder.AddRequirements(new stamp());
+    //  });
+});
+
 builder.Services.AddScoped<UserManager<UserDal>>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -48,6 +87,8 @@ if (!app.Environment.IsDevelopment())
 
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

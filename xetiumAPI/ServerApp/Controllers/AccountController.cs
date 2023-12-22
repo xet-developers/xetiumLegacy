@@ -11,23 +11,23 @@ namespace xetiumAPI.ServerApp.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private IRegisterService _registerService;
-        public AccountController(IRegisterService registerService)
+        private IAuthenticationService _authenticationService;
+        public AccountController(IAuthenticationService authenticationService)
         {
-            _registerService = registerService;
+            _authenticationService = authenticationService;
         }
         
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {
-            var registerResult = await _registerService.RegisterUser(model);
+            var registerResult = await _authenticationService.RegisterUser(model);
             
-            if (registerResult.Result.Succeeded)
+            if (registerResult.Succeeded)
             {
-                return Created("Alyona Kupi", new { Id = registerResult.Id });
+                return Created("Alyona Kupi", new { state = registerResult.Succeeded });
             }
 
-            foreach (var error in registerResult.Result.Errors)
+            foreach (var error in registerResult.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
@@ -37,7 +37,13 @@ namespace xetiumAPI.ServerApp.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginModel model)
         {
-            return Ok();
+            var token = await _authenticationService.LoginUser(model);
+            if (token is null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(token);
         }
     }
 }
