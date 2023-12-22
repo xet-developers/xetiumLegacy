@@ -1,0 +1,41 @@
+.queryClustering {
+    display: flex;
+}
+
+.clastering {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat Alternates', sans-serif;
+    margin-left: 20px;
+}
+
+.start {
+    display: flex;
+    flex-direction: row;
+    gap: 59px;
+}
+
+input {
+    width: 500px;
+    height: 200px;
+}
+
+.warning {
+    font-size: 15px;
+    width: 500px;
+    text-align: center;
+    margin-top: 7%;
+}
+
+.result {
+
+}
+
+.allClaster {
+
+}
+
+.tableClaster {
+    display: table;
+    column-gap: 30px;
+}
