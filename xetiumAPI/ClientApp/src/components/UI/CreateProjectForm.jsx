@@ -4,23 +4,42 @@ import {UserProjectsContext} from "../../contex/CurrentProject";
 
 const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
-    const [projectRef, setProjectRef] = useState("")
+    const [url, setUrl] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     const [nameIsCorrect, setNameIsCorrect] = useState(true)
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
 
-    const sendProjectData = (e) => {
+    const sendProjectData = async (e) => {
         e.preventDefault()
 
-        if(userProjects.some(project => project.name === projectName)){
+        if (userProjects.some(project => project.name === projectName)) {
             setNameIsCorrect(false)
             return
         }
 
-        setNameIsCorrect(true)
-        const newProject = {name: projectName,description: projectDescription, ref: projectRef, date: Date.now()}
-        setUserProjects([...userProjects, newProject])
-        setModal(false)
+        const res = {
+            name: projectName,
+            url: url,
+            description: projectDescription
+        }
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Authorisation': 'Bearer' + localStorage.getItem("jwt"),
+                'Content-Type': "application/problem+json; charset=utf-8"
+            },
+            body: JSON.stringify(res)
+        };
+
+        const resp = await fetch("/project/create", params)
+
+        if(resp.ok) {
+            setNameIsCorrect(true)
+            const newProject = {name: projectName, description: projectDescription, ref: url, date: Date.now()}
+            setUserProjects([...userProjects, newProject])
+            setModal(false)
+        }
     }
 
     return (
@@ -30,14 +49,14 @@ const CreateProjectForm = ({modal, setModal}) => {
                        required/>
 
                 <input placeholder="Cсылка" type="text" onChange=
-                    {event => setProjectRef(event.target.value)} required/>
+                    {event => setUrl(event.target.value)} required/>
 
-                <input  placeholder="Описание" onChange={event => setProjectDescription(event.target.value)}
-                        required/>
+                <input placeholder="Описание" onChange={event => setProjectDescription(event.target.value)}
+                       required/>
 
-                {!nameIsCorrect&&<p>Не корректное имя</p>}
+                {!nameIsCorrect && <p>Не корректное имя</p>}
 
-                <button onClick={sendProjectData}>dasdada</button>
+                <button onClick={sendProjectData}>Создать</button>
             </form>
         </CreateProject>
     );
