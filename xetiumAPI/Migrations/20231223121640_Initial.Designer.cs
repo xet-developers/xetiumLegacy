@@ -12,7 +12,7 @@ using xetiumAPI.ServerApp.Dal.Models.Repository;
 namespace xetiumAPI.Migrations
 {
     [DbContext(typeof(ApplicationContextDb))]
-    [Migration("20231213153716_Initial")]
+    [Migration("20231223121640_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -223,7 +223,7 @@ namespace xetiumAPI.Migrations
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("uuid")
-                        .HasColumnName("username");
+                        .HasColumnName("userId");
 
                     b.HasKey("ProjID");
 
@@ -403,13 +403,13 @@ namespace xetiumAPI.Migrations
 
             modelBuilder.Entity("xetiumAPI.ServerApp.Dal.ProjectDal", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", "UserDal")
+                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserDal");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("xetiumAPI.ServerApp.Dal.SearchDal", b =>

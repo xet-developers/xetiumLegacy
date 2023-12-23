@@ -1,9 +1,9 @@
 ﻿using xetiumAPI.Models;
 
-namespace xetiumAPI.Interfaces
+namespace xetiumAPI.ServerApp.Interfaces;
+
+public interface IAnalysisService
 {
-    public interface IAnalysisService
-    {
-        public Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client);
-    }
+    public Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client);
 }
+

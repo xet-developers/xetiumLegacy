@@ -2,7 +2,7 @@
 using Medo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using xetiumAPI.Interfaces;
+using xetiumAPI.ServerApp.Interfaces;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp.Dal;
 

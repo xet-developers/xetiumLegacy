@@ -1,4 +1,4 @@
-namespace xetiumAPI.Interfaces;
+namespace xetiumAPI.ServerApp.Interfaces;
 
 public class IUserService
 {

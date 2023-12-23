@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
+using xetiumAPI.ServerApp.Interfaces;
 
 namespace xetiumAPI.ServerApp.Controllers;
 

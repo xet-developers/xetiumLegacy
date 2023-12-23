@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using xetiumAPI.Interfaces;
 using xetiumAPI.ServerApp;
 using xetiumAPI.ServerApp.Dal;
 using xetiumAPI.ServerApp.Dal.Models.Repository;
-using xetiumAPI.Service;
+using xetiumAPI.ServerApp.Interfaces;
+using xetiumAPI.ServerApp.Service;
+using xetiumAPI.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IAuthenticationService, AccountService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<IClusteringService, ClusteringService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>(options =>
     {
         options.User.RequireUniqueEmail = true;
@@ -84,18 +86,12 @@ if (!app.Environment.IsDevelopment())
         var context = scope.ServiceProvider.GetRequiredService<ApplicationContextDb>();
         await context.Database.MigrateAsync();
     }
-
 }
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
 

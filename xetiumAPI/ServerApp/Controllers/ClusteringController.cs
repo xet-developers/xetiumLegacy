@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
+using xetiumAPI.ServerApp.Interfaces;
 
 namespace xetiumAPI.ServerApp.Controllers;
 

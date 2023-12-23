@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using xetiumAPI.Models;
 
-namespace xetiumAPI.Interfaces
+namespace xetiumAPI.ServerApp.Interfaces;
+public interface IAuthenticationService
 {
-    public interface IAuthenticationService
-    {
-        public  Task<IdentityResult> RegisterUser(UserRegisterModel userRegisterModel);
-        public Task<JwtSecurityToken> LoginUser(UserLoginModel userLogin);
-    }
+    public Task<IdentityResult> RegisterUser(UserRegisterModel userRegisterModel);
+    public Task<JwtSecurityToken> LoginUser(UserLoginModel userLogin);
 }
+

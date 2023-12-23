@@ -1,6 +1,6 @@
 using xetiumAPI.Models;
 
-namespace xetiumAPI.Interfaces;
+namespace xetiumAPI.ServerApp.Interfaces;
 
 public interface IProjectService
 {

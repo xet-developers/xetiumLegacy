@@ -4,8 +4,9 @@ using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp;
 using xetiumAPI.ServerApp.Dal;
+using xetiumAPI.ServerApp.Interfaces;
 
-namespace xetiumAPI.Service;
+namespace xetiumAPI.ServerApp.Service;
 
 public class ProjectService: IProjectService
 {

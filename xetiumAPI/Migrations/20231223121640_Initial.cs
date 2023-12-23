@@ -178,14 +178,14 @@ namespace xetiumAPI.Migrations
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     url = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    username = table.Column<Guid>(type: "uuid", nullable: false)
+                    userId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_project", x => x.projid);
                     table.ForeignKey(
-                        name: "FK_project_AspNetUsers_username",
-                        column: x => x.username,
+                        name: "FK_project_AspNetUsers_userId",
+                        column: x => x.userId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -279,9 +279,9 @@ namespace xetiumAPI.Migrations
                 column: "keywordid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_project_username",
+                name: "IX_project_userId",
                 table: "project",
-                column: "username");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_search_projid",
