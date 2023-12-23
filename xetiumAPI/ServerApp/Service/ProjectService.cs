@@ -17,9 +17,9 @@ public class ProjectService: IProjectService
         _projectRepository = projectRepository;
         _userManager = userManager;
     }
-    public async Task<ProjectResponseDto> CreateProjectAsync(ProjectModelCreate modelCreate)
+    public async Task<ProjectResponseDto> CreateProjectAsync(ProjectModelCreate modelCreate, Guid guid)
     {
-        var userInfo = await _userManager.FindByIdAsync(modelCreate.userId.ToString());
+        var userInfo = await _userManager.FindByIdAsync(guid.ToString());
         if (userInfo is null)
         {
             throw new KeyNotFoundException("User not found");
@@ -31,7 +31,7 @@ public class ProjectService: IProjectService
             ProjID = projectId,
             Name = modelCreate.Name,
             URL = modelCreate.Url,
-            UserID = modelCreate.userId,
+            UserID = guid,
             User = userInfo,
             Searches = new List<SearchDal>(),
             Description = modelCreate.Description

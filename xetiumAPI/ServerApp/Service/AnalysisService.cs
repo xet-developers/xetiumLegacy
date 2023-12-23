@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 using HtmlAgilityPack;
+using Medo;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
@@ -30,10 +31,10 @@ public class AnalysisService : IAnalysisService
         _projectRepository = projectRepository;
     }
 
-    public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client)
+    public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client, Guid userId)
     {
         var statics = new Dictionary<string, int>();
-        var project = await _projectRepository.GetProjectByIdAsync(model.ProjId);
+        var project = await _projectRepository.GetProjectByIdAsync(userId);
         if (project is null)
         {
             throw new KeyNotFoundException("Project doesn't found");
@@ -41,6 +42,7 @@ public class AnalysisService : IAnalysisService
 
         var searchDal = new SearchDal()
         {
+            SearchID = new Uuid7().ToGuid(),
             ProjID = project.ProjID,
             Date = DateTime.Now.ToUniversalTime(),
             Type = ((SearchSystem)model.SearchSystem).ToString(),
@@ -56,6 +58,7 @@ public class AnalysisService : IAnalysisService
 
             var keywordDal = new KeywordDal()
             {
+                KeywordID = new Uuid7().ToGuid(),
                 Text = keyword
             };
             await Task.Delay(1000);

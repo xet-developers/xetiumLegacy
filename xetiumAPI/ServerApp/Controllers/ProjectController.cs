@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
+using xetiumAPI.ServerApp.Extentions;
 using xetiumAPI.ServerApp.Interfaces;
 
 namespace xetiumAPI.ServerApp.Controllers;
@@ -22,21 +23,31 @@ public class ProjectController: Controller
     [HttpPost]
     public async Task<IActionResult> CreateProject([FromBody] ProjectModelCreate modelCreate)
     {
-        var result = await _projectService.CreateProjectAsync(modelCreate);
+        var userID = GetUserId();
+        var result = await _projectService.CreateProjectAsync(modelCreate, userID);
         return Created("Slon Kuplen",new {Id = result.projectId});
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetAllProjects(Guid userId)
+    [HttpGet]
+    public async Task<IActionResult> GetAllProjects()
     {
-        var result = await _projectService.GetAllProjectsAsync(userId);
+        var userID = GetUserId();
+        var result = await _projectService.GetAllProjectsAsync(userID);
         return Ok(result);
     }
-    
-    [HttpDelete("{id:guid}")]
+
+    private Guid GetUserId()
+    {
+        var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
+        var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
+        return userID;
+    }
+
+    [HttpDelete]
     public async Task<IActionResult> DeleteProject(Guid projectId)
     {
-        await _projectService.DeleteProjectAsync(projectId);
+        var userID = GetUserId();
+        await _projectService.DeleteProjectAsync(userID);
         return NoContent();
     }
 
