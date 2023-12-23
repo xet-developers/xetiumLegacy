@@ -9,15 +9,88 @@
     margin-left: 20px;
 }
 
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerText {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1E1E1E;
+    opacity: 70%;
+    text-align: left;
+    margin-bottom: 0.5%;
+}
+
+.line {
+    margin-left: -20px;
+    height: auto;
+    width: auto;
+}
+
 .start {
+    background-image: url(../images/form-input.svg);
+    width: 766px;
+    height: 401px;
     display: flex;
     flex-direction: row;
     gap: 59px;
+    margin-left: 20px;
+    margin-top: 40px;
 }
 
-input {
+.inputHead {
+    font-size: 20px;
+    font-weight: 600;
+    color: #252525;
+}
+
+.inputWarning {
+    font-size: 15px;
+    font-weight: 500;
+    color: #808080;
+}
+
+.inputButton1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: #F66450;
+    width: 190px;
+    height: 51px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    line-height: 0;
+    margin-right: 5%;
+}
+
+.inputButton2 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: #F66450;
+    width: 290px;
+    height: 51px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+}
+
+textarea {
     width: 500px;
     height: 200px;
+    font-size: 15px;
+    color: #808080;
+    max-width: 500px;
+    max-height: 200px;
+    min-width: 500px;
+    min-height: 200px;
+}
+
+.input {
+    margin-left: 3%;
 }
 
 .warning {

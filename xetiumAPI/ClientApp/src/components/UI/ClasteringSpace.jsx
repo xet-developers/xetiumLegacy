@@ -1,37 +1,46 @@
 import React, {useState, useEffect} from 'react';
 import Styles from "../../styles/clastering.module.css";
 import { ClasteringData } from './ClasteringData';
+import Line from "../../images/line.svg";
+import Warning from "../../images/warning.svg";
+
+import FormResult from "../../images/form-result.svg";
+import FormTable from "../../images/form-table.svg";
 
 const ClasteringReport = () => {
     
     return (
-        <div className={Styles.clastering}> 
+        <div className={Styles.clastering}>
+            <section className={Styles.header}>
+                <div>
+                    <p className={Styles.headerText}>Кластеризация запросов</p>
+                    <img src={Line} alt="line" className={Styles.line}/>
+                </div>
+            </section>
+
             <section className={Styles.start}>
                 <div className={Styles.input}>
-                    <p>
+                    <p className={Styles.inputHead}>
                         Список запросов
                     </p>
 
-                    <input/>
+                    <textarea/>
 
-                    <p>
+                    <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос с новой строки. 
                     </p>
 
-                    <button>
-                        Или прикрепите 
-                        файл .txt
+                    <button className={Styles.inputButton1}>
+                        Прикрепить файл
                     </button>
 
-                    <button>
+                    <button className={Styles.inputButton2}>
                         Отправить
                     </button>
                 </div>
 
                 <div className={Styles.warning}>
-                    <img>
-
-                    </img> 
+                    <img src={Warning} alt="warning" className={Styles.warningSvg}/> 
 
                     <p>
                         После автоматической кластеризации рекомендуется 
