@@ -18,10 +18,10 @@ namespace xetiumAPI.Service
     {
         private IUserRepository _userRepository;
         private UserManager<UserDal> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
         public AccountService(IUserRepository userRepository, UserManager<UserDal> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole<Guid>> roleManager)
         {
             _userRepository = userRepository;
             _userManager = userManager;
@@ -41,13 +41,18 @@ namespace xetiumAPI.Service
             {
                 return createResult;
             }
-
-            var result = new AuthenticateResponseDto()
+            
+            
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
             {
-                Result = createResult,
-                Id = id
-            };
-            await _userManager.AddToRoleAsync(user, UserRoles.User);
+                await _roleManager.CreateAsync(new IdentityRole<Guid>(UserRoles.User));
+            }
+            
+            if (await _roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
+            }
+            
             return createResult;
         }
 

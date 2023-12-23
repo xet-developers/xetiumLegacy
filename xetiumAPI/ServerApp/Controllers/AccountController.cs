@@ -1,4 +1,5 @@
-﻿using Medo;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Medo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
@@ -43,7 +44,12 @@ namespace xetiumAPI.ServerApp.Controllers
                 return Unauthorized();
             }
 
-            return Ok(token);
+ 
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo
+            });
         }
     }
 }
