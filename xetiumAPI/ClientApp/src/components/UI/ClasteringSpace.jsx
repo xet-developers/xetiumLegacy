@@ -2,10 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Styles from "../../styles/clastering.module.css";
 import { ClasteringData } from './ClasteringData';
 import Line from "../../images/line.svg";
-import Warning from "../../images/warning.svg";
-
-import FormResult from "../../images/form-result.svg";
-import FormTable from "../../images/form-table.svg";
+import Warning from "../../images/warning.png";
 
 const ClasteringReport = () => {
     
@@ -42,7 +39,7 @@ const ClasteringReport = () => {
                 <div className={Styles.warning}>
                     <img src={Warning} alt="warning" className={Styles.warningSvg}/> 
 
-                    <p>
+                    <p className={Styles.warningText}>
                         После автоматической кластеризации рекомендуется 
                         проводить дополнительную ручную кластеризацию. 
                         Это помогает довести состояние кластеров до нужного
@@ -57,21 +54,13 @@ const ClasteringReport = () => {
                     Результат:
                 </p>
 
-                <ul>
-                    <li>
-                        <p>Кластеризация успешно завершена</p>
-                        <button>Скачать</button>
-                    </li>
+                <p>Кластеризация успешно завершена</p>
+                <button>Скачать</button>
 
-                    <li>
-                        <p>Общее количество запросов: </p>
+                <p>Общее количество запросов: </p>
 
-                    </li>
-
-                    <li>
-                        <p>Количество кластеризованных запросов:</p>
-                    </li>
-                </ul>
+                <p>Количество кластеризованных запросов:</p>
+                
             </section>
 
             <section className={Styles.allClaster}>
