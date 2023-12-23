@@ -17,7 +17,7 @@ const ClasteringReport = () => {
 
             <section className={Styles.start}>
                 <div className={Styles.input}>
-                    <p className={Styles.inputHead}>
+                    <p className={Styles.Head}>
                         Список запросов
                     </p>
 
@@ -50,12 +50,15 @@ const ClasteringReport = () => {
             </section>
 
             <section className={Styles.result}>
-                <p>
+                <p className={Styles.Head}>
                     Результат:
                 </p>
-
-                <p>Кластеризация успешно завершена</p>
-                <button>Скачать</button>
+                
+                <div>
+                    <p>Кластеризация успешно завершена</p>
+                    <button>Скачать</button>
+                </div>
+                
 
                 <p>Общее количество запросов: </p>
 
@@ -64,7 +67,7 @@ const ClasteringReport = () => {
             </section>
 
             <section className={Styles.allClaster}>
-                <p>
+                <p className={Styles.Head}>
                     Последние кластеризации
                 </p>
 
