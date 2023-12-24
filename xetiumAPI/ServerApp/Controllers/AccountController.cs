@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using Medo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.ServerApp.Interfaces;
@@ -16,6 +17,14 @@ namespace xetiumAPI.ServerApp.Controllers
         public AccountController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
+        }
+        
+        
+        [HttpGet]
+        [Authorize]
+        public IActionResult CheckAuth()
+        {
+            return Ok();
         }
         
         [HttpPost("register")]
