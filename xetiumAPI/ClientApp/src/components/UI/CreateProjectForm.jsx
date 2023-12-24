@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import CreateProject from "./CreateProject";
-import {UserProjectsContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 
 const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
@@ -8,6 +8,7 @@ const CreateProjectForm = ({modal, setModal}) => {
     const [projectDescription, setProjectDescription] = useState("")
     const [nameIsCorrect, setNameIsCorrect] = useState(true)
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
+    const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
 
     const sendProjectData = async (e) => {
         e.preventDefault()
@@ -34,12 +35,13 @@ const CreateProjectForm = ({modal, setModal}) => {
 
         const resp = await fetch("/project/create", params)
 
-        if(resp.ok) {
+        //if(resp.ok) {
             setNameIsCorrect(true)
-            const newProject = {name: projectName, description: projectDescription, ref: url, date: Date.now()}
+            const newProject = {name: projectName, description: projectDescription, url: url, date: Date.now()}
+            setCurrentProject(newProject)
             setUserProjects([...userProjects, newProject])
             setModal(false)
-        }
+        //}
     }
 
     return (
