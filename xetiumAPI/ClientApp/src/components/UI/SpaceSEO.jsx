@@ -62,9 +62,9 @@ const SpaceSEO = () => {
                 <div>
                     <p className={Styles.h}>Добавление ключевых слов</p>
 
-                    <input value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
+                    <textarea value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
                     <br/>
-                    <label form="keyWords">Вводите запросы через запятую! До и после запятой не ставьте пробел.</label>
+                    <label form="keyWords">Каждый запрос с новой строки!</label>
                     <br/>
                     <button
                         className={Styles.sendKey}
