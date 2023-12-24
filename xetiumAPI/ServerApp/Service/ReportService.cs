@@ -22,19 +22,19 @@ namespace xetiumAPI.ServerApp.Service
         public async Task<FileStream> GetReportAsync(ReportInfoDto reportInfo, Guid userID)
         {
             var projects = await _projectRepository.GetAllUserProjectAsync(userID);
-            var sheetName = new Uuid7().ToString();
+            var fileName = new Uuid7().ToString();
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (var package = new ExcelPackage())
             {
-                await CreateAndFillSheetAsync(projects, sheetName, package);
+                await CreateAndFillSheetAsync(projects, fileName, package, reportInfo);
             }
 
-            var fs = File.Open($"{Directory.GetCurrentDirectory()}{sheetName}.xlsx", FileMode.Open);
+            var fs = File.Open($"{Directory.GetCurrentDirectory()}{fileName}.xlsx", FileMode.Open);
             return await Task.FromResult(fs);
         }
 
-        private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string sheetName, ExcelPackage package)
+        private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string fileName, ExcelPackage package, ReportInfoDto reportInfo)
         {
             ExcelWorksheet sheet = package.Workbook.Worksheets.Add("report");
             sheet.Cells[2, 1].Value = "Ключевые фразы";
@@ -42,18 +42,19 @@ namespace xetiumAPI.ServerApp.Service
             var column = 2;
             foreach (var project in projects)
             {
-                foreach (var search in project.Searches)
+                foreach (var search in project.Searches.Where(search => search.Date > reportInfo.FirstDate && search.Date < reportInfo.LastDate))
                 {
                     FillSheet(sheet, row, column, search);
                 }
                 column += 2;
             }
-            await package.SaveAsAsync(new FileInfo($"{Directory.GetCurrentDirectory()}{sheetName}.xlsx"));
+            await package.SaveAsAsync(new FileInfo($"{Directory.GetCurrentDirectory()}{fileName}.xlsx"));
         }
 
         private static void FillSheet(ExcelWorksheet sheet, int row, int column, SearchDal search)
         {
-            SetHeaders(sheet, column);
+            
+            SetHeaders(sheet, column, search);
 
             foreach (var result in search.KeywordResults)
             {
@@ -69,9 +70,9 @@ namespace xetiumAPI.ServerApp.Service
             }
         }
 
-        private static void SetHeaders(ExcelWorksheet sheet, int column)
+        private static void SetHeaders(ExcelWorksheet sheet, int column, SearchDal search)
         {
-            sheet.Cells[1, column].Value = DateTime.Now.ToString();
+            sheet.Cells[1, column].Value = search.Date;
             sheet.Cells[2, column].Value = "Yandex";
             sheet.Cells[2, column + 1].Value = "Google";
         }
@@ -106,6 +107,4 @@ namespace xetiumAPI.ServerApp.Service
             SetPosition(sheet, row, column, result);
         }
     }
-
-
 }

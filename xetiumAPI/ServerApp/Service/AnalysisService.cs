@@ -31,10 +31,10 @@ public class AnalysisService : IAnalysisService
         _projectRepository = projectRepository;
     }
 
-    public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client, Guid userId)
+    public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client)
     {
         var statics = new Dictionary<string, int>();
-        var project = await _projectRepository.GetProjectByIdAsync(userId);
+        var project = await _projectRepository.GetProjectByIdAsync(model.ProjId);
         if (project is null)
         {
             throw new KeyNotFoundException("Project doesn't found");

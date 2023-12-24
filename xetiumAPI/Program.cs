@@ -10,6 +10,7 @@ using xetiumAPI.ServerApp.Dal.Models.Repository;
 using xetiumAPI.ServerApp.Interfaces;
 using xetiumAPI.ServerApp.Service;
 using xetiumAPI.Interfaces;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -92,6 +93,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.MapControllers();
+
 
 app.MapFallbackToFile("index.html");
 

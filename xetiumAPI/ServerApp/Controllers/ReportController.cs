@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using xetiumAPI.Models;
@@ -9,6 +10,7 @@ namespace xetiumAPI.ServerApp.Controllers;
 
 [Route("report")]
 [ApiController]
+[Authorize]
 public class ReportController : Controller
 {
     IReportService _reportService;

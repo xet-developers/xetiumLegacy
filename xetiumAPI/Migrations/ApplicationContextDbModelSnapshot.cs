@@ -152,7 +152,7 @@ namespace xetiumAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.KeywordDal", b =>
                 {
                     b.Property<Guid>("KeywordID")
                         .ValueGeneratedOnAdd()
@@ -170,7 +170,7 @@ namespace xetiumAPI.Migrations
                     b.ToTable("keyword");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordResultDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.KeywordResultDal", b =>
                 {
                     b.Property<Guid>("SearchID")
                         .HasColumnType("uuid")
@@ -193,7 +193,7 @@ namespace xetiumAPI.Migrations
                     b.ToTable("keywordresult");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.ProjectDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.ProjectDal", b =>
                 {
                     b.Property<Guid>("ProjID")
                         .ValueGeneratedOnAdd()
@@ -229,7 +229,7 @@ namespace xetiumAPI.Migrations
                     b.ToTable("project");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.SearchDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.SearchDal", b =>
                 {
                     b.Property<Guid>("SearchID")
                         .ValueGeneratedOnAdd()
@@ -257,7 +257,7 @@ namespace xetiumAPI.Migrations
                     b.ToTable("search");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.UserDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.UserDal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -339,7 +339,7 @@ namespace xetiumAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", null)
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.UserDal", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +363,7 @@ namespace xetiumAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", null)
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.UserDal", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,22 +372,22 @@ namespace xetiumAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", null)
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.UserDal", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordResultDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.KeywordResultDal", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.KeywordDal", "Keyword")
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.KeywordDal", "Keyword")
                         .WithMany("KeywordResults")
                         .HasForeignKey("KeywordID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("xetiumAPI.ServerApp.Dal.SearchDal", "SearchDal")
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.SearchDal", "SearchDal")
                         .WithMany("KeywordResults")
                         .HasForeignKey("SearchID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -398,9 +398,9 @@ namespace xetiumAPI.Migrations
                     b.Navigation("SearchDal");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.ProjectDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.ProjectDal", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.UserDal", "User")
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.UserDal", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,9 +409,9 @@ namespace xetiumAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.SearchDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.SearchDal", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.ProjectDal", "Project")
+                    b.HasOne("xetiumAPI.ServerApp.Dal.Models.ProjectDal", "Project")
                         .WithMany("Searches")
                         .HasForeignKey("ProjID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,22 +420,22 @@ namespace xetiumAPI.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.KeywordDal", b =>
                 {
                     b.Navigation("KeywordResults");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.ProjectDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.ProjectDal", b =>
                 {
                     b.Navigation("Searches");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.SearchDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.SearchDal", b =>
                 {
                     b.Navigation("KeywordResults");
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.UserDal", b =>
+            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.Models.UserDal", b =>
                 {
                     b.Navigation("Projects");
                 });

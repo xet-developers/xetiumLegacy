@@ -26,11 +26,9 @@ namespace xetiumAPI.ServerApp.Controllers
             {
                 return BadRequest("invalid search system");
             }
-            var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
-            var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
-            
-            var positionResult = await _analysisService.GetPositionAsync(site, _client, userID);
-            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new {site.SearchSystem, positionResult }));
+
+            var positionResult = await _analysisService.GetPositionAsync(site, _client);
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new {site.SearchSystem, positionResult}));
         }
     }
 }

@@ -22,8 +22,10 @@ public class ProjectRepository: IProjectRepository
     {
         var dbSet = _applicationContextDb.ProjectDbSet;
         var projects = await dbSet
-            .Where(p => p.ProjID == id)
+            .Where(p => p.UserID == id)
             .Include(projectDal => projectDal.Searches)
+            .ThenInclude(searchDal => searchDal.KeywordResults)
+            .ThenInclude(keywordResultDal => keywordResultDal.Keyword)
             .ToListAsync();
         
         return projects;
