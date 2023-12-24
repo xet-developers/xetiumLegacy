@@ -14,10 +14,13 @@ const MyProject = ({setModal}) => {
             <div className={Styles.empty}/>
             <ul className={Styles.list}>
                 {userProjects.map(project =>
-                    <li key={project.name} className={Styles.listItem}>
+                    <li key={project.id} className={Styles.listItem}>
                         <img src={dot} alt={""}/>
-                        <Link to={project.name} onClick = {() => setCurrentProject(project)}>
-                            <span>{project.name}</span>
+                        <Link to={project.name} >
+                            <span onClick = {() => {
+                                localStorage.setItem("CurrentProject", JSON.stringify(project))
+                                setCurrentProject(project)
+                            }}>{project.name}</span>
                         </Link>
                     </li>)}
 

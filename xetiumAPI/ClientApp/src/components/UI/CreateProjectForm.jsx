@@ -37,11 +37,9 @@ const CreateProjectForm = ({modal, setModal}) => {
 
         if(resp.ok) {
             setNameIsCorrect(true)
-            res.date =  Date.now();
             const newProject = res;
             setCurrentProject(newProject)
             setUserProjects([...userProjects, newProject])
-            localStorage.setItem("UserProjects", userProjects)
             setModal(false)
         }
     }

@@ -9,8 +9,9 @@ const API = '';
 
 const SpaceSEO = () => {
     const [inputValue, setInputValue] = useState('');
+    const [firstSearchSystem, setFirstSearchSystem] = useState(false)
+    const [secondSearchSystem, setSecondSearchSystem] = useState(false)
     const [usersReq, setUsersReq] = useState([]);
-    const [response, setResponse] = useState({})
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
 
     const zatichka = {
@@ -47,6 +48,10 @@ const SpaceSEO = () => {
                     <br/>
                     <label form="keyWords">Каждый запрос с новой строки!</label>
                     <br/>
+
+                    <input type="checkbox" onClick={()=>setFirstSearchSystem(!firstSearchSystem)}/>
+                    <input type="checkbox" onClick={()=>setSecondSearchSystem(!secondSearchSystem)}/>
+
                     <button
                         className={Styles.sendKey}
                         disabled={inputValue.length === 0}
@@ -54,30 +59,36 @@ const SpaceSEO = () => {
                         onClick={async () => {
                             const keyWordsArray = inputValue.trim().split(', ')
                             const res = {
-                                projid: 1,
+                                projid: currentProject.id,
                                 uri: currentProject.url,
                                 keywords: keyWordsArray,
                                 top: 100,
-                                searchsystem: 0
                             }
-                            console.log(res)
-                            const params = {
-                                method: 'POST',
-                                headers: {
-                                    'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-                                    'Content-Type': "application/problem+json; charset=utf-8"
-                                },
-                                body: JSON.stringify(res)
-                            };
 
-                            const resp = await fetch("abc", params)
-                                .catch()
-                            const respJson = await resp.json();
+                            const fetchData = async (searchSystem, res) => {
+                                res.searchSystem = searchSystem;
+                                console.log(res)
+                                const params = {
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+                                        'Content-Type': "application/problem+json; charset=utf-8"
+                                    },
+                                    body: JSON.stringify(res)
+                                };
+                                return await fetch('/abc', params)
+                                    .then((res) => res.json())
+                                    .then(respJson => addResp(respJson))
+                                    .catch(() => addResp(zatichka));
+                            }
 
-                            if (resp.ok) {
-                                addResp(respJson)
-                            } else {
-                                addResp(zatichka)
+                            const requests = [];
+                            if (firstSearchSystem) {
+                                requests.push(fetchData(0, res));
+                            }
+
+                            if (secondSearchSystem) {
+                                requests.push(fetchData(1, res));
                             }
                         }}>
                         Отправить

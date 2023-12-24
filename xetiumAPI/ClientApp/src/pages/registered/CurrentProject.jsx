@@ -1,6 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
+
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 
 const CurrentProject = () => {
@@ -11,34 +12,44 @@ const CurrentProject = () => {
     const request = async () => {
         const params = {
             method: "GET",
-            headers:{
+            headers: {
                 "Authorization": 'Bearer ' + localStorage.getItem("jwt")
             }
         }
 
         const resp = await fetch("/project", params)
 
-        if(resp.ok){
+        if (resp.ok) {
             const res = await resp.json()
             console.log(res)
             setUserProjects(res)
+            localStorage.setItem("UserProjects", JSON.stringify(res))
+            return true
         }
 
-        if(localStorage){
-
+        if (localStorage.getItem("UserProjects")) {
+            setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
+            return true
         }
+
+        return false
     }
 
-    useEffect(request(), [CurrentProject])
-
-
-    if (userProjects.length === 0) {
+    if (userProjects.length === 0 && !request()) {
         return (
             <Tutorial modal={modal} setModal={setModal}/>
         )
     }
 
-    const date = new Date(currentProject.date)
+    function getDateFromUuid7(uuid) {
+        console.log(uuid)
+        let num = parseInt(uuid.replace(/-/g, ""), 16);
+        let timestamp = num / Math.pow(2, 60) * 1000;
+        console.log(timestamp)
+        return new Date(timestamp);
+    }
+
+    const date = new Date(currentProject.id);
 
     return (
         <div>
