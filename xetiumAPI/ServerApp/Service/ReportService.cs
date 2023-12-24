@@ -14,7 +14,8 @@ namespace xetiumAPI.ServerApp.Service
     public class ReportService : IReportService
     {
         private IProjectRepository _projectRepository;
-        public ReportService(IProjectRepository projectRepository) 
+
+        public ReportService(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
         }
@@ -33,8 +34,9 @@ namespace xetiumAPI.ServerApp.Service
             var fs = File.Open($"{Directory.GetCurrentDirectory()}{fileName}.xlsx", FileMode.Open);
             return await Task.FromResult(fs);
         }
-       
-        private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string fileName, ExcelPackage package, ReportInfoDto reportInfo)
+
+        private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string fileName,
+            ExcelPackage package, ReportInfoDto reportInfo)
         {
             ExcelWorksheet sheet = package.Workbook.Worksheets.Add("report");
             sheet.Cells[2, 1].Value = "Ключевые фразы";
@@ -44,56 +46,55 @@ namespace xetiumAPI.ServerApp.Service
             {
                 foreach (var search in project.Searches)
                 {
-                        FillSheet(sheet, row, column, search);
-                }
+                    sheet.Cells[1, column].Value = search.Date.ToString();
+                    sheet.Cells[2, column].Value = "Yandex";
+                    sheet.Cells[2, column + 1].Value = "Google";
 
-                column += 2;
-            }
-            await package.SaveAsAsync(new FileInfo($"{Directory.GetCurrentDirectory()}{fileName}.xlsx"));
-        }
-
-        private static void FillSheet(ExcelWorksheet sheet, int row, int column, SearchDal search)
-        {
-            sheet.Cells[1, column].Value = search.Date.ToString();
-            sheet.Cells[2, column].Value = "Yandex";
-            sheet.Cells[2, column + 1].Value = "Google";
-
-            foreach (var result in search.KeywordResults)
-            {
-                var flag = false;
-                for (var i = 1; i < row; i++)
-                {
-                    if (sheet.Cells[i, 1].Value == result.Keyword.Text)
+                    foreach (var result in search.KeywordResults)
                     {
+                        var flag = false;
+                        for (var i = 1; i < row; i++)
+                        {
+                            if (sheet.Cells[i, 1].Value == result.Keyword.Text)
+                            {
+                                if (result.SearchDal.Type == "Yandex")
+                                {
+                                    sheet.Cells[i, column].Value = result.Position;
+                                }
+
+                                if (result.SearchDal.Type == "Google")
+                                {
+                                    sheet.Cells[i, column + 1].Value = result.Position;
+                                }
+
+                                flag = true;
+                            }
+                        }
+
+                        if (flag)
+                        {
+                            continue;
+                        }
+
+                        sheet.Cells[row, 1].Value = result.Keyword.Text;
+
                         if (result.SearchDal.Type == "Yandex")
                         {
-                            sheet.Cells[i, column].Value = result.Position;
+                            sheet.Cells[row, column].Value = result.Position;
                         }
 
                         if (result.SearchDal.Type == "Google")
                         {
-                            sheet.Cells[i, column + 1].Value = result.Position;
+                            sheet.Cells[row, column + 1].Value = result.Position;
                         }
-                        flag = true;
                     }
-                }
-                if (flag)
-                {
-                    continue;
+
+                    column += 2;
                 }
 
-                sheet.Cells[row, 1].Value = result.Keyword.Text;
-
-                if (result.SearchDal.Type == "Yandex")
-                {
-                    sheet.Cells[row, column].Value = result.Position;
-                }
-
-                if (result.SearchDal.Type == "Google")
-                {
-                    sheet.Cells[row, column + 1].Value = result.Position;
-                }
+                await package.SaveAsAsync(new FileInfo($"{Directory.GetCurrentDirectory()}{fileName}.xlsx"));
             }
+
         }
     }
 }
