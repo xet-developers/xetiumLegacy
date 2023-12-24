@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import Styles from "../../styles/searchPosition.module.css";
 import Arrow from "../../images/arrowSeo.svg";
 import Line from "../../images/line.svg";
-import axios from "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js";
 import {UserData} from './UserData';
 import {CurrentProjectContext} from "../../contex/CurrentProject";
 
@@ -30,24 +29,6 @@ const SpaceSEO = () => {
         setUsersReq(usersReq.concat(positionResult))
     }
 
-    // const fetchUsers = async (url) => {
-    //     try {
-    //         const res = await fetch(url);
-    //         const data = await res.json();
-    //         if (data.length > 0) {
-    //             setUsers(data)
-    //         }
-    //         console.log(data);
-    //
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     fetchUsers(API)
-    // }, [])
-
     return (
         <div>
             <section className={Styles.header}>
@@ -74,7 +55,7 @@ const SpaceSEO = () => {
                             const keyWordsArray = inputValue.trim().split(', ')
                             const res = {
                                 projid: 1,
-                                uri: "https://github.com",
+                                uri: currentProject.url,
                                 keywords: keyWordsArray,
                                 top: 100,
                                 searchsystem: 0
@@ -83,6 +64,7 @@ const SpaceSEO = () => {
                             const params = {
                                 method: 'POST',
                                 headers: {
+                                    'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
                                     'Content-Type': "application/problem+json; charset=utf-8"
                                 },
                                 body: JSON.stringify(res)
@@ -97,29 +79,7 @@ const SpaceSEO = () => {
                             } else {
                                 addResp(zatichka)
                             }
-                        }}
-                        // {
-                        //     try {
-                        //         const keyWordsArray = inputValue.trim().split(',');
-                        //         console.log(keyWordsArray);
-                        //         await axios({
-                        //             url: "abc",
-                        //             headers: {
-                        //                 'Content-Type': "application/problem+json; charset=utf-8"
-                        //             },
-                        //             params: {
-                        //                 field: keyWordsArray
-                        //             },
-                        //             method: "POST",
-                        //             data: null
-                        //         }).then(({ data }) => {
-                        //             return data;
-                        //         });
-                        //     } catch (error) {
-                        //         console.log(error);
-                        //     }
-                        // }}
-                    >
+                        }}>
                         Отправить
                     </button>
 

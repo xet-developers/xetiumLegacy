@@ -5,12 +5,14 @@ using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp.Extentions;
 using xetiumAPI.ServerApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace xetiumAPI.ServerApp.Controllers;
 
 
 [Route("project")]
 [ApiController]
+[Authorize]
 public class ProjectController: Controller
 {
     private IProjectService _projectService;

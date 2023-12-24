@@ -9,6 +9,8 @@ const context = [
   "/account/login",
   "/cl",
   "/project/create",
+  "/project",
+  "/report",
   "/abc"
 ];
 

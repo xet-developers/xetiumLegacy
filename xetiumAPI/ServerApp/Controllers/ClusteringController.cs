@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.Interfaces;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace xetiumAPI.ServerApp.Controllers;
 
 [Route("cl")]
 [ApiController]
+[Authorize]
 public class ClusteringController: Controller
 {
     private IClusteringService _clusteringService;

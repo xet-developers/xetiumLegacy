@@ -27,7 +27,7 @@ const CreateProjectForm = ({modal, setModal}) => {
         const params = {
             method: 'POST',
             headers: {
-                'Authorisation': 'Bearer' + localStorage.getItem("jwt"),
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
                 'Content-Type': "application/problem+json; charset=utf-8"
             },
             body: JSON.stringify(res)
@@ -35,13 +35,15 @@ const CreateProjectForm = ({modal, setModal}) => {
 
         const resp = await fetch("/project/create", params)
 
-        //if(resp.ok) {
+        if(resp.ok) {
             setNameIsCorrect(true)
-            const newProject = {name: projectName, description: projectDescription, url: url, date: Date.now()}
+            res.date =  Date.now();
+            const newProject = res;
             setCurrentProject(newProject)
             setUserProjects([...userProjects, newProject])
+            localStorage.setItem("UserProjects", userProjects)
             setModal(false)
-        //}
+        }
     }
 
     return (

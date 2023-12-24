@@ -1,12 +1,36 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 
 const CurrentProject = () => {
-    const {userProjects, setProjects} = useContext(UserProjectsContext)
+    const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
     const [modal, setModal] = useState(false);
+
+    const request = async () => {
+        const params = {
+            method: "GET",
+            headers:{
+                "Authorization": 'Bearer ' + localStorage.getItem("jwt")
+            }
+        }
+
+        const resp = await fetch("/project", params)
+
+        if(resp.ok){
+            const res = await resp.json()
+            console.log(res)
+            setUserProjects(res)
+        }
+
+        if(localStorage){
+
+        }
+    }
+
+    useEffect(request(), [CurrentProject])
+
 
     if (userProjects.length === 0) {
         return (
