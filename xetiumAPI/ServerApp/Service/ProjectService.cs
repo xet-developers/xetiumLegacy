@@ -50,6 +50,7 @@ public class ProjectService: IProjectService
         var allProjects = projects
             .Select(p => new ProjectDto()
             {
+                Id = p.ProjID,
                 Name = p.Name,
                 Url = p.URL,
                 Description = p.Description,
