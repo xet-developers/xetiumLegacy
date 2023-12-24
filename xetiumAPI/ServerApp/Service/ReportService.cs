@@ -87,6 +87,7 @@ namespace xetiumAPI.ServerApp.Service
                         {
                             sheet.Cells[row, column + 1].Value = result.Position;
                         }
+                        row++;
                     }
 
                     column += 2;

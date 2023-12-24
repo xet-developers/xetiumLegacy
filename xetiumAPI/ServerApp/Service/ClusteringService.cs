@@ -1,4 +1,6 @@
 using System.Text;
+using Medo;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using xetiumAPI.Interfaces;
@@ -16,7 +18,7 @@ public class ClusteringService : IClusteringService
     {
         _httpClient = httpClient;
     }
-    public async Task<string> GetClusterQueriesUsingAiAsync(string querie)         
+    public async Task<FileStream> GetClusterQueriesUsingAiAsync(string query)         
     {
            _httpClient.DefaultRequestHeaders.Add("x-folder-id", FolderId);
            _httpClient.DefaultRequestHeaders.Add("Authorization", ApiKey);
@@ -34,7 +36,7 @@ public class ClusteringService : IClusteringService
                messages = new object[]
                {
                     new { role = "system", text = "Твоя роль заключается в том, что ты кластеризируешь поисковые запросы по интенту, надо определить интент поисковых запросов из списка и разбить их по категориям: коммерческий(Коммерческий интент: запросы, которые выражают желание пользователя купить что-то или сравнить цены, характеристики, отзывы и т.д. ), информационный(Информационный интент: запросы, которые выражают потребность пользователя в получении информации о чем-то или узнать ответ на вопрос.), навигационный(Навигационный интент: запросы, которые выражают намерение пользователя перейти на определенный сайт или страницу.),транзакционный(Транзакционный интент: запросы, которые выражают желание пользователя выполнить какое-то действие на сайте или в приложении) и если запрос не подходит ни под одну категорию, вывести его отдельно с заголовком “Не получилось разбить”. Есть определенные правила  СВОИ КОМЕНТАРИИ ПИСАТЬ ЗАПРЕЩЕНО, СВОИ СЛОВА ПРИДУМЫВАТЬ ЗАПРЕЩЕНО.  Не изменять слова в запросах, НЕ ДОБАВЛЯЙ СВОИ КЛЮЧЕВЫЕ ФРАЗЫ, СВОИ КОМЕНТАРИИ В ОТВЕТ НЕ ВСТАВЛЯЙ ." },
-                    new { role = "user", text = $"Ключевые фраза которые нужна рассмотреть: {querie}" }
+                    new { role = "user", text = $"Ключевые фраза которые нужна рассмотреть: {query}" }
                }
            };
 
@@ -66,8 +68,14 @@ public class ClusteringService : IClusteringService
                    await Task.Delay(1000);
                }
            });
+        var textFileName = new Uuid7().ToString();
 
-           var text = operationResponse["response"]["alternatives"][0]["message"]["text"].ToString();
-           return text;
+        using (StreamWriter sw = new StreamWriter($"{Directory.GetCurrentDirectory()}{textFileName}.txt", true))
+        {
+            sw.WriteLine(operationResponse["response"]["alternatives"][0]["message"]["text"].ToString());
+        }
+
+        var fs = File.Open($"{Directory.GetCurrentDirectory()}{textFileName}.txt", FileMode.Open);
+        return await Task.FromResult(fs);
     }
 }

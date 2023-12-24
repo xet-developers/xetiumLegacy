@@ -20,9 +20,13 @@ public class ClusteringController: Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult> GetClustering([FromBody] ClusteringData clusteringData)
+    public async Task<FileStreamResult> GetClustering([FromBody] ClusteringData clusteringData)
     {
         var clustering = await _clusteringService.GetClusterQueriesUsingAiAsync(clusteringData.query);
-        return Ok(clustering);
+
+        return new FileStreamResult(clustering, "text/plain")
+        {
+            FileDownloadName = "Clustering.txt"
+        };
     }
 }
