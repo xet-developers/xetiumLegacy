@@ -20,13 +20,16 @@ public class ReportController : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult> GetReport([FromBody] ReportInfoDto reportDto)
+    public async Task<FileStreamResult> GetReport([FromBody] ReportInfoDto reportDto)
     {
         var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
         var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
 
-        var rep = _reportService.GetReportAsync(reportDto, userID);
+        var rep = await _reportService.GetReportAsync(reportDto, userID);
 
-        return Ok(rep);
+        return new FileStreamResult(rep, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        {
+            FileDownloadName = "Report.xlsx"
+        };
     }
 }

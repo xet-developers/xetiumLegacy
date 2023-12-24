@@ -33,7 +33,7 @@ namespace xetiumAPI.ServerApp.Service
             var fs = File.Open($"{Directory.GetCurrentDirectory()}{fileName}.xlsx", FileMode.Open);
             return await Task.FromResult(fs);
         }
-
+       
         private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string fileName, ExcelPackage package, ReportInfoDto reportInfo)
         {
             ExcelWorksheet sheet = package.Workbook.Worksheets.Add("report");
@@ -42,10 +42,11 @@ namespace xetiumAPI.ServerApp.Service
             var column = 2;
             foreach (var project in projects)
             {
-                foreach (var search in project.Searches.Where(search => search.Date > reportInfo.FirstDate && search.Date < reportInfo.LastDate))
+                foreach (var search in project.Searches)
                 {
-                    FillSheet(sheet, row, column, search);
+                        FillSheet(sheet, row, column, search);
                 }
+
                 column += 2;
             }
             await package.SaveAsAsync(new FileInfo($"{Directory.GetCurrentDirectory()}{fileName}.xlsx"));
@@ -53,58 +54,46 @@ namespace xetiumAPI.ServerApp.Service
 
         private static void FillSheet(ExcelWorksheet sheet, int row, int column, SearchDal search)
         {
-            
-            SetHeaders(sheet, column, search);
+            sheet.Cells[1, column].Value = search.Date.ToString();
+            sheet.Cells[2, column].Value = "Yandex";
+            sheet.Cells[2, column + 1].Value = "Google";
 
             foreach (var result in search.KeywordResults)
             {
-                var existingRow = FindExistingRow(sheet, row, result.Keyword.Text);
-                if (existingRow > 0)
+                var flag = false;
+                for (var i = 1; i < row; i++)
                 {
-                    SetPosition(sheet, existingRow, column, result);
+                    if (sheet.Cells[i, 1].Value == result.Keyword.Text)
+                    {
+                        if (result.SearchDal.Type == "Yandex")
+                        {
+                            sheet.Cells[i, column].Value = result.Position;
+                        }
+
+                        if (result.SearchDal.Type == "Google")
+                        {
+                            sheet.Cells[i, column + 1].Value = result.Position;
+                        }
+                        flag = true;
+                    }
                 }
-                else
+                if (flag)
                 {
-                    AddNewKeywordResult(sheet, row, column, result);
+                    continue;
                 }
-            }
-        }
 
-        private static void SetHeaders(ExcelWorksheet sheet, int column, SearchDal search)
-        {
-            sheet.Cells[1, column].Value = search.Date;
-            sheet.Cells[2, column].Value = "Yandex";
-            sheet.Cells[2, column + 1].Value = "Google";
-        }
+                sheet.Cells[row, 1].Value = result.Keyword.Text;
 
-        private static int FindExistingRow(ExcelWorksheet sheet, int row, string keyword)
-        {
-            for (var i = 1; i < row; i++)
-            {
-                if (sheet.Cells[i, 1].Value == keyword)
+                if (result.SearchDal.Type == "Yandex")
                 {
-                    return i;
+                    sheet.Cells[row, column].Value = result.Position;
+                }
+
+                if (result.SearchDal.Type == "Google")
+                {
+                    sheet.Cells[row, column + 1].Value = result.Position;
                 }
             }
-            return -1;
-        }
-
-        private static void SetPosition(ExcelWorksheet sheet, int row, int column, KeywordResultDal result)
-        {
-            if (result.SearchDal.Type == "Yandex")
-            {
-                sheet.Cells[row, column].Value = result.Position;
-            }
-            else if (result.SearchDal.Type == "Google")
-            {
-                sheet.Cells[row, column + 1].Value = result.Position;
-            }
-        }
-
-        private static void AddNewKeywordResult(ExcelWorksheet sheet, int row, int column, KeywordResultDal result)
-        {
-            sheet.Cells[row, 1].Value = result.Keyword.Text;
-            SetPosition(sheet, row, column, result);
         }
     }
 }
