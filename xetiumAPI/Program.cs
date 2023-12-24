@@ -61,11 +61,6 @@ builder.Services.AddAuthorization(options =>
     //  });
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(opt =>
-    {
-        opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
 builder.Services.AddScoped<UserManager<UserDal>>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

@@ -49,12 +49,25 @@ public class ProjectService: IProjectService
         var projects = await _projectRepository.GetAllUserProjectAsync(userId);
         var allProjects = projects
             .Select(p => new ProjectDto()
-        {
-            Name = p.Name,
-            Url = p.URL,
-            Description = p.Description,
-            Searches = p.Searches
-        }).ToList();
+            {
+                Name = p.Name,
+                Url = p.URL,
+                Description = p.Description,
+                Searches = p.Searches.Select(s => new SearchesDto()
+                {
+                    Date = s.Date,
+                    Type = s.Type,
+                    KeywordResults = s.KeywordResults.Select(kr => new KeywordResultDto()
+                    {
+                        Position = kr.Position,
+                        Keyword = new KeywordDto()
+                        {
+                            Text = kr.Keyword.Text
+                        }
+                    }).ToList()
+                }).ToList()
+            }).ToList();
+
         
         return allProjects;
     }
