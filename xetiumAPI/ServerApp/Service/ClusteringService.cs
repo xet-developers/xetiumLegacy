@@ -3,6 +3,7 @@ using Medo;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Polly;
 using xetiumAPI.Interfaces;
 using xetiumAPI.ServerApp.Interfaces;
 
@@ -49,33 +50,36 @@ public class ClusteringService : IClusteringService
 
            var jsonData = JObject.Parse(responseBody);
            var operationId = jsonData["id"]?.ToString();
+            
+           var retryPolicy = Policy<JObject>
+               .Handle<Exception>()
+               .OrResult(result => result == null || !result["done"].ToObject<bool>())
+               .WaitAndRetryAsync(30, retryAttempt => TimeSpan.FromSeconds(1));
 
-           var operationResponse = await Task.Run(async () =>
+           var operationResponse = await retryPolicy.ExecuteAsync(async () =>
            {
-               while (true)
-               {
-                   var operationResponse = await _httpClient.GetAsync($"https://llm.api.cloud.yandex.net/operations/{operationId}");
-                   var operationResponseBody = await operationResponse.Content.ReadAsStringAsync();
+               var response = await _httpClient.GetAsync($"https://llm.api.cloud.yandex.net/operations/{operationId}");
+               var responseBody = await response.Content.ReadAsStringAsync();
 
-                   var operationJsonData = JObject.Parse(operationResponseBody);
-                   var done = operationJsonData["done"]!.ToObject<bool>();
+               var jsonData = JObject.Parse(responseBody);
+               var done = jsonData["done"]!.ToObject<bool>();
 
-                   if (done)
-                   {
-                       return operationJsonData;
-                   }
-
-                   await Task.Delay(1000);
-               }
+               return done ? jsonData : null;
            });
-        var textFileName = new Uuid7().ToString();
 
-        using (StreamWriter sw = new StreamWriter($"{Directory.GetCurrentDirectory()}{textFileName}.txt", true))
-        {
-            sw.WriteLine(operationResponse["response"]["alternatives"][0]["message"]["text"].ToString());
-        }
+           if (operationResponse is null)
+           {
+               return null;
+           }
+           
+           var textFileName = new Uuid7().ToString();
 
-        var fs = File.Open($"{Directory.GetCurrentDirectory()}{textFileName}.txt", FileMode.Open);
-        return await Task.FromResult(fs);
+           using (StreamWriter sw = new StreamWriter($"{Directory.GetCurrentDirectory()}{textFileName}.txt", true))
+           {
+               sw.WriteLine(operationResponse["response"]["alternatives"][0]["message"]["text"].ToString());
+           }
+
+           var fs = File.Open($"{Directory.GetCurrentDirectory()}{textFileName}.txt", FileMode.Open);
+           return await Task.FromResult(fs);
     }
 }

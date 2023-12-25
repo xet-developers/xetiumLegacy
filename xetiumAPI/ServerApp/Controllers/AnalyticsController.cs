@@ -28,7 +28,7 @@ namespace xetiumAPI.ServerApp.Controllers
             }
 
             var positionResult = await _analysisService.GetPositionAsync(site, _client);
-            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new {site.SearchSystem, positionResult}));
+            return Ok(positionResult);
         }
     }
 }

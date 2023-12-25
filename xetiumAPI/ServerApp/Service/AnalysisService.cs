@@ -14,8 +14,8 @@ namespace xetiumAPI.ServerApp.Service;
 public class AnalysisService : IAnalysisService
 {
     private const string ApiUrl = "https://yandex.ru/search/xml/";
-    private const string YandexApiKey = "ajent6r8v2odhbmelt2v:AQVN1-m2j4sNiuzq9F8afgvJ2zroGSoIgXY0X4U5";
-    private const string YandexUser = "zasrom";
+    private const string YandexApiKey = "AQVN2WKYnCn8f-vhljFQjlOU1vo-_4AMDfp3JItn";
+    private const string FolderId = "b1gnogno2l3gvm4bj8cg";
 
     private Dictionary<SearchSystem, Func<AnalysisData, HttpClient, string, Task<int>>> _methods;
     private IAnalyticsRepository _analyticsRepository;
@@ -31,9 +31,8 @@ public class AnalysisService : IAnalysisService
         _projectRepository = projectRepository;
     }
 
-    public async Task<Dictionary<string, int>> GetPositionAsync(AnalysisData model, HttpClient client)
+    public async Task<SearchesDto> GetPositionAsync(AnalysisData model, HttpClient client)
     {
-        var statics = new Dictionary<string, int>();
         var project = await _projectRepository.GetProjectByIdAsync(model.ProjId);
         if (project is null)
         {
@@ -49,20 +48,35 @@ public class AnalysisService : IAnalysisService
             Project = project,
             KeywordResults = new List<KeywordResultDal>()
         };
+        var results = await AddSearchResults(model, client, searchDal);
+
+        return results;
+    }
+
+    private async Task<SearchesDto> AddSearchResults(AnalysisData model, HttpClient client, SearchDal searchDal)
+    {
+        var result = new SearchesDto()
+        {
+            KeywordResults = new List<KeywordResultDto>()
+        };
+        if (!_methods.TryGetValue((SearchSystem)model.SearchSystem, out var method))
+        {
+            return null;
+        }
+
+        result.Type = ((SearchSystem)model.SearchSystem).ToString();
+        
         foreach (var keyword in model.Keywords)
         {
-            if (!_methods.TryGetValue((SearchSystem)model.SearchSystem, out var method))
-            {
-                continue;
-            }
 
             var keywordDal = new KeywordDal()
             {
                 KeywordID = new Uuid7().ToGuid(),
                 Text = keyword
             };
-            await Task.Delay(1000);
+            await Task.Delay(3000);
             var position = await method(model, client, keyword);
+
             var keywordResult = new KeywordResultDal
             {
                 Position = position,
@@ -71,10 +85,18 @@ public class AnalysisService : IAnalysisService
                 KeywordID = keywordDal.KeywordID
             };
             await _analyticsRepository.AddSearchInformation(keywordDal, keywordResult);
-            statics.Add(keyword, position);
+
+            result.KeywordResults.Add(new KeywordResultDto()
+            {
+                Keyword = new KeywordDto()
+                {
+                    Text = keyword
+                },
+                Position = position
+            });
         }
 
-        return statics;
+        return result;
     }
 
     //todo написать exception filter
@@ -86,6 +108,11 @@ public class AnalysisService : IAnalysisService
         doc.LoadHtml(htmlContent);
         var searchResults = doc.DocumentNode.SelectNodes("//*[@id=\"main\"]/div/div/div/a/@href");
 
+        if (searchResults is null)
+        {
+            throw new Exception("В данный момент сервис испытывает проблемы, попробуйте позже");
+        }
+        
         var index = 1;
         foreach (var searchResult in searchResults)
         {
@@ -104,7 +131,7 @@ public class AnalysisService : IAnalysisService
         var top = Math.Ceiling((double)model.Top / 10);
         for (var page = 0; page < top; page++)
         {
-            var url = $"{ApiUrl}?user={YandexUser}&apikey={YandexApiKey}&query={model.Keywords}&page={page}";
+            var url = $"{ApiUrl}?folderid={FolderId}&apikey={YandexApiKey}&query={keyword}&page={page}";
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
@@ -118,7 +145,7 @@ public class AnalysisService : IAnalysisService
             foreach (XmlNode urlNode in urls)
             {
                 var urlText = urlNode.InnerText;
-                if (urlText == model.URI)
+                if (urlText.Contains(model.URI))
                 {
                     return index;
                 }
