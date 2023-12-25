@@ -44,7 +44,7 @@ namespace xetiumAPI.ServerApp.Service
             var column = 2;
             foreach (var project in projects)
             {
-                foreach (var search in project.Searches)
+                foreach (var search in project.Searches.Where(search => search.Date >= reportInfo.FirstDate && search.Date <= reportInfo.LastDate))
                 {
                     sheet.Cells[1, column].Value = search.Date.ToString();
                     sheet.Cells[2, column].Value = "Yandex";
