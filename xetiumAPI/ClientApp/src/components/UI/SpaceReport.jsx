@@ -5,7 +5,7 @@ import {ReportData} from './ReportData';
 const SpaceReport = () => {
     const [startData, setStartData] = useState('')
     const [endData, setEndData] = useState('')
-    const [ligkgkg, setLigkgkg] = useState('')
+    const [downloadLink, setDownloadLink] = useState('')
 
     const sendData = async () => {
         const startDataToSend = startData + 'T00:00:00.00Z';
@@ -27,9 +27,7 @@ const SpaceReport = () => {
 
         const response = await fetch('report', params).then(res=> res.blob())
 
-        setLigkgkg(URL.createObjectURL(await response))
-        console.log(URL.createObjectURL(await response))
-        console.log(ligkgkg)
+        setDownloadLink(URL.createObjectURL(await response))
     }
 
     return (
@@ -68,7 +66,7 @@ const SpaceReport = () => {
                 <div className={Styles.downloadOne}>
                     <p>Скачать отчёт можно по ссылке ниже:</p>
                     <button className={Styles.button2}>
-                        <a download='report.xlsx' href={ligkgkg}>
+                        <a download='report.xlsx' href={downloadLink}>
                             Скачать
                         </a>
                     </button>

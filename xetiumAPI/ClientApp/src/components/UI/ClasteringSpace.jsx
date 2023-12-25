@@ -5,7 +5,28 @@ import Line from "../../images/line.svg";
 import Warning from "../../images/warning.png";
 
 const ClasteringReport = () => {
-    
+    const [keywords, setKeywords] = useState('')
+    const [downloadLink, setDownloadLink] = useState('')
+
+    const sendData = async () => {
+
+        const res = {
+            query: keywords
+        }
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+                'Content-Type': "application/problem+json; charset=utf-8"
+            },
+            body: JSON.stringify(res)
+        };
+
+        const response = await fetch('cl', params).then(res => res.blob())
+        setDownloadLink(URL.createObjectURL(await response))
+    }
+
     return (
         <div className={Styles.clastering}>
             <section className={Styles.header}>
@@ -21,7 +42,7 @@ const ClasteringReport = () => {
                         Список запросов
                     </p>
 
-                    <textarea/>
+                    <textarea onChange={e=>setKeywords(e.target.value)}/>
 
                     <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос с новой строки. 
@@ -31,7 +52,7 @@ const ClasteringReport = () => {
                         Прикрепить файл
                     </button>
 
-                    <button className={Styles.inputButton2}>
+                    <button onClick={sendData} className={Styles.inputButton2}>
                         Отправить
                     </button>
                 </div>
@@ -56,7 +77,7 @@ const ClasteringReport = () => {
                 
                 <div>
                     <p>Кластеризация успешно завершена</p>
-                    <button>Скачать</button>
+                    <button><a download='clustering.txt' href={downloadLink}>Скачать</a></button>
                 </div>
                 
 
