@@ -38,6 +38,8 @@ const CreateProjectForm = ({modal, setModal}) => {
         if(resp.ok) {
             setNameIsCorrect(true)
             const newProject = res;
+            const a = await resp.json()
+            newProject.id = a.id;
             setCurrentProject(newProject)
             setUserProjects([...userProjects, newProject])
             setModal(false)

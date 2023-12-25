@@ -1,13 +1,39 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Styles from "../../styles/report.module.css";
-import { ReportData } from './ReportData';
+import {ReportData} from './ReportData';
 
 const SpaceReport = () => {
-    
+    const [startData, setStartData] = useState('')
+    const [endData, setEndData] = useState('')
+    const [downloadLink, setDownloadLink] = useState('')
+
+    const sendData = async () => {
+        const startDataToSend = startData + 'T00:00:00.00Z';
+        const endDataToSend = endData + 'T00:00:00.00Z';
+
+        const res = {
+            FirstDate: startDataToSend,
+            LastDate: endDataToSend
+        }
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+                'Content-Type': "application/problem+json; charset=utf-8"
+            },
+            body: JSON.stringify(res)
+        };
+
+        const response = await fetch('report', params).then(res=> res.blob())
+
+        setDownloadLink(URL.createObjectURL(await response))
+    }
+
     return (
-        <div className={Styles.report}> 
+        <div className={Styles.report}>
             <section className={Styles.formGeneration}>
-                
+
                 <div className={Styles.data}>
                     <div className={Styles.template}>
                         <p>
@@ -23,24 +49,24 @@ const SpaceReport = () => {
                     <div>
                         <p className={Styles.date}>
                             <p>Дата начала интервала:</p>
-                            <input type="date"></input>
+                            <input onChange={e => setStartData(e.target.value)} type="date"></input>
                         </p>
 
                         <p className={Styles.date}>
                             <p>Дата конца интервала:</p>
-                            <input type="date"></input>
+                            <input onChange={e => setEndData(e.target.value)} type="date"></input>
                         </p>
                     </div>
                 </div>
 
-                <button className={Styles.button1}>
+                <button onClick={sendData} className={Styles.button1}>
                     Сгенерировать отчёт
                 </button>
 
                 <div className={Styles.downloadOne}>
                     <p>Скачать отчёт можно по ссылке ниже:</p>
                     <button className={Styles.button2}>
-                        <a href='https://drive.google.com/uc?export=download&id=1hZpaPHKPoiTOR1iZDefWitbBkBOKbomu'>
+                        <a download='report.xlsx' href={downloadLink}>
                             Скачать
                         </a>
                     </button>
@@ -53,16 +79,16 @@ const SpaceReport = () => {
                 </p>
                 <table className={Styles.tableReport}>
                     <thead>
-                        <tr>
-                            <th>Дата</th>
-                            <th>Тип отчёта</th>
-                            <th>Интервал</th>
-                            <th>Ссылка для скачивания</th>
-                        </tr>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Тип отчёта</th>
+                        <th>Интервал</th>
+                        <th>Ссылка для скачивания</th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <ReportData/>
+                    <ReportData/>
                     </tbody>
                 </table>
             </section>
