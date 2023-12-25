@@ -24,7 +24,8 @@
     font-size: 25px;
     font-weight: 500;
     color: #808080;
-    
+    margin-left: 2%;
+    margin-top: 2%;
 }
 
 .input {
@@ -39,9 +40,45 @@
     font-size: 25px;
     font-weight: 500;
     color: #808080;
+    margin-left: 2%;
 }
 
 .table {
+    margin-top: 2%;
+    margin-left: 2%;
+    width: 50%;
+    height: 100vh;
     display: table;
-    
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #808080;
+    width: 800px;
+    height: 200px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: #ffffff;
+    border-spacing: 5px;
+}
+
+th {
+    background-color: rgb(255, 85, 85);
+    font-weight: 300;
+}
+
+td {
+    text-align: center;
+}
+
+.keyWordColumn {
+    width: 300px;
+    height: 40px;
+}
+
+.inputKey {
+    margin-left: 2%;
+    width: 800px;
+    height: 300px;
+}
+
+.description {
+    margin-left: 2%;
 }
