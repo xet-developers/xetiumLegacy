@@ -11,12 +11,42 @@
 .CreateProjectContent {
     padding: 25px;
     background: white;
-    border-radius: 16px;
+    border-radius: 25px;
     min-width: 250px;
+    min-height: 250px;
 }
 
 .CreateProject.active {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.formCreate {
+    font-family: 'Montserrat Alternates', sans-serif;;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    font-size: 20px;
+}
+
+input {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 12px;
+    width: 250px;
+}
+
+.buttonCreate {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 15px;
+    width: 200px;
+    border-radius: 20px;
+    border-color: rgb(135, 163, 255);
+    height: 35px;
 }

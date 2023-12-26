@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import CreateProject from "./CreateProject";
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import Styles from "../../styles/CreateProject.module.css";
 
 const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
@@ -48,19 +49,23 @@ const CreateProjectForm = ({modal, setModal}) => {
 
     return (
         <CreateProject visible={modal} setVisible={setModal}>
-            <form>
-                <input placeholder="Название проекта" type="text" onChange={event => setProjectName(event.target.value)}
-                       required/>
+            <form className={Styles.formCreate}>
+                <p className={Styles.header}>
+                    Мой проект
+                </p>
 
-                <input placeholder="Cсылка" type="text" onChange=
+                <input placeholder="Введите название проекта" type="text" onChange={event => setProjectName(event.target.value)}
+                    required/>
+
+                <input placeholder="Вставьте ссылку на ваш сайт" type="text" onChange=
                     {event => setUrl(event.target.value)} required/>
 
-                <input placeholder="Описание" onChange={event => setProjectDescription(event.target.value)}
-                       required/>
+                <input placeholder="Заполните описание проекта" onChange={event => setProjectDescription(event.target.value)}
+                    required/>
 
                 {!nameIsCorrect && <p>Не корректное имя</p>}
 
-                <button onClick={sendProjectData}>Создать</button>
+                <button onClick={sendProjectData} className={Styles.buttonCreate}>Создать</button>
             </form>
         </CreateProject>
     );
