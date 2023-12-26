@@ -1,0 +1,52 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #252525;
+    font-family: 'Montserrat Alternates', sans-serif;
+    height: 400px;
+    width: 500px;
+    margin-left: 35%;
+    margin-top: 15%;
+    border-radius: 25px;
+    background-color: #C0CCF7;
+    background-image: url("../images/икс.svg");
+    background-size: 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.userName {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 70px;
+}
+.userPassword {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 70px;
+    margin-top: 15px;
+}
+
+.userIn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+.header {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 600;
+}

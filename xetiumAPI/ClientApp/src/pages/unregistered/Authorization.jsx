@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {AuthContext} from "../../contex/IsAuth";
 import {useNavigate} from "react-router-dom";
+import Styles from "../../styles/authorization.module.css"
 
 const Authorization = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
@@ -34,14 +35,20 @@ const Authorization = () => {
     }
 
     return (
-        <form>
-            <input placeholder="userName" type="text" onChange={event => setUserName(event.target.value)}
-                   required/>
+        
+        <form className={Styles.form}>
+            <p className={Styles.header}>
+                Войти
+            </p>
 
-            <input placeholder="password" type="password" onChange=
+            <input placeholder="userName" type="text" onChange={event => setUserName(event.target.value)} className={Styles.userName}
+            required/>
+
+            <input className={Styles.userPassword} placeholder="password" type="password" onChange=
                 {event => setPassword(event.target.value)} required/>
 
-            <button onClick={sendUserData}>Войти</button>
+            <button className={Styles.userIn} onClick={sendUserData}>Перейти</button>
+            
         </form>
     );
 };
