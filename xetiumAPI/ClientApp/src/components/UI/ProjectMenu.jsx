@@ -8,7 +8,8 @@ import UpperProjectMenu from "./UpperProjectMenu";
 import {UserProjectsContext} from "../../contex/CurrentProject";
 
 
-const ProjectMenu = ({modal, setModal, setProjects, projects}) => {
+const ProjectMenu = ({projects}) => {
+    const [modal, setModal] = useState(false);
 
     return (
         <nav className={Styles.menuWithLogo}>
