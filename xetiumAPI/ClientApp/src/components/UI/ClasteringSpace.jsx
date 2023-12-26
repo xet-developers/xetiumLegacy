@@ -46,7 +46,7 @@ const ClasteringReport = () => {
                     <textarea className={Styles.textInputClaster} onChange={e=>setKeywords(e.target.value)}/>
 
                     <p className={Styles.inputWarning}>
-                        Введите запросы - каждый запрос с новой строки. 
+                        Введите запросы - каждый запрос через запятую. 
                     </p>
 
                     <button className={Styles.inputButton1} disabled>

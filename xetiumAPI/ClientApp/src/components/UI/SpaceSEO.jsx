@@ -83,7 +83,7 @@ const SpaceSEO = () => {
                                     },
                                     body: JSON.stringify(res)
                                 };
-                                return await fetch('/abc', params)
+                                return await fetch('/analytics', params)
                                     .then((res) => res.json())
                                     .then(respJson => addResp(respJson))
                                     .catch();
