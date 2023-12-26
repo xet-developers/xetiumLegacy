@@ -1,10 +1,8 @@
 .report {
+    display: flex;
+    flex-direction: column;
     font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: #252525;
-    padding-left: 2%;
-    padding-top: 2%;
+    margin-left: 20px;
 }
 
 .link {
@@ -36,6 +34,9 @@ th {
 .template {
     display: flex;
     gap: 50px;
+    align-items: center;
+    margin-left: 2%;
+    margin-top: 6%;
 }
 
 .formGeneration {
@@ -46,11 +47,6 @@ th {
     color: #252525;
 }
 
-.downloadOne {
-    display: flex;
-    gap: 50px;
-}
-
 .buttonDownloadOne {
     padding-left: 2%;
 }
@@ -58,11 +54,20 @@ th {
 .date {
     display: flex;
     gap: 50px;
+    align-items: center;
+    margin-left: 2%;
 }
 
 .data {
     display: flex;
     flex-direction: column;
+    background-image: url(../images/form-input.svg);
+    width: 766px;
+    height: 401px;
+    display: flex;
+    column-gap: 50%;
+    margin-left: 20px;
+    margin-top: 40px;
 }
 
 .button1 {
@@ -88,4 +93,101 @@ th {
     background-color: #f55656;
     width: 20vh;
     height: 5vh;
+}
+
+.buttonDownloadReport2 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: rgb(150, 178, 255);
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    
+    transition: 0.3s linear;
+    margin-top: 5px;
+}
+
+.buttonDownloadReport2:hover {
+    background-color:#ff6f5c;
+    cursor: pointer;
+    width: 250px;
+    border-radius: 25px;
+}
+
+.buttonDownloadReport1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: rgb(150, 178, 255);
+    width: 250px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    
+    transition: 0.3s linear;
+    margin-top: 5px;
+}
+
+.buttonDownloadReport1:hover {
+    background-color:#ff6f5c;
+    cursor: pointer;
+    width: 300px;
+    border-radius: 25px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerText {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1E1E1E;
+    opacity: 70%;
+    text-align: left;
+    margin-bottom: 0.5%;
+    display: inline-block;
+    text-shadow:
+    1px 1px 1px white,
+    1px -1px 1px white,
+    -1px 1px 1px white,
+    -1px -1px 1px white;
+    color: #252525;
+    transition: all 1s;
+}
+
+.headerText:after {
+    content: "";
+    display: block;
+    position: relative;
+    z-index: -1;
+    width: 100%;
+    margin: auto;
+    border-bottom: 1px solid #252525;;
+    bottom: .10em;
+    transition: all 1s;
+}
+
+.headerText:hover:after {
+    width: 0%;
+    border-bottom-width: 1px;
+}
+
+.line {
+    margin-left: -20px;
+    height: auto;
+    width: auto;
+}
+
+.generate {
+    margin-left: 2%;
+    display: flex;
+    gap: 50px;
+    margin-top: 4%;
+    justify-content: center;
 }

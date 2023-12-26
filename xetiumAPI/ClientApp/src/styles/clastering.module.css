@@ -46,7 +46,7 @@
 .headerText:hover:after {
     width: 0%;
     border-bottom-width: 1px;
-  }
+}
 
 .line {
     margin-left: -20px;

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Styles from "../../styles/report.module.css";
 import {ReportData} from './ReportData';
+import Line from "../../images/line.svg";
 
 const SpaceReport = () => {
     const [startData, setStartData] = useState('')
@@ -32,40 +33,44 @@ const SpaceReport = () => {
 
     return (
         <div className={Styles.report}>
-            <section className={Styles.formGeneration}>
+            <section className={Styles.header}>
+                <div>
+                    <p className={Styles.headerText}>Отчёты</p>
+                    <img src={Line} alt="line" className={Styles.line}/>
+                </div>
+            </section>
 
-                <div className={Styles.data}>
-                    <div className={Styles.template}>
-                        <p>
-                            Выберите шаблон отчёта:
-                        </p>
+            <section className={Styles.data}>
+                <div className={Styles.template}>
+                    <p>
+                        Выберите шаблон отчёта:
+                    </p>
 
-                        <select>
-                            <option>Динамика позиций сайта за интервал времени</option>
-                            <option disabled>Другое</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <p className={Styles.date}>
-                            <p>Дата начала интервала:</p>
-                            <input onChange={e => setStartData(e.target.value)} type="date"></input>
-                        </p>
-
-                        <p className={Styles.date}>
-                            <p>Дата конца интервала:</p>
-                            <input onChange={e => setEndData(e.target.value)} type="date"></input>
-                        </p>
-                    </div>
+                    <select>
+                        <option>Динамика позиций сайта за интервал времени</option>
+                        <option disabled>Другое</option>
+                    </select>
                 </div>
 
-                <button onClick={sendData} className={Styles.button1}>
-                    Сгенерировать отчёт
-                </button>
+                <div>
+                    <p className={Styles.date}>
+                        <p>Дата начала интервала:</p>
+                        <input onChange={e => setStartData(e.target.value)} type="date"></input>
+                    </p>
 
-                <div className={Styles.downloadOne}>
-                    <p>Скачать отчёт можно по ссылке ниже:</p>
-                    <button className={Styles.button2}>
+                    <p className={Styles.date}>
+                        <p>Дата конца интервала:</p>
+                        <input onChange={e => setEndData(e.target.value)} type="date"></input>
+                    </p>
+                </div>
+
+                <div className={Styles.generate}>
+
+                    <button onClick={sendData} className={Styles.buttonDownloadReport1}>
+                        Сгенерировать отчёт
+                    </button>
+
+                    <button className={Styles.buttonDownloadReport2}>
                         <a download='report.xlsx' href={downloadLink}>
                             Скачать
                         </a>
@@ -73,25 +78,25 @@ const SpaceReport = () => {
                 </div>
             </section>
 
-            <section>
+            {false&&<section>
                 <p>
                     Все отчёты находятся в таблице ниже:
                 </p>
                 <table className={Styles.tableReport}>
                     <thead>
-                    <tr>
-                        <th>Дата</th>
-                        <th>Тип отчёта</th>
-                        <th>Интервал</th>
-                        <th>Ссылка для скачивания</th>
-                    </tr>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Тип отчёта</th>
+                            <th>Интервал</th>
+                            <th>Ссылка для скачивания</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                    <ReportData/>
+                        <ReportData/>
                     </tbody>
                 </table>
-            </section>
+            </section>}
         </div>
     );
 };
