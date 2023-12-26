@@ -22,29 +22,47 @@ const SpaceSEO = () => {
     }
 
     return (
-        <div>
+        <div className={Styles.seo}>
             <section className={Styles.header}>
                 <div>
-                    <img src={Arrow} alt="arrow" className={Styles.arrow}/>
                     <p className={Styles.headerText}>Проверка позиций</p>
                     <img src={Line} alt="line" className={Styles.line}/>
                 </div>
             </section>
 
-            <section>
-                <div>
-                    <p className={Styles.h}>Добавление ключевых слов</p>
+            <section className={Styles.start}>
+                <div className={Styles.input}>
+                    <p className={Styles.Head}>
+                        Добавление ключевых слов
+                    </p>
+
+                    <div className={Styles.checkboxes}>
+                        <p className={Styles.inputWarning}>
+                            Выберите поисковую систему:
+                        </p>
+
+                        <p className={Styles.inputWarning}>
+                            Yandex
+                            <input type="checkbox" onClick={()=>setFirstSearchSystem(!firstSearchSystem)}/>
+                        </p>
+
+                        <p className={Styles.inputWarning}>
+                            Google
+                            <input type="checkbox" onClick={()=>setSecondSearchSystem(!secondSearchSystem)}/>
+                        </p>
+                    </div>
+                    
 
                     <textarea value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
-                    <br/>
-                    <label form="keyWords">Каждый запрос с новой строки!</label>
-                    <br/>
 
-                    <input type="checkbox" onClick={()=>setFirstSearchSystem(!firstSearchSystem)}/>
-                    <input type="checkbox" onClick={()=>setSecondSearchSystem(!secondSearchSystem)}/>
+                    <p className={Styles.inputWarning}>
+                        Введите запросы - каждый запрос с новой строки. 
+                    </p>
+
+                    
 
                     <button
-                        className={Styles.sendKey}
+                        className={Styles.inputButton2}
                         disabled={inputValue.length === 0}
                         type='button'
                         onClick={async () => {
@@ -84,22 +102,21 @@ const SpaceSEO = () => {
                         }}>
                         Отправить
                     </button>
-
                 </div>
             </section>
 
             <section>
-                <table>
+                <table className={Styles.tableSeo}>
                     <thead>
-                    <tr>
-                        <th>Поисковая система</th>
-                        <th>Запрос</th>
-                        <th>Позиция</th>
-                    </tr>
+                        <tr>
+                            <th>Поисковая система</th>
+                            <th>Запрос</th>
+                            <th>Позиция</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                    <UserData users={usersReq}/>
+                        <UserData users={usersReq}/>
                     </tbody>
                 </table>
             </section>
