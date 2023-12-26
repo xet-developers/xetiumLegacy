@@ -62,15 +62,15 @@
     width: auto;
 }
 
-textarea {
+.textInputSeo {
     width: 700px;
-    height: 140px;
+    height: 100px;
     font-size: 15px;
     color: #808080;
     max-width: 700px;
-    max-height: 200px;
-    min-width: 500px;
-    min-height: 140px;
+    max-height: 100px;
+    min-width: 700px;
+    min-height: 100px;
     border-radius: 15px;
     padding-left: 2%;
     padding-top: 2%;

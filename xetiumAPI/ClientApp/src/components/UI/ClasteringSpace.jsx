@@ -43,7 +43,7 @@ const ClasteringReport = () => {
                         Список запросов
                     </p>
 
-                    <textarea onChange={e=>setKeywords(e.target.value)}/>
+                    <textarea className={Styles.textInputClaster} onChange={e=>setKeywords(e.target.value)}/>
 
                     <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос с новой строки. 

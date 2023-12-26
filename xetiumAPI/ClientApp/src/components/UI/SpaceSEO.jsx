@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
 import Styles from "../../styles/searchPosition.module.css";
-import Arrow from "../../images/arrowSeo.svg";
 import Line from "../../images/line.svg";
 import {UserData} from './UserData';
 import {CurrentProjectContext} from "../../contex/CurrentProject";
@@ -52,8 +51,7 @@ const SpaceSEO = () => {
                         </p>
                     </div>
                     
-
-                    <textarea value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
+                    <textarea className={Styles.textInputSeo} value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
 
                     <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос с новой строки. 
