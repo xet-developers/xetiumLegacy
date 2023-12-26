@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
+import Styles from "../../styles/currentProject.module.css";
 
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 
@@ -79,14 +80,28 @@ const CurrentProject = () => {
     }
 
     const date = new Date(currentProject.id);
+    //<p className={Styles.nameP}>Дата добавления: {date.getDate()} {date.getMonth() + 1} {date.getFullYear()}</p>
 
     return (
-        <div>
+        <div className={Styles.main}>
             <ProjectMenu modal={modal} setModal={setModal}/>
-            <p>Название: {currentProject.name}</p>
-            <p>Описание: {currentProject.description}</p>
-            <p>Ссылка: {currentProject.url}</p>
-            <p>Дата добавления: {date.getDate()} {date.getMonth() + 1} {date.getFullYear()}</p>
+            <div className={Styles.data}>
+                <p className={Styles.dataLi}>
+                    <p className={Styles.nameP}>Название:</p>
+                    <p>{currentProject.name}</p>
+                </p>
+
+                <p className={Styles.dataLi}>
+                    <p className={Styles.nameP}>Описание:</p>
+                    <p>{currentProject.description}</p>
+                </p>
+
+                <p className={Styles.dataLi}>
+                    <p className={Styles.nameP}>Ссылка:</p>
+                    <p>{currentProject.url}</p>
+                </p>
+            </div>    
+            
         </div>
     );
 };
