@@ -18,7 +18,6 @@ public class ApplicationContextDb: IdentityDbContext<UserDal, IdentityRole<Guid>
     public ApplicationContextDb(DbContextOptions<ApplicationContextDb> options):
         base(options)
     {
-        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
