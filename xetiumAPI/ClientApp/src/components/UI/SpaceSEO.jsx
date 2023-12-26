@@ -11,23 +11,14 @@ const SpaceSEO = () => {
     const [inputValue, setInputValue] = useState('');
     const [firstSearchSystem, setFirstSearchSystem] = useState(false)
     const [secondSearchSystem, setSecondSearchSystem] = useState(false)
-    const [usersReq, setUsersReq] = useState([]);
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
+    const [usersReq, setUsersReq] = useState(currentProject?.searches || [] );
 
-    const zatichka = {
-        searchsystem: 1,
-        positionResult: {
-            qwe: 1,
-            wer: 2,
-            errt: 3,
-            qweeq: 4
-        }
-    }
 
     const addResp = (resp) => {
-        const positionResult = resp?.positionResult;
-        console.log(positionResult)
-        setUsersReq(usersReq.concat(positionResult))
+        console.log(resp)
+
+        setUsersReq(usersReq.concat(resp))
     }
 
     return (
@@ -79,7 +70,7 @@ const SpaceSEO = () => {
                                 return await fetch('/abc', params)
                                     .then((res) => res.json())
                                     .then(respJson => addResp(respJson))
-                                    .catch(() => addResp(zatichka));
+                                    .catch();
                             }
 
                             const requests = [];

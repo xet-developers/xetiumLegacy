@@ -1,11 +1,11 @@
 export const UserData = ({users}) => {
     const a = [];
     users.map((currentUser) => {
-        for (let key in currentUser) {
+        for (let key of currentUser?.keywordResults) {
             a.push((<tr>
-                <td>1</td>
-                <td>{key}</td>
-                <td>{currentUser[key]}</td>
+                <td>{currentUser.type}</td>
+                <td>{key.keyword.text}</td>
+                <td>{key.position}</td>
             </tr>))
         }
     })
