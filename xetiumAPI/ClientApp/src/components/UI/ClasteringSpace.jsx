@@ -48,7 +48,7 @@ const ClasteringReport = () => {
                         Введите запросы - каждый запрос с новой строки. 
                     </p>
 
-                    <button className={Styles.inputButton1}>
+                    <button className={Styles.inputButton1} disabled>
                         Прикрепить файл
                     </button>
 
@@ -71,23 +71,23 @@ const ClasteringReport = () => {
             </section>
 
             <section className={Styles.result}>
-                <p className={Styles.Head}>
-                    Результат:
-                </p>
-                
-                <div>
-                    <p>Кластеризация успешно завершена</p>
-                    <button><a download='clustering.txt' href={downloadLink}>Скачать</a></button>
+                <div className={Styles.resultText}>
+                    <p className={Styles.Head}>
+                        Результат:
+                    </p>
+
+                    <p>Кластеризация успешно завершена.</p>
+
+                    <div className={Styles.resultButton}>
+                        <p>
+                            Скачать можно по ссылке: 
+                        </p>
+                        <button className={Styles.buttonDownloadClaster}><a download='clustering.txt' href={downloadLink}>Скачать</a></button>
+                    </div>
                 </div>
-                
-
-                <p>Общее количество запросов: </p>
-
-                <p>Количество кластеризованных запросов:</p>
-                
             </section>
 
-            <section className={Styles.allClaster}>
+            {false&&<section className={Styles.allClaster}>
                 <p className={Styles.Head}>
                     Последние кластеризации
                 </p>
@@ -106,7 +106,7 @@ const ClasteringReport = () => {
                         <ClasteringData/>
                     </tbody>
                 </table>
-            </section>
+            </section>}
         </div>
     );
 };
