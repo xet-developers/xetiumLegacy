@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
 
@@ -35,7 +35,36 @@ const CurrentProject = () => {
         return false
     }
 
-    if (userProjects.length === 0 && !request()) {
+    useEffect(() => {
+        const request = async () => {
+            const params = {
+                method: "GET",
+                headers: {
+                    "Authorization": 'Bearer ' + localStorage.getItem("jwt")
+                }
+            }
+    
+            const resp = await fetch("/project", params)
+    
+            if (resp.ok) {
+                const res = await resp.json()
+                console.log(res)
+                setUserProjects(res)
+                localStorage.setItem("UserProjects", JSON.stringify(res))
+                return true
+            }
+    
+            if (localStorage.getItem("UserProjects")) {
+                setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
+                return true
+            }
+    
+            return false
+        }
+        request()
+    }, [])
+    
+    if (userProjects.length === 0) {
         return (
             <Tutorial modal={modal} setModal={setModal}/>
         )

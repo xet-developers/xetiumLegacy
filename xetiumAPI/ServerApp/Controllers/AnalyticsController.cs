@@ -7,7 +7,7 @@ using xetiumAPI.ServerApp.Interfaces;
 
 namespace xetiumAPI.ServerApp.Controllers
 {
-    [Route("abc")]
+    [Route("analytics")]
     [ApiController]
     [Authorize]
     public class AnalyticsController : Controller

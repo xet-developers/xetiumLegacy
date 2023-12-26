@@ -8,11 +8,11 @@ const context = [
   "/account/register",
   "/account/login",
   "/account",
-  "/cl",
+  "/clustering",
   "/project/create",
   "/project",
   "/report",
-  "/abc"
+  "/analytics"
 ];
 
 const onError = (err, req, resp, target) => {

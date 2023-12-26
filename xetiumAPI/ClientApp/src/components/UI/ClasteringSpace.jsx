@@ -7,7 +7,7 @@ import Warning from "../../images/warning.png";
 const ClasteringReport = () => {
     const [keywords, setKeywords] = useState('')
     const [downloadLink, setDownloadLink] = useState('')
-    let state = false;
+    //const [view, setView] = useState(false)
 
     const sendData = async () => {
 
@@ -24,12 +24,8 @@ const ClasteringReport = () => {
             body: JSON.stringify(res)
         };
 
-        const response = await fetch('cl', params).then(res => res.blob())
-
-        if (response.ok) {
-            setDownloadLink(URL.createObjectURL(await response))
-            state = true;
-        }
+        const response = await fetch('clustering', params).then(res => res.blob())
+        setDownloadLink(URL.createObjectURL(await response))
     }
 
     return (
@@ -75,13 +71,15 @@ const ClasteringReport = () => {
                 </div>
             </section>
 
-            {state && <section className={Styles.result}>
+            {<section className={Styles.result}>
                 <div className={Styles.resultText}>
                     <p className={Styles.Head}>
-                        Результат:
+                        Результат работы
                     </p>
 
-                    <p>Кластеризация успешно завершена.</p>
+                    <p>
+                        После отправления запроса файл можно скачивать. 
+                    </p>
 
                     <div className={Styles.resultButton}>
                         <p>

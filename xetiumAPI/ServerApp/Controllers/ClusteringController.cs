@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace xetiumAPI.ServerApp.Controllers;
 
-[Route("cl")]
+[Route("clustering")]
 [ApiController]
 [Authorize]
 public class ClusteringController: Controller

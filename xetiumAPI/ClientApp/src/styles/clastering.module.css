@@ -188,7 +188,7 @@ textarea {
 
 .buttonDownloadClaster {
     font-family: 'Montserrat Alternates', sans-serif;
-    background-color: #F66450;
+    background-color: #ff8b7c;
     width: 200px;
     height: 40px;
     border-radius: 18px;
@@ -196,11 +196,12 @@ textarea {
     color: white;
     text-align: center;
     font-size: 15px;
-    cursor: pointer;
+    
     transition: 0.3s linear;
     margin-top: 5px;
 }
 
 .buttonDownloadClaster:hover {
-    background-color:#ff4e37 ;
+    background-color:#ff4e37;
+    cursor: pointer;
 }
