@@ -67,7 +67,7 @@ const CurrentProject = () => {
     
     if (userProjects.length === 0) {
         return (
-            <Tutorial modal={modal} setModal={setModal}/>
+            <Tutorial/>
         )
     }
 
@@ -84,7 +84,7 @@ const CurrentProject = () => {
 
     return (
         <div className={Styles.main}>
-            <ProjectMenu modal={modal} setModal={setModal}/>
+            <ProjectMenu/>
             <div className={Styles.data}>
                 <p className={Styles.dataLi}>
                     <p className={Styles.nameP}>Название:</p>

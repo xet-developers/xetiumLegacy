@@ -67,8 +67,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<ApplicationContextDb>(options =>
     options.UseNpgsql(connectionString));
-builder.Services.AddDbContext<UserContextDb>(options =>
-    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnalyticsRepository, AnalitycsRepository>();

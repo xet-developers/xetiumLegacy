@@ -2,8 +2,11 @@ import Styles from '../styles/tutorial.module.css';
 import {Link} from "react-router-dom";
 import UIButton from "./UI/UIButton";
 import CreateProjectForm from "./UI/CreateProjectForm";
+import {useState} from "react";
 
-const Tutorial = ({modal, setModal}) => {
+const Tutorial = () => {
+    const [modal, setModal] = useState(false);
+
     return (
         <div style={{display: "flex"}}>
             <div>

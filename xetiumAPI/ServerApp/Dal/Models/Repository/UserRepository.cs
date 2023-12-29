@@ -5,8 +5,8 @@ namespace xetiumAPI.ServerApp.Dal.Models.Repository;
 
 public class UserRepository: IUserRepository
 {
-    private readonly UserContextDb _contextDb;
-    public UserRepository(UserContextDb userContextDb)
+    private readonly ApplicationContextDb _contextDb;
+    public UserRepository(ApplicationContextDb userContextDb)
     {
         _contextDb = userContextDb;
     }
