@@ -1,4 +1,3 @@
-
 .header {
     display: flex;
     width: auto;
@@ -8,14 +7,21 @@
     padding-right: 11.3%;
     padding-left: 11.3%;
     justify-content: space-between;
+    text-decoration: none;
 }
 
 .menuItem {
     margin-right: 45px;
+    color: #cccccc;
+    text-decoration: none;
+}
+
+.menuItem:hover {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 a {
-    color: #ffffff;
     text-decoration: none;
 }
 
@@ -28,6 +34,7 @@ a {
     width: auto;
     margin-right: auto;
     margin-left: 6%;
+    text-decoration: none;
 }
 
 .headerText {
@@ -35,6 +42,20 @@ a {
     font-size: 15px;
     margin-left: 5px;
     margin-right: 5px;
+    color: #cccccc;
+    text-decoration: none;
+}
+
+.headerText:hover {
+    color: #ffffff;
+}
+
+.headerText2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #ffffff;
 }
 
 .headerRight {
@@ -42,4 +63,5 @@ a {
     justify-content: space-between;
     align-items: center;
     width: auto;
+    text-decoration: none;
 }

@@ -51,21 +51,26 @@ const CreateProjectForm = ({modal, setModal}) => {
         <CreateProject visible={modal} setVisible={setModal}>
             <form className={Styles.formCreate}>
                 <p className={Styles.header}>
-                    Мой проект
+                    Создание проекта
                 </p>
 
-                <input placeholder="Введите название проекта" type="text" onChange={event => setProjectName(event.target.value)}
-                    required/>
+                <div className={Styles.create}>
+                    <input placeholder="Название проекта" type="text" required 
+                        onChange={event => setProjectName(event.target.value)}
+                        className={Styles.nameProject}/>
 
-                <input placeholder="Вставьте ссылку на ваш сайт" type="text" onChange=
-                    {event => setUrl(event.target.value)} required/>
+                    <input placeholder="Ссылка на сайт: HTTPS://EXAMPLE.COM/" type="url" required 
+                        onChange={event => setUrl(event.target.value)}
+                        className={Styles.urlProject}/>
 
-                <input placeholder="Заполните описание проекта" onChange={event => setProjectDescription(event.target.value)}
-                    required/>
+                    <textarea placeholder="Описание проекта" required 
+                        onChange={event => setProjectDescription(event.target.value)}
+                        className={Styles.descProject}/>
+                </div>
 
                 {!nameIsCorrect && <p>Не корректное имя</p>}
 
-                <button onClick={sendProjectData} className={Styles.buttonCreate}>Создать</button>
+                <button onClick={sendProjectData} className={Styles.buttonCreate}>СОЗДАТЬ</button>
             </form>
         </CreateProject>
     );

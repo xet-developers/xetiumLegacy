@@ -1,7 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {AuthContext} from "../../contex/IsAuth";
 import {useNavigate} from "react-router-dom";
-import Styles from "../../styles/authorization.module.css"
+import Styles from "../../styles/authorization.module.css";
+import {Link} from "react-router-dom";
 
 const Authorization = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
@@ -35,22 +36,26 @@ const Authorization = () => {
     }
 
     return (
-        
-        <form className={Styles.form}>
-            <p className={Styles.header}>
-                Войти
-            </p>
+        <div className={Styles.bodyPart}>
+            <form className={Styles.form}>
+                <p className={Styles.header}>
+                    <h1>Авторизация</h1>
+                    <p className={Styles.headerP}>Еще нет акканута? <Link to="/register" className={Styles.headerA}>Зарегистрироваться</Link></p>
+                </p>
 
-            <input placeholder="userName" type="text" onChange={event => setUserName(event.target.value)} className={Styles.userName}
-            required/>
+                <div className={Styles.inputDiv}>
+                    <input placeholder="Имя пользователя" type="text" onChange={event => setUserName(event.target.value)}
+                        required className={Styles.inputData}/>
 
-            <input className={Styles.userPassword} placeholder="password" type="password" onChange=
-                {event => setPassword(event.target.value)} required/>
-
-            <button className={Styles.userIn} onClick={sendUserData}>Перейти</button>
-            
-        </form>
-    );
+                    <input placeholder="Пароль" type="password" onChange=
+                        {event => setPassword(event.target.value)} required className={Styles.inputData}/>
+                </div>
+                
+                <button className={Styles.userIn} onClick={sendUserData}>ВОЙТИ</button>
+                
+            </form>
+        </div>
+    ); 
 };
 
 export default Authorization;

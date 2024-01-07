@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from "../../styles/advertisingBody.module.css";
 import {Link} from "react-router-dom";
 import UIButton from "../UI/UIButton";
-import emptyImage from "../../images/background-head.png";
+import mainImage from '../../images/mainImage.svg';
 
 const FirstPart = () => {
     return (
@@ -29,7 +29,7 @@ const FirstPart = () => {
                     </UIButton>
                 </Link>
             </div>
-            <img src= {emptyImage} alt = "emptyAboba" className={Styles.advertisingPhoto}/>
+            <img src= {mainImage} alt = "mainImage" className={Styles.advertisingPhoto}/>
         </section>
     );
 };

@@ -1,3 +1,8 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
 .body {
     padding-left: 11.3%;
     padding-right: 11.3%;
@@ -5,6 +10,7 @@
     align-items: center;
     padding-top: 5%;
     justify-content: space-between;
+    text-decoration: none;
 }
 
 .nameService {
@@ -53,12 +59,14 @@
     height: 98px;
     flex-shrink: 0;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .buttonFree:hover {
 	background: rgba(255, 255, 255, 0);
 	color: #F66450;
 	box-shadow: inset 0 0 0 3px #F66450;
+    text-decoration: none;
 }
 
 .nameButtonFree {
@@ -67,11 +75,12 @@
     font-style: normal;
     font-weight: 500;
     line-height: 70px;
+    text-decoration: none;
 }
 
 .advertisingPhoto {
-    height: 30%;
-    width: 50%;
+    height: 512px;
+    width: 512px;
 }
 
 .columns {
@@ -125,6 +134,7 @@
     justify-content: center;
     margin: auto;
     padding-bottom: 20%;
+    text-decoration: none;
 }
 
 .buttonFreeSectionTwo {
@@ -154,10 +164,12 @@
     display: flex;
     justify-content: center;
     margin: auto;
+    text-decoration: none;
 }
 
 .nameButtonFreeTwo:hover {
     color: #ffffff;
+    text-decoration: none;
 }
 
 .textSectionThree {
@@ -184,7 +196,8 @@
     justify-content: center;
     margin: auto;
     align-items: center;
-    gap: 5%
+    gap: 5%;
+    margin-top: 30px;
 }
 
 .buttonProject:hover {

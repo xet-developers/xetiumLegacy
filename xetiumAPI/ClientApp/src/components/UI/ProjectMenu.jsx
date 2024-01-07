@@ -19,8 +19,8 @@ const ProjectMenu = ({projects}) => {
                     <UpperProjectMenu projects={projects} setModal={setModal}/>
 
                 <div className={Styles.lowerMenu}>
-                    <Link to={"/support"}>Поддержка</Link>
-                    <Link to={"/confpolitic"}>Политика конфиденциальности</Link>
+                    <Link to={"/support"} style={{color:'white'}}>Поддержка</Link>
+                    <Link to={"/confpolitic"} style={{color:'white'}}>Политика конфиденциальности</Link>
                 </div>
             </div>
 

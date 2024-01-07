@@ -22,7 +22,7 @@ const Header = ({headers}) => {
 
                 <Link to={'/register'}>
                     <UIButton className={ButtonStyles.advertisingHeader}>
-                        <span className={Styles.headerText}>Попробовать бесплатно</span>
+                        <span className={Styles.headerText2}>Попробовать бесплатно</span>
                     </UIButton>
                 </Link>
             </div>

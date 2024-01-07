@@ -1,17 +1,17 @@
 import React from 'react';
-import cl from '../../styles/CreateProject.module.css';
+import Styles from '../../styles/CreateProject.module.css';
 
 const CreateProject = ({children, visible, setVisible}) => {
 
-    const rootClasses = [cl.CreateProject]
+    const rootClasses = [Styles.CreateProject]
 
     if (visible) {
-        rootClasses.push(cl.active);
+        rootClasses.push(Styles.active);
     }
 
     return (
         <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
-            <div className={cl.CreateProjectContent} onClick={(e) => e.stopPropagation()}>
+            <div className={Styles.CreateProjectContent} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </div>

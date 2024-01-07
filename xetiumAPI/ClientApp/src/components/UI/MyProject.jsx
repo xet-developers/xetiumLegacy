@@ -16,7 +16,7 @@ const MyProject = ({setModal}) => {
                 {userProjects.map(project =>
                     <li key={project.id} className={Styles.listItem}>
                         <img src={dot} alt={""}/>
-                        <Link to={project.name} >
+                        <Link to={project.name} style={{color:'white'}}>
                             <span onClick = {() => {
                                 localStorage.setItem("CurrentProject", JSON.stringify(project))
                                 setCurrentProject(project)

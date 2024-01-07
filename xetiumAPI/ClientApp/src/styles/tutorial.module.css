@@ -1,12 +1,30 @@
+.tutorialPart {
+    display: flex;
+    background-color: #252525;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .tutorial {
-    color: #252525;
+    color: #ffffff;
     font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 40px;
+    
     line-height: 50px;
     font-style: normal;
-    font-weight: 500;
-    padding-left: 5%;
-    width: 1500px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.tutorialHead {
+    font-size: 30px;
+}
+
+.tutorialDesc {
+    font-size: 25px;
 }
 
 .rectangle {
@@ -26,8 +44,8 @@
     border: none;
     background: #F66450;
     color: #ffffff;
-    width: 480px;
-    height: 98px;
+    width: 800px;
+    height: 60px;
     flex-shrink: 0;
     cursor: pointer;
 }
@@ -40,15 +58,17 @@
 
 .textGo {
     font-family: 'Montserrat', sans-serif;
-    font-size: 30px;
+    font-size: 25px;
     color: #ffffff;
     font-style: normal;
     font-weight: 500;
     line-height: 50px;
+    align-items: center;
+    
 }
 
 .textForButton {
-    color: #252525;
+    color: #ffffff;
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 30px;
     line-height: 50px;
@@ -59,5 +79,7 @@
 
 .creation {
     display: flex;
-    gap: 3%
+    gap: 3%;
+    align-items: center;
+    justify-content: center;
 }

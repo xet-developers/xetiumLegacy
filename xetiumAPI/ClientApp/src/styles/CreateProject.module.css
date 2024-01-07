@@ -12,8 +12,10 @@
     padding: 25px;
     background: white;
     border-radius: 25px;
-    min-width: 250px;
-    min-height: 250px;
+    min-width: 567px;
+    min-height: 677px;
+    max-width: 567px;
+    max-height: 677px;
 }
 
 .CreateProject.active {
@@ -29,24 +31,76 @@
     gap: 30px;
     text-align: center;
     align-items: center;
+    
 }
 
 .header {
     text-align: center;
-    font-size: 20px;
+    font-size: 40px;
+    color: #252525;
+    font-weight: 500;
 }
 
-input {
+.nameProject {
     font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 12px;
-    width: 250px;
+    font-size: 20px;
+    width: 503px;
+    height: 57px;
+    border-radius: 7px;
+    border-color: #7B7B7B;
+    background-color: #D9D9D9;
+    border-width: 1px;
+    padding-left: 15px;
+}
+
+.urlProject {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    width: 503px;
+    height: 57px;
+    border-radius: 7px;
+    border-color: #7B7B7B;
+    background-color: #D9D9D9;
+    border-width: 1px;
+    padding-left: 15px;
+}
+
+.descProject {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    max-width: 488px;
+    max-height: 184px;
+    min-width: 488px;
+    min-height: 184px;
+    border-radius: 7px;
+    border-color: #7B7B7B;
+    background-color: #D9D9D9;
+    resize: none;
+    padding: 15px;
 }
 
 .buttonCreate {
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 15px;
-    width: 200px;
-    border-radius: 20px;
-    border-color: rgb(135, 163, 255);
-    height: 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    width: 387px;
+    height: 68px;
+    border-radius: 35px;
+    border: none;
+    background-color: #F66450;
+    color: #ffffff;
+}
+
+.buttonCreate:hover {
+    box-shadow: 0 0 12px #F66450;
+    -moz-box-shadow: 0 0 12px #F66450;
+    -o-box-shadow: 0 0 12px #F66450;
+    -ms-box-shadow: 0 0 12px #F66450;
+    -webkit-box-shadow: 0 0 12px #F66450;
+}
+
+.create {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    margin-top: -2%;
 }
