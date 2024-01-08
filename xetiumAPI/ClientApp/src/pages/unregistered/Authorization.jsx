@@ -3,6 +3,8 @@ import {AuthContext} from "../../contex/IsAuth";
 import {useNavigate} from "react-router-dom";
 import Styles from "../../styles/authorization.module.css";
 import {Link} from "react-router-dom";
+import {Requests} from "../../API/Requests";
+import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const Authorization = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
@@ -17,19 +19,12 @@ const Authorization = () => {
             password: password
         }
 
-        const params = {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/problem+json; charset=utf-8"
-            },
-            body: JSON.stringify(res)
-        };
+        const API = new Requests()
+        const result = await API.unregisteredPost("account/login", res)
 
-        const resp = await fetch("account/login", params)
-
-        if(resp.ok){
-            const respJSON = await resp.json()
-            localStorage.setItem("jwt", respJSON.token)
+        if(result.ok){
+            const respJSON = await result.json()
+            LocalStorageManager.setJWT(respJSON.token)
             navigate("/")
             setIsAuth(true)
         }

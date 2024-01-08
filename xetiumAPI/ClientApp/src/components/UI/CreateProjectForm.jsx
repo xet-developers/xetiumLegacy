@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import CreateProject from "./CreateProject";
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 import Styles from "../../styles/CreateProject.module.css";
+import {Requests} from "../../API/Requests";
 
 const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
@@ -25,26 +26,19 @@ const CreateProjectForm = ({modal, setModal}) => {
             description: projectDescription
         }
 
-        const params = {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-                'Content-Type': "application/problem+json; charset=utf-8"
-            },
-            body: JSON.stringify(res)
-        };
 
-        const resp = await fetch("/project/create", params)
-
-        if(resp.ok) {
-            setNameIsCorrect(true)
-            const newProject = res;
-            const a = await resp.json()
-            newProject.id = a.id;
-            setCurrentProject(newProject)
-            setUserProjects([...userProjects, newProject])
-            setModal(false)
-        }
+        const API = new Requests()
+        API.registeredPost('/project/create', res).then(resp => {
+            if (resp.ok) {
+                setNameIsCorrect(true)
+                const newProject = res;
+                const a = resp.json()
+                newProject.id = a.id;
+                setCurrentProject(newProject)
+                setUserProjects([...userProjects, newProject])
+                setModal(false)
+            }
+        })
     }
 
     return (
@@ -55,17 +49,17 @@ const CreateProjectForm = ({modal, setModal}) => {
                 </p>
 
                 <div className={Styles.create}>
-                    <input placeholder="Название проекта" type="text" required 
-                        onChange={event => setProjectName(event.target.value)}
-                        className={Styles.nameProject}/>
+                    <input placeholder="Название проекта" type="text" required
+                           onChange={event => setProjectName(event.target.value)}
+                           className={Styles.nameProject}/>
 
-                    <input placeholder="Ссылка на сайт: HTTPS://EXAMPLE.COM/" type="url" required 
-                        onChange={event => setUrl(event.target.value)}
-                        className={Styles.urlProject}/>
+                    <input placeholder="Ссылка на сайт: HTTPS://EXAMPLE.COM/" type="url" required
+                           onChange={event => setUrl(event.target.value)}
+                           className={Styles.urlProject}/>
 
-                    <textarea placeholder="Описание проекта" required 
-                        onChange={event => setProjectDescription(event.target.value)}
-                        className={Styles.descProject}/>
+                    <textarea placeholder="Описание проекта" required
+                              onChange={event => setProjectDescription(event.target.value)}
+                              className={Styles.descProject}/>
                 </div>
 
                 {!nameIsCorrect && <p>Не корректное имя</p>}

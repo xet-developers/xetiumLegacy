@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../contex/IsAuth";
 import {Link} from "react-router-dom";
 import Styles from "../../styles/Register-authentication.css";
+import {Requests} from "../../API/Requests";
 
 const Register = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
@@ -72,16 +73,10 @@ const Register = () => {
             checkboxConf: !!formData.get("checkboxConf"),
             checkboxSpam: !!formData.get("checkboxSpam")
         }
-        const params = {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/problem+json; charset=utf-8"
-            },
-            body: JSON.stringify(res)
-        };
 
-        let result = await fetch("account/register", params)
-        console.log(await result.text())
+        const API = new Requests()
+        const result = await API.unregisteredPost("account/register",res)
+
         if (result.ok) {
             navigate("/authorization")
         }

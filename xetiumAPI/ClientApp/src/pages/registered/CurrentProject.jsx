@@ -4,83 +4,31 @@ import Tutorial from "../../components/Tutorial";
 import Styles from "../../styles/currentProject.module.css";
 
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import {Requests} from "../../API/Requests";
+import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const CurrentProject = () => {
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
-    const [modal, setModal] = useState(false);
-
-    const request = async () => {
-        const params = {
-            method: "GET",
-            headers: {
-                "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-            }
-        }
-
-        const resp = await fetch("/project", params)
-
-        if (resp.ok) {
-            const res = await resp.json()
-            console.log(res)
-            setUserProjects(res)
-            localStorage.setItem("UserProjects", JSON.stringify(res))
-            return true
-        }
-
-        if (localStorage.getItem("UserProjects")) {
-            setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
-            return true
-        }
-
-        return false
-    }
 
     useEffect(() => {
-        const request = async () => {
-            const params = {
-                method: "GET",
-                headers: {
-                    "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-                }
-            }
-    
-            const resp = await fetch("/project", params)
-    
-            if (resp.ok) {
+        const API = new Requests()
+        API.registeredGet("project")
+            .then(async resp => {
                 const res = await resp.json()
-                console.log(res)
                 setUserProjects(res)
-                localStorage.setItem("UserProjects", JSON.stringify(res))
-                return true
-            }
-    
-            if (localStorage.getItem("UserProjects")) {
+                LocalStorageManager.setCurrentProject(res)
+            })
+            .catch(() =>
                 setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
-                return true
-            }
-    
-            return false
-        }
-        request()
+            )
     }, [])
-    
-    if (userProjects.length === 0) {
+
+    if (!userProjects || userProjects.length === 0) {
         return (
             <Tutorial/>
         )
     }
-
-    function getDateFromUuid7(uuid) {
-        console.log(uuid)
-        let num = parseInt(uuid.replace(/-/g, ""), 16);
-        let timestamp = num / Math.pow(2, 60) * 1000;
-        console.log(timestamp)
-        return new Date(timestamp);
-    }
-
-    const date = new Date(currentProject.id);
-    //<p className={Styles.nameP}>Дата добавления: {date.getDate()} {date.getMonth() + 1} {date.getFullYear()}</p>
 
     return (
         <div className={Styles.main}>
@@ -100,8 +48,8 @@ const CurrentProject = () => {
                     <p className={Styles.nameP}>Ссылка:</p>
                     <p>{currentProject.url}</p>
                 </p>
-            </div>    
-            
+            </div>
+
         </div>
     );
 };
