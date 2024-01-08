@@ -6,5 +6,5 @@ namespace xetiumAPI.Interfaces;
 public interface IAnalyticsRepository
 {
     Task<ProjectDal?> FindProjectAsync(int projectId);
-    Task AddSearchInformation (KeywordDal keywordDal, KeywordResultDal keywordResultDal);
+    Task AddSearchInformation (KeywordResultDal keywordResultDal);
 }

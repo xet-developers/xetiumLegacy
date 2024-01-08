@@ -55,7 +55,7 @@ namespace xetiumAPI.ServerApp.Service
                         var flag = false;
                         for (var i = 1; i < row; i++)
                         {
-                            if (sheet.Cells[i, 1].Value == result.Keyword.Text)
+                            if (sheet.Cells[i, 1].Value == result.Text)
                             {
                                 if (result.SearchDal.Type == "Yandex")
                                 {
@@ -76,7 +76,7 @@ namespace xetiumAPI.ServerApp.Service
                             continue;
                         }
 
-                        sheet.Cells[row, 1].Value = result.Keyword.Text;
+                        sheet.Cells[row, 1].Value = result.Text;
 
                         if (result.SearchDal.Type == "Yandex")
                         {

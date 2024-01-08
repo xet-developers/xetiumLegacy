@@ -63,7 +63,7 @@ public class ProjectService: IProjectService
                         Position = kr.Position,
                         Keyword = new KeywordDto()
                         {
-                            Text = kr.Keyword.Text
+                            Text = kr.Text
                         }
                     }).ToList()
                 }).ToList()
@@ -73,8 +73,17 @@ public class ProjectService: IProjectService
         return allProjects;
     }
 
-    public async Task DeleteProjectAsync(Guid userId)
+    public async Task<bool> DeleteProjectAsync(Guid userId, Guid projectId)
     {
-        throw new NotImplementedException();
+        var projectInfo = await _projectRepository.GetProjectByIdAsync(projectId);
+
+        if (projectInfo is null || projectInfo.UserID != userId)
+        {
+            return false;
+        }
+
+        await _projectRepository.DeleteProjectAsync(projectInfo);
+
+        return true;
     }
 }

@@ -15,7 +15,11 @@ public class KeywordResultDal
     [Required]
     [Column("position")]
     public int Position { get; set; }
+    
+    [Required]
+    [Column("text")]
+    [MaxLength(255)]
+    public string Text { get; set; }
 
     public SearchDal SearchDal { get; set; }
-    public KeywordDal Keyword { get; set; }
 }

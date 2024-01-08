@@ -68,23 +68,19 @@ public class AnalysisService : IAnalysisService
         
         foreach (var keyword in model.Keywords)
         {
-
-            var keywordDal = new KeywordDal()
-            {
-                KeywordID = new Uuid7().ToGuid(),
-                Text = keyword
-            };
+            
             await Task.Delay(3000);
             var position = await method(model, client, keyword);
 
             var keywordResult = new KeywordResultDal
             {
                 Position = position,
-                Keyword = keywordDal,
+                Text = keyword,
                 SearchDal = searchDal,
-                KeywordID = keywordDal.KeywordID
+                KeywordID =  new Uuid7().ToGuid()
             };
-            await _analyticsRepository.AddSearchInformation(keywordDal, keywordResult);
+            
+            await _analyticsRepository.AddSearchInformation(keywordResult);
 
             result.KeywordResults.Add(new KeywordResultDto()
             {

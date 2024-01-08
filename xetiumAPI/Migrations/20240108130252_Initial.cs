@@ -53,18 +53,6 @@ namespace xetiumAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "keyword",
-                columns: table => new
-                {
-                    keywordid = table.Column<Guid>(type: "uuid", nullable: false),
-                    text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_keyword", x => x.keywordid);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -217,17 +205,12 @@ namespace xetiumAPI.Migrations
                 {
                     searchid = table.Column<Guid>(type: "uuid", nullable: false),
                     keywordid = table.Column<Guid>(type: "uuid", nullable: false),
-                    position = table.Column<int>(type: "integer", nullable: false)
+                    position = table.Column<int>(type: "integer", nullable: false),
+                    text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_keywordresult", x => new { x.searchid, x.keywordid });
-                    table.ForeignKey(
-                        name: "FK_keywordresult_keyword_keywordid",
-                        column: x => x.keywordid,
-                        principalTable: "keyword",
-                        principalColumn: "keywordid",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_keywordresult_search_searchid",
                         column: x => x.searchid,
@@ -274,11 +257,6 @@ namespace xetiumAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_keywordresult_keywordid",
-                table: "keywordresult",
-                column: "keywordid");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_project_userId",
                 table: "project",
                 column: "userId");
@@ -312,9 +290,6 @@ namespace xetiumAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "keyword");
 
             migrationBuilder.DropTable(
                 name: "search");

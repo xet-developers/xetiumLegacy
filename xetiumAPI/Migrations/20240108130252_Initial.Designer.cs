@@ -12,7 +12,7 @@ using xetiumAPI.ServerApp.Dal.Models.Repository;
 namespace xetiumAPI.Migrations
 {
     [DbContext(typeof(ApplicationContextDb))]
-    [Migration("20231226175250_Initial")]
+    [Migration("20240108130252_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -155,24 +155,6 @@ namespace xetiumAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordDal", b =>
-                {
-                    b.Property<Guid>("KeywordID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("keywordid");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("text");
-
-                    b.HasKey("KeywordID");
-
-                    b.ToTable("keyword");
-                });
-
             modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordResultDal", b =>
                 {
                     b.Property<Guid>("SearchID")
@@ -189,9 +171,13 @@ namespace xetiumAPI.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("position");
 
-                    b.HasKey("SearchID", "KeywordID");
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("text");
 
-                    b.HasIndex("KeywordID");
+                    b.HasKey("SearchID", "KeywordID");
 
                     b.ToTable("keywordresult");
                 });
@@ -384,19 +370,11 @@ namespace xetiumAPI.Migrations
 
             modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordResultDal", b =>
                 {
-                    b.HasOne("xetiumAPI.ServerApp.Dal.KeywordDal", "Keyword")
-                        .WithMany("KeywordResults")
-                        .HasForeignKey("KeywordID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("xetiumAPI.ServerApp.Dal.SearchDal", "SearchDal")
                         .WithMany("KeywordResults")
                         .HasForeignKey("SearchID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Keyword");
 
                     b.Navigation("SearchDal");
                 });
@@ -421,11 +399,6 @@ namespace xetiumAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("xetiumAPI.ServerApp.Dal.KeywordDal", b =>
-                {
-                    b.Navigation("KeywordResults");
                 });
 
             modelBuilder.Entity("xetiumAPI.ServerApp.Dal.ProjectDal", b =>

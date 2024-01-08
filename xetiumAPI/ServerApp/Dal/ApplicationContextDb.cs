@@ -10,7 +10,7 @@ public class ApplicationContextDb: IdentityDbContext<UserDal, IdentityRole<Guid>
 {
 
     public DbSet<UserDal> UserDbSet { get; set; }
-    public  DbSet<KeywordDal> KeywordsDbSet{ get; set; }
+
     public  DbSet<SearchDal> SearchDbSet  {get; set; }
     public  DbSet<ProjectDal> ProjectDbSet  {get; set; }
     public DbSet<KeywordResultDal> KeywordResultDal { get; set; }
@@ -25,10 +25,10 @@ public class ApplicationContextDb: IdentityDbContext<UserDal, IdentityRole<Guid>
           // проверит наличе бд и если нету создаст
      // optionsBuilder.UseNpgsql("Host=my_host;Database=my_db;Username=my_user;Password=my_pw");
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<KeywordResultDal>().HasKey(k => new { k.SearchID, k.KeywordID});
+        modelBuilder.Entity<KeywordResultDal>().HasKey(k => new { k.SearchID, k.KeywordID });
     }
 }

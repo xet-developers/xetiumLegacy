@@ -45,12 +45,13 @@ public class ProjectController: Controller
         return userID;
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteProject(Guid projectId)
+    [HttpDelete("delete/{projectId:guid}")]
+    public async Task<IActionResult> DeleteProject([FromRoute] Guid projectId)
     {
         var userID = GetUserId();
-        await _projectService.DeleteProjectAsync(userID);
-        return NoContent();
+        var status= await _projectService.DeleteProjectAsync(userID,projectId);
+        return status? Ok() : 
+            BadRequest("Project not found or it's not your Project");
     }
 
     [HttpPatch("modify/\"{id:guid}\"")]

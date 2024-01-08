@@ -11,5 +11,5 @@ public interface IProjectRepository
 
     public Task<ProjectDal?> GetProjectByIdAsync(Guid id);
 
-    public Task DeleteProjectAsync(Guid guid);
+    public Task DeleteProjectAsync(ProjectDal guid);
 }

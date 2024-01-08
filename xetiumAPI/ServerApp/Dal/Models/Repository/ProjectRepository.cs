@@ -25,7 +25,6 @@ public class ProjectRepository: IProjectRepository
             .Where(p => p.UserID == id)
             .Include(projectDal => projectDal.Searches)
             .ThenInclude(searchDal => searchDal.KeywordResults)
-            .ThenInclude(keywordResultDal => keywordResultDal.Keyword)
             .ToListAsync();
         
         return projects;
@@ -39,8 +38,10 @@ public class ProjectRepository: IProjectRepository
         return project;
     }
 
-    public Task DeleteProjectAsync(Guid guid)
+    public async Task DeleteProjectAsync(ProjectDal project)
     {
-        throw new NotImplementedException();
+        var dbSet = _applicationContextDb.ProjectDbSet;
+        dbSet.Remove(project);
+        await _applicationContextDb.SaveChangesAsync();
     }
 }

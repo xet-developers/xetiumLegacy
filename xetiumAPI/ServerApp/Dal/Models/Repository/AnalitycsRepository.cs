@@ -17,9 +17,8 @@ public class AnalitycsRepository: IAnalyticsRepository
         return project;
     }
     
-    public async Task AddSearchInformation (KeywordDal keywordDal, KeywordResultDal keywordResultDal)
+    public async Task AddSearchInformation (KeywordResultDal keywordResultDal)
     {
-        await _applicationContextDb.KeywordsDbSet.AddAsync(keywordDal);
         await _applicationContextDb.KeywordResultDal.AddAsync(keywordResultDal);
         await _applicationContextDb.SaveChangesAsync();
     }
