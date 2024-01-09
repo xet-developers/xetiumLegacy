@@ -17,7 +17,7 @@
     color: #1E1E1E;
     opacity: 70%;
     text-align: left;
-    margin-bottom: 0.5%;
+    margin-bottom: 0.3%;
     display: inline-block;
     text-shadow:
     1px 1px 1px white,
@@ -49,6 +49,7 @@
     margin-left: -20px;
     height: auto;
     width: auto;
+    margin-top: -15px;
 }
 
 .generalInfo {
