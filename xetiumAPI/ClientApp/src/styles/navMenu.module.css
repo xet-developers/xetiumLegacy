@@ -8,7 +8,7 @@
     line-height: 15px;
     max-width: 250px;
     min-width: 250px;
-    height: 100vh;
+    height: 120vh;
     background-color: #252525;
     flex-direction: column;
 }
@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 90%;
+    height: 95%;
 }
 
 .upperMenu{

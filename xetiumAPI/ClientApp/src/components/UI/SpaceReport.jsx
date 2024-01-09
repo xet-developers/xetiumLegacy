@@ -3,13 +3,19 @@ import Styles from "../../styles/report.module.css";
 import {ReportData} from './ReportData';
 import Line from "../../images/line.svg";
 import {Requests} from "../../API/Requests";
+import Loader from "../../images/loader.gif";
 
 const SpaceReport = () => {
     const [startData, setStartData] = useState('')
     const [endData, setEndData] = useState('')
     const [downloadLink, setDownloadLink] = useState('')
+    const [isLoading, setLoading] = useState(false)
 
     const sendData = async () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3500);
         const startDataToSend = startData + 'T00:00:00.00Z';
         const endDataToSend = endData + 'T00:00:00.00Z';
 
@@ -21,6 +27,7 @@ const SpaceReport = () => {
         const API = new Requests()
         API.registeredPost('report', res).then(res => res.blob())
             .then(blob => setDownloadLink(URL.createObjectURL(blob)))
+            .then(() => setLoading(false))
     }
 
     return (
@@ -38,34 +45,29 @@ const SpaceReport = () => {
                         Выберите шаблон отчёта:
                     </p>
 
-                    <select>
+                    <select className={Styles.choosen}>
                         <option>Динамика позиций сайта за интервал времени</option>
-                        <option disabled>Другое</option>
+                        <option disabled>Новые форматы отчетов в разработке</option>
                     </select>
                 </div>
 
                 <div>
                     <p className={Styles.date}>
-                        <p>Дата начала интервала:</p>
-                        <input onChange={e => setStartData(e.target.value)} type="date"></input>
+                        <p>Начало интервала:</p>
+                        <input onChange={e => setStartData(e.target.value)} type="date" className={Styles.choosen}></input>
                     </p>
 
                     <p className={Styles.date}>
-                        <p>Дата конца интервала:</p>
-                        <input onChange={e => setEndData(e.target.value)} type="date"></input>
+                        <p>Конец интервала:</p>
+                        <input onChange={e => setEndData(e.target.value)} type="date" className={Styles.choosen}></input>
                     </p>
                 </div>
 
                 <div className={Styles.generate}>
-
                     <button onClick={sendData} className={Styles.buttonDownloadReport1}>
-                        Сгенерировать отчёт
-                    </button>
-
-                    <button className={Styles.buttonDownloadReport2}>
-                        <a download='report.xlsx' href={downloadLink}>
-                            Скачать
-                        </a>
+                        {isLoading ? <div><p className={Styles.loading}>Loading...</p><img src={Loader} alt="loader" className={Styles.loader}/></div> : <a download='report.xlsx' href={downloadLink} className={Styles.generateReport}>
+                            Сгенерировать отчёт
+                        </a>}
                     </button>
                 </div>
             </section>

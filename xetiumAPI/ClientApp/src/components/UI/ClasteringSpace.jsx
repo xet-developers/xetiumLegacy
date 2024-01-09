@@ -4,13 +4,19 @@ import { ClasteringData } from './ClasteringData';
 import Line from "../../images/line.svg";
 import Warning from "../../images/warning.png";
 import {Requests} from "../../API/Requests";
+import Loader from "../../images/loader.gif";
 
 const ClasteringReport = () => {
     const [keywords, setKeywords] = useState('')
     const [downloadLink, setDownloadLink] = useState('')
     const [view, setView] = useState(false)
+    const [isLoading, setLoading] = useState(false)
 
     const sendData = async () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3500);
         const res = {
             query: keywords
         }
@@ -22,6 +28,7 @@ const ClasteringReport = () => {
             return res.blob();
             })
             .then(blob => setDownloadLink(URL.createObjectURL(blob)))
+            .then(() => setLoading(false))
     }
 
     return (
@@ -67,24 +74,24 @@ const ClasteringReport = () => {
                 </div>
             </section>
 
-            {view&&<section className={Styles.result}>
+            {isLoading ? <div className={Styles.loading}><p>Loading...</p><img src={Loader} alt="loader"/></div> : (view&&<section className={Styles.result}>
                 <div className={Styles.resultText}>
                     <p className={Styles.Head}>
                         Результат работы
                     </p>
 
                     <p>
-                        После отправления запроса файл можно скачивать. 
+                        Результат кластеризации сделан с помощью нейросети и может содержать ошибки. 
                     </p>
 
                     <div className={Styles.resultButton}>
                         <p>
                             Скачать можно по ссылке: 
                         </p>
-                        <button className={Styles.buttonDownloadClaster}><a download='clustering.txt' href={downloadLink}>Скачать</a></button>
+                        <button className={Styles.buttonDownloadClaster}><a download='clustering.txt' href={downloadLink} style={{color:'white'}}>Скачать</a></button>
                     </div>
                 </div>
-            </section>}
+            </section>)}
 
             {false&&<section className={Styles.allClaster}>
                 <p className={Styles.Head}>
