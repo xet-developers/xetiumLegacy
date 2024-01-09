@@ -36,7 +36,7 @@ th {
     gap: 50px;
     align-items: center;
     margin-left: 2%;
-    margin-top: 6%;
+    margin-top: 2%;
 }
 
 .formGeneration {
@@ -55,7 +55,7 @@ th {
     display: flex;
     gap: 50px;
     align-items: center;
-    margin-left: 2%;
+    width: 350px;
 }
 
 .data {
@@ -68,6 +68,8 @@ th {
     column-gap: 50%;
     margin-left: 20px;
     margin-top: 40px;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .button1 {
@@ -129,7 +131,7 @@ th {
     font-size: 15px;
     
     transition: 0.3s linear;
-    margin-top: 5px;
+    margin-top: -10px;
 }
 
 .buttonDownloadReport1:hover {
@@ -188,6 +190,22 @@ th {
     margin-left: 2%;
     display: flex;
     gap: 50px;
-    margin-top: 4%;
     justify-content: center;
+}
+
+.choosen {
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.generateReport {
+    color: white;
+}
+
+.loading {
+    display: flex;
+    font-weight: 500;
+}
+
+.loader {
+    margin-top: 70px;
 }

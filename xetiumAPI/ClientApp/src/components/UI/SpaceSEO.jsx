@@ -4,6 +4,7 @@ import Line from "../../images/line.svg";
 import {UserData} from './UserData';
 import {CurrentProjectContext} from "../../contex/CurrentProject";
 import {Requests} from "../../API/Requests";
+import Loader from "../../images/loader.gif";
 
 const API = '';
 
@@ -13,8 +14,10 @@ const SpaceSEO = () => {
     const [secondSearchSystem, setSecondSearchSystem] = useState(false)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
     const [usersReq, setUsersReq] = useState(currentProject?.searches || [] );
+    const [isLoading, setLoading] = useState(false);
 
     const sendData = async () => {
+
         const keyWordsArray = inputValue.trim().split(', ')
         const res = {
             projid: currentProject.id,
@@ -24,11 +27,16 @@ const SpaceSEO = () => {
         }
 
         const fetchData = async (searchSystem, res) => {
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+            }, 3500);
             res.searchSystem = searchSystem;
             const API = new Requests()
             API.registeredPost('analytics', res)
                 .then((res) => res.json())
                 .then(respJson => addResp(respJson))
+                .then(() => setLoading(false))
                 .catch();
         }
 
@@ -51,7 +59,7 @@ const SpaceSEO = () => {
         <div className={Styles.seo}>
             <section className={Styles.header}>
                 <div>
-                    <p className={Styles.headerText}>Проверка позиций</p>
+                    <p className={Styles.headerText}>Отслеживание позиций сайта</p>
                     <img src={Line} alt="line" className={Styles.line}/>
                 </div>
             </section>
@@ -78,29 +86,34 @@ const SpaceSEO = () => {
                         </p>
                     </div>
                     
-                    <textarea className={Styles.textInputSeo} value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
+                    <textarea className={Styles.textInputSeo} value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords" placeholder='Пример: "новости, сенсация, город"'/>
 
                     <p className={Styles.inputWarning}>
-                        Введите запросы - каждый запрос с новой строки. 
+                        Введите запросы - каждый запрос через запятую. 
                     </p>
 
-                    <button
-                        className={Styles.inputButton2}
-                        disabled={inputValue.length === 0}
-                        type='button'
-                        onClick={sendData}>
-                        Отправить
-                    </button>
+                    <div style={{display:'flex', flexDirection:'row', columnGap: '30px'}}>
+                        <button
+                            className={Styles.inputButton2}
+                            disabled={inputValue.length === 0}
+                            type='button'
+                            onClick={sendData}>
+                            Отправить
+                        </button>
+
+                        <p style={{fontSize:'15px', color: '#757575'}}>{inputValue.split(',').length} / 30</p>
+                    </div>
                 </div>
             </section>
 
-            {usersReq?.length !== 0 && <section>
+            { isLoading ? <div className={Styles.loading}><p>Loading...</p><img src={Loader} alt="loader"/></div> : 
+                (usersReq?.length !== 0 && <section>
                 <table className={Styles.tableSeo}>
                     <thead>
                         <tr>
-                            <th>Поисковая система</th>
-                            <th>Запрос</th>
-                            <th>Позиция</th>
+                            <th className={Styles.nameColumn}>Поисковая система</th>
+                            <th className={Styles.nameColumn}>Запрос</th>
+                            <th className={Styles.nameColumn}>Позиция</th>
                         </tr>
                     </thead>
 
@@ -108,7 +121,7 @@ const SpaceSEO = () => {
                         <UserData users={usersReq}/>
                     </tbody>
                 </table>
-            </section>}
+            </section>)}
         </div>
     );
 };
