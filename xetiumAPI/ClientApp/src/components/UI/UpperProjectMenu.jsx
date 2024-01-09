@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Styles from "../../styles/navMenu.module.css";
 import {Link} from "react-router-dom";
 
@@ -10,14 +10,16 @@ import search from "../../images/icon-position.svg";
 import claster from "../../images/icon-claster.svg";
 import report from "../../images/icon-report.svg";
 import MyProject from "./MyProject";
+import {CurrentProjectContext} from "../../contex/CurrentProject";
 
 const UpperProjectMenu = ({projects, setModal}) => {
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
+    const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
 
     const paths = [
         {link: '/personalaccount', description: "Личный кабинет", pict: acc},
         {
-            link: '/', description: "Мои проекты", pict: proj, button: (<img className={Styles.arrow} src={
+            link: '/', description: currentProject.name, pict: proj, button: (<img className={Styles.arrow} src={
                 isProjectsOpen
                     ? arrow
                     : arrowUp} onClick={() => setIsProjectsOpen(!isProjectsOpen)} alt={""}/>)
