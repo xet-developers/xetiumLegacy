@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using xetiumAPI.ServerApp.Interfaces;
 using xetiumAPI.Models;
 using xetiumAPI.ServerApp.Dal;
+using xetiumAPI.ServerApp.Extentions;
 
 namespace xetiumAPI.ServerApp.Controllers
 {
@@ -30,7 +31,7 @@ namespace xetiumAPI.ServerApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {
-            var registerResult = await _authenticationService.RegisterUser(model);
+            var registerResult = await _authenticationService.RegisterUserAsync(model);
             
             if (registerResult.Succeeded)
             {
@@ -47,7 +48,7 @@ namespace xetiumAPI.ServerApp.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginModel model)
         {
-            var token = await _authenticationService.LoginUser(model);
+            var token = await _authenticationService.LoginUserAsync(model);
             if (token is null)
             {
                 return Unauthorized();
@@ -59,6 +60,22 @@ namespace xetiumAPI.ServerApp.Controllers
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
             });
+        }
+
+        [HttpGet("info")]
+        [Authorize]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var userId = GetUserId();
+            var userInfo = await _authenticationService.GetUserInfoAsync(userId);
+            return Ok(userInfo);
+        }
+        
+        private Guid GetUserId()
+        {
+            var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
+            var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
+            return userID;
         }
     }
 }

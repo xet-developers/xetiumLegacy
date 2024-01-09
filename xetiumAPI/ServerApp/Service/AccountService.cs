@@ -29,7 +29,7 @@ public class AccountService : IAuthenticationService
         _roleManager = roleManager;
     }
 
-    public async Task<IdentityResult> RegisterUser(UserRegisterModel userRegisterModel)
+    public async Task<IdentityResult> RegisterUserAsync(UserRegisterModel userRegisterModel)
     {
         var id = new Uuid7().ToGuid();
         var user = new UserDal
@@ -59,7 +59,7 @@ public class AccountService : IAuthenticationService
         return createResult;
     }
 
-    public async Task<JwtSecurityToken> LoginUser(UserLoginModel userLogin)
+    public async Task<JwtSecurityToken> LoginUserAsync(UserLoginModel userLogin)
     {
         var user = await _userManager.FindByNameAsync(userLogin.UserName);
         if (user == null || !await _userManager.CheckPasswordAsync(user, userLogin.Password))
@@ -81,6 +81,22 @@ public class AccountService : IAuthenticationService
 
         var token = GetToken(claims);
         return token;
+    }
+
+    public async Task<UserInfoDto> GetUserInfoAsync(Guid userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user is null)
+        {
+            throw new Exception("User Not Found");
+        }
+        var userUuid7 = (Uuid7)userId;
+        return new UserInfoDto()
+        {
+            UserName = user.UserName,
+            Mail = user.Email,
+            DateTime = userUuid7.ToDateTime()
+        };
     }
 
     private JwtSecurityToken GetToken(List<Claim> authClaims)

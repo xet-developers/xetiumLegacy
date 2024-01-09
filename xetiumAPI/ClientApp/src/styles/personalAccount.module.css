@@ -1,0 +1,106 @@
+.generalPersonalAccount {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+.headerText {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1E1E1E;
+    opacity: 70%;
+    text-align: left;
+    margin-bottom: 0.3%;
+    display: inline-block;
+    text-shadow:
+    1px 1px 1px white,
+    1px -1px 1px white,
+    -1px 1px 1px white,
+    -1px -1px 1px white;
+    transition: all 1s;
+}
+
+.headerText:after {
+    content: "";
+    display: block;
+    position: relative;
+    z-index: -1;
+    width: 100%;
+    margin: auto;
+    border-bottom: 1px solid #252525;;
+    bottom: .10em;
+    transition: all 1s;
+}
+
+.headerText:hover:after {
+    width: 0;
+    border-bottom-width: 1px;
+}
+
+.line {
+    margin-left: -20px;
+    height: auto;
+    width: auto;
+    margin-top: -15px;
+}
+
+.generalInfo {
+    background-image: url(../images/form-general.svg);
+    width: 994px;
+    height: 510px;
+    display: flex;
+    row-gap: 5px;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+.headMain {
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.data {
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.dataspace {
+    background-image: url(../images/dataspace.png);
+    width: 473px;
+    height: 51px;
+    margin-left: 20px;
+}
+
+.logoutButton {
+    display: flex;
+    flex-direction: row;
+    border: 0;
+    background-color: white;
+    width: 245px;
+    height: 35px;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 740px;
+    cursor: pointer;
+    margin-top: -25px;
+    border-radius: 20px;
+}
+
+.logoutButton:hover {
+    background-color: #c9c9c9;
+}
+
+.logoutText {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 15px;
+    color: #808080;
+    font-weight: 500;
+}

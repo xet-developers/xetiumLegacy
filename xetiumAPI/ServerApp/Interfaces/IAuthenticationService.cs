@@ -5,7 +5,9 @@ using xetiumAPI.Models;
 namespace xetiumAPI.ServerApp.Interfaces;
 public interface IAuthenticationService
 {
-    public Task<IdentityResult> RegisterUser(UserRegisterModel userRegisterModel);
-    public Task<JwtSecurityToken> LoginUser(UserLoginModel userLogin);
+    public Task<IdentityResult> RegisterUserAsync(UserRegisterModel userRegisterModel);
+    public Task<JwtSecurityToken> LoginUserAsync(UserLoginModel userLogin);
+
+    public Task<UserInfoDto> GetUserInfoAsync(Guid userId);
 }
 

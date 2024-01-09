@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
 import Styles from "../../styles/currentProject.module.css";
@@ -11,23 +11,22 @@ const CurrentProject = () => {
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
 
-    useEffect(() => {
-        const API = new Requests()
-        API.registeredGet("project")
-            .then(async resp => {
-                const res = await resp.json()
-                setUserProjects(res)
-                LocalStorageManager.setCurrentProject(res)
-            })
-            .catch(() =>
-                setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
-            )
-    }, [])
-
     if (!userProjects || userProjects.length === 0) {
         return (
             <Tutorial/>
         )
+    }
+
+    const deleteProject = () => {
+        const API = new Requests()
+        API.registeredDelete('project', currentProject.id)
+
+        setUserProjects(userProjects.filter(item => {
+            return item.id !== currentProject.id
+        }))
+
+        LocalStorageManager.setCurrentProject(userProjects[0])
+        setCurrentProject(userProjects[0])
     }
 
     return (
@@ -49,7 +48,7 @@ const CurrentProject = () => {
                     <p>{currentProject.url}</p>
                 </p>
             </div>
-
+            <button onClick={deleteProject}>Удалить проект</button>
         </div>
     );
 };

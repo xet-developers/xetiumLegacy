@@ -1,13 +1,8 @@
 import {json} from "react-router-dom";
 
 export class LocalStorageManager {
-    static _JWT= ''
     static getJWT(){
-        if(this._JWT === ''){
-            this._JWT = localStorage.getItem('jwt')
-        }
-
-        return this._JWT
+        return localStorage.getItem('jwt')
     }
 
     static setJWT(token){
@@ -15,11 +10,19 @@ export class LocalStorageManager {
     }
 
     static getIsAuth(){
-        localStorage.getItem("isAuth")
+        return localStorage.getItem("isAuth")
     }
 
-    static setIsAuth(){
+    static setIsAuth(bool){
+        localStorage.setItem("isAuth", bool)
+    }
 
+    static getUserProjects(){
+        return JSON.parse(localStorage.getItem("UserProjects"))
+    }
+
+    static setUserProjects(projects){
+        localStorage.setItem("UserProjects", JSON.stringify(projects))
     }
 
     static getCurrentProject(){

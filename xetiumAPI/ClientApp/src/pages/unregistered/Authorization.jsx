@@ -25,6 +25,7 @@ const Authorization = () => {
         if(result.ok){
             const respJSON = await result.json()
             LocalStorageManager.setJWT(respJSON.token)
+            LocalStorageManager.setIsAuth(true)
             navigate("/")
             setIsAuth(true)
         }
