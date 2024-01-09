@@ -3,6 +3,7 @@ import QueryClustering from "../pages/registered/QueryClustering";
 import Report from "../pages/registered/Report";
 import SitePosition from "../pages/registered/SitePosition";
 import Tutorial from "../components/Tutorial";
+import PersonalAccount from "../pages/registered/PersonalAccount";
 
 
 const AuthAppRoutes = [
@@ -29,7 +30,11 @@ const AuthAppRoutes = [
     {
         path: "*",
         element: <CurrentProject/>
-    }
+    },
+    {
+        path: "personalaccount",
+        element: <PersonalAccount/>
+    },
     // {
     //     index:true,
     //     element: <Advertising />
