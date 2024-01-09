@@ -3,6 +3,7 @@ import Styles from "../../styles/searchPosition.module.css";
 import Line from "../../images/line.svg";
 import {UserData} from './UserData';
 import {CurrentProjectContext} from "../../contex/CurrentProject";
+import {Requests} from "../../API/Requests";
 
 const API = '';
 
@@ -13,6 +14,32 @@ const SpaceSEO = () => {
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
     const [usersReq, setUsersReq] = useState(currentProject?.searches || [] );
 
+    const sendData = async () => {
+        const keyWordsArray = inputValue.trim().split(', ')
+        const res = {
+            projid: currentProject.id,
+            uri: currentProject.url,
+            keywords: keyWordsArray,
+            top: 100,
+        }
+
+        const fetchData = async (searchSystem, res) => {
+            res.searchSystem = searchSystem;
+            const API = new Requests()
+            API.registeredPost('analytics', res)
+                .then((res) => res.json())
+                .then(respJson => addResp(respJson))
+                .catch();
+        }
+
+        if (firstSearchSystem) {
+            await fetchData(0, res);
+        }
+
+        if (secondSearchSystem) {
+            await fetchData(1, res);
+        }
+    }
 
     const addResp = (resp) => {
         console.log(resp)
@@ -57,53 +84,17 @@ const SpaceSEO = () => {
                         Введите запросы - каждый запрос с новой строки. 
                     </p>
 
-                    
-
                     <button
                         className={Styles.inputButton2}
                         disabled={inputValue.length === 0}
                         type='button'
-                        onClick={async () => {
-                            const keyWordsArray = inputValue.trim().split(', ')
-                            const res = {
-                                projid: currentProject.id,
-                                uri: currentProject.url,
-                                keywords: keyWordsArray,
-                                top: 100,
-                            }
-
-                            const fetchData = async (searchSystem, res) => {
-                                res.searchSystem = searchSystem;
-                                console.log(res)
-                                const params = {
-                                    method: 'POST',
-                                    headers: {
-                                        'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-                                        'Content-Type': "application/problem+json; charset=utf-8"
-                                    },
-                                    body: JSON.stringify(res)
-                                };
-                                return await fetch('/analytics', params)
-                                    .then((res) => res.json())
-                                    .then(respJson => addResp(respJson))
-                                    .catch();
-                            }
-
-                            const requests = [];
-                            if (firstSearchSystem) {
-                                requests.push(fetchData(0, res));
-                            }
-
-                            if (secondSearchSystem) {
-                                requests.push(fetchData(1, res));
-                            }
-                        }}>
+                        onClick={sendData}>
                         Отправить
                     </button>
                 </div>
             </section>
 
-            <section>
+            {usersReq?.length !== 0 && <section>
                 <table className={Styles.tableSeo}>
                     <thead>
                         <tr>
@@ -117,7 +108,7 @@ const SpaceSEO = () => {
                         <UserData users={usersReq}/>
                     </tbody>
                 </table>
-            </section>
+            </section>}
         </div>
     );
 };

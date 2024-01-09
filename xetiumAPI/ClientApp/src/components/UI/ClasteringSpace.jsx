@@ -3,6 +3,7 @@ import Styles from "../../styles/clastering.module.css";
 import { ClasteringData } from './ClasteringData';
 import Line from "../../images/line.svg";
 import Warning from "../../images/warning.png";
+import {Requests} from "../../API/Requests";
 
 const ClasteringReport = () => {
     const [keywords, setKeywords] = useState('')
@@ -14,19 +15,13 @@ const ClasteringReport = () => {
             query: keywords
         }
 
-        const params = {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-                'Content-Type': "application/problem+json; charset=utf-8"
-            },
-            body: JSON.stringify(res)
-        };
-
-        const response = await fetch('clustering', params).then(res => {
+        const API = new Requests()
+        API.registeredPost('clustering', res)
+            .then(res => {
             setView(true);
-            return res.blob()})
-        setDownloadLink(URL.createObjectURL(await response))
+            return res.blob();
+            })
+            .then(blob => setDownloadLink(URL.createObjectURL(blob)))
     }
 
     return (

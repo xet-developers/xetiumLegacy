@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Styles from "../../styles/report.module.css";
 import {ReportData} from './ReportData';
 import Line from "../../images/line.svg";
+import {Requests} from "../../API/Requests";
 
 const SpaceReport = () => {
     const [startData, setStartData] = useState('')
@@ -17,18 +18,9 @@ const SpaceReport = () => {
             LastDate: endDataToSend
         }
 
-        const params = {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-                'Content-Type': "application/problem+json; charset=utf-8"
-            },
-            body: JSON.stringify(res)
-        };
-
-        const response = await fetch('report', params).then(res=> res.blob())
-
-        setDownloadLink(URL.createObjectURL(await response))
+        const API = new Requests()
+        API.registeredPost('report', res).then(res => res.blob())
+            .then(blob => setDownloadLink(URL.createObjectURL(blob)))
     }
 
     return (
