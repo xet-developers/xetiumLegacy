@@ -14,9 +14,9 @@ const PersonalAccountSpace = () => {
                 </div>
             </section>
 
-            <section>
+            <section className={Styles.pa}>
                 <div className={Styles.generalInfo}>
-                    <p className={Styles.head}>
+                    <p className={Styles.headMain}>
                         Основная информация
                     </p>
 
@@ -25,9 +25,7 @@ const PersonalAccountSpace = () => {
                             Имя пользователя:
                         </p>
 
-                        <p>
-
-                        </p>
+                        <p className={Styles.dataspace}></p>
                     </div>
 
                     <div>
@@ -35,9 +33,7 @@ const PersonalAccountSpace = () => {
                             Почта:
                         </p>
 
-                        <p>
-                            
-                        </p> 
+                        <p className={Styles.dataspace}></p> 
                     </div>
 
                     <div>
@@ -45,18 +41,14 @@ const PersonalAccountSpace = () => {
                             Дата регистрации:
                         </p>
 
-                        <p>
-                            
-                        </p> 
+                        <p className={Styles.dataspace}></p> 
                     </div>
-                </div>
-            </section>
 
-            <section>
-                <button>
-                    <img src={LogOut} alt="LogOut" className={Styles.logout}></img>
-                    <p>Выйти из аккаунта</p>
-                </button>
+                    <button className={Styles.logoutButton}>
+                        <img src={LogOut} alt="LogOut" className={Styles.logout}></img>
+                        <p className={Styles.logoutText}>Выйти из аккаунта</p>
+                    </button>
+                </div>
             </section>
         </div>
     );
