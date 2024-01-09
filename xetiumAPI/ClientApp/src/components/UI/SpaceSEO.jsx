@@ -59,7 +59,7 @@ const SpaceSEO = () => {
         <div className={Styles.seo}>
             <section className={Styles.header}>
                 <div>
-                    <p className={Styles.headerText}>Проверка позиций</p>
+                    <p className={Styles.headerText}>Отслеживание позиций сайта</p>
                     <img src={Line} alt="line" className={Styles.line}/>
                 </div>
             </section>
@@ -92,13 +92,17 @@ const SpaceSEO = () => {
                         Введите запросы - каждый запрос через запятую. 
                     </p>
 
-                    <button
+                    <div style={{display:'flex', flexDirection:'row', columnGap: '30px'}}>
+                        <button
                         className={Styles.inputButton2}
                         disabled={inputValue.length === 0}
                         type='button'
                         onClick={sendData}>
                         Отправить
-                    </button>
+                        </button>
+
+                        <p style={{fontSize:'15px', color: '#757575'}}>{inputValue.split(',').length} / 30</p>
+                    </div>
                 </div>
             </section>
 

@@ -45,6 +45,10 @@
 .upperMenuItemsText{
     width: 170px;
     padding-left: 15px;
+    color: #b9b9b9;
+}
+
+.upperMenuItemsText:hover {
     color: #ffffff;
 }
 
