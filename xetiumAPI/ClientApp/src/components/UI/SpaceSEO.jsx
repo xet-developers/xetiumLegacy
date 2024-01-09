@@ -86,7 +86,7 @@ const SpaceSEO = () => {
                         </p>
                     </div>
                     
-                    <textarea className={Styles.textInputSeo} value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords"/>
+                    <textarea className={Styles.textInputSeo} value={inputValue} onChange={e => setInputValue(e.target.value)} id="keyWords" placeholder='Пример: "новости, сенсация, город"'/>
 
                     <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос через запятую. 
@@ -94,11 +94,11 @@ const SpaceSEO = () => {
 
                     <div style={{display:'flex', flexDirection:'row', columnGap: '30px'}}>
                         <button
-                        className={Styles.inputButton2}
-                        disabled={inputValue.length === 0}
-                        type='button'
-                        onClick={sendData}>
-                        Отправить
+                            className={Styles.inputButton2}
+                            disabled={inputValue.length === 0}
+                            type='button'
+                            onClick={sendData}>
+                            Отправить
                         </button>
 
                         <p style={{fontSize:'15px', color: '#757575'}}>{inputValue.split(',').length} / 30</p>
