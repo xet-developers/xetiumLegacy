@@ -61,12 +61,13 @@ namespace xetiumAPI.ServerApp.Controllers
                 expiration = token.ValidTo
             });
         }
-        
+
+        [HttpGet("info")]
         [Authorize]
         public async Task<IActionResult> GetUserInfo()
         {
             var userId = GetUserId();
-            var userInfo = _authenticationService.GetUserInfoAsync(userId);
+            var userInfo = await _authenticationService.GetUserInfoAsync(userId);
             return Ok(userInfo);
         }
         

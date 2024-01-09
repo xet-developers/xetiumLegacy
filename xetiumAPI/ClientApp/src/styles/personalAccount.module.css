@@ -24,7 +24,6 @@
     1px -1px 1px white,
     -1px 1px 1px white,
     -1px -1px 1px white;
-    color: #252525;
     transition: all 1s;
 }
 
@@ -41,7 +40,7 @@
 }
 
 .headerText:hover:after {
-    width: 0%;
+    width: 0;
     border-bottom-width: 1px;
 }
 
@@ -83,7 +82,7 @@
 .logoutButton {
     display: flex;
     flex-direction: row;
-    border: 0px;
+    border: 0;
     background-color: white;
     width: 245px;
     height: 35px;

@@ -15,7 +15,7 @@ const CreateProjectForm = ({modal, setModal}) => {
     const sendProjectData = async (e) => {
         e.preventDefault()
 
-        if (userProjects.some(project => project.name === projectName)) {
+        if (userProjects?.some(project => project.name === projectName)) {
             setNameIsCorrect(false)
             return
         }
@@ -25,7 +25,6 @@ const CreateProjectForm = ({modal, setModal}) => {
             url: url,
             description: projectDescription
         }
-
 
         const API = new Requests()
         API.registeredPost('/project/create', res).then(resp => {

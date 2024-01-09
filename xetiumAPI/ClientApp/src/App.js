@@ -8,9 +8,9 @@ import {LocalStorageManager} from "./misc/LocalStorageManager";
 
 const App = () => {
     const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-    const [isAuth, setIsAuth] = useState(LocalStorageManager.getIsAuth || false);
+    const [isAuth, setIsAuth] = useState(LocalStorageManager.getIsAuth() || false);
     const [currentProject, setCurrentProject] = useState(LocalStorageManager.getCurrentProject() || {})
-    const [userProjects, setUserProjects] = useState([])
+    const [userProjects, setUserProjects] = useState(LocalStorageManager.getUserProjects() || [])
 
     useEffect(() => {
         const API = new Requests()
@@ -24,6 +24,24 @@ const App = () => {
                 }
             })
     }, [])
+
+    useEffect(() => {
+        const API = new Requests()
+        API.registeredGet("project")
+            .then(async resp => {
+                const res = await resp.json()
+                setUserProjects(res)
+                LocalStorageManager.setUserProjects(res)
+
+                if(!LocalStorageManager.getCurrentProject()){
+                    LocalStorageManager.setCurrentProject(res[0])
+                    setCurrentProject(res[0])
+                }
+            })
+            .catch(() =>
+                setUserProjects(LocalStorageManager.getUserProjects())
+            )
+    }, [isAuth])
 
     return (
         <UserProjectsContext.Provider value={{

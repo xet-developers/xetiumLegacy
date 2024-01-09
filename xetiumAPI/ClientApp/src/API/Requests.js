@@ -1,8 +1,6 @@
 import {LocalStorageManager} from "../misc/LocalStorageManager";
 
 export class Requests {
-    JWT = LocalStorageManager.getJWT()
-
     unregisteredPostParams = {
         method: 'POST',
         headers: {
@@ -13,14 +11,14 @@ export class Requests {
     RegisteredGetParams = {
         method: "GET",
         headers: {
-            "Authorization": 'Bearer ' + this.JWT
+            "Authorization": 'Bearer ' + LocalStorageManager.getJWT()
         }
     }
 
     RegisteredPostParams = {
         method: 'POST',
         headers: {
-            'Authorization': 'Bearer ' + this.JWT,
+            'Authorization': 'Bearer ' + LocalStorageManager.getJWT(),
             'Content-Type': "application/problem+json; charset=utf-8"
         },
     };
@@ -28,6 +26,10 @@ export class Requests {
     async unregisteredPost(path, body) {
         this.unregisteredPostParams.body = JSON.stringify(body)
         return await fetch(path, this.unregisteredPostParams)
+    }
+
+    async registeredDelete(){
+
     }
 
     async registeredGet(path){

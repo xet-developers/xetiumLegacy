@@ -11,19 +11,6 @@ const CurrentProject = () => {
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
 
-    useEffect(() => {
-        const API = new Requests()
-        API.registeredGet("project")
-            .then(async resp => {
-                const res = await resp.json()
-                setUserProjects(res)
-                LocalStorageManager.setCurrentProject(res)
-            })
-            .catch(() =>
-                setUserProjects(JSON.parse(localStorage.getItem("UserProjects")))
-            )
-    }, [])
-
     if (!userProjects || userProjects.length === 0) {
         return (
             <Tutorial/>

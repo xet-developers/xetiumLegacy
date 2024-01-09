@@ -4,6 +4,7 @@ import dot from "../../images/Ellipse.svg";
 import {Link} from "react-router-dom";
 import plus from "../../images/icon-plus.svg";
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const MyProject = ({setModal}) => {
     const {userProjects, setProjects} = useContext(UserProjectsContext)
@@ -16,9 +17,9 @@ const MyProject = ({setModal}) => {
                 {userProjects.map(project =>
                     <li key={project.id} className={Styles.listItem}>
                         <img src={dot} alt={""}/>
-                        <Link to={project.name} style={{color:'white'}}>
+                        <Link style={{color:'white'}}>
                             <span onClick = {() => {
-                                localStorage.setItem("CurrentProject", JSON.stringify(project))
+                                LocalStorageManager.setCurrentProject(project)
                                 setCurrentProject(project)
                             }}>{project.name}</span>
                         </Link>
