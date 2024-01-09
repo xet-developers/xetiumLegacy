@@ -20,7 +20,15 @@ export class Requests {
         headers: {
             'Authorization': 'Bearer ' + LocalStorageManager.getJWT(),
             'Content-Type': "application/problem+json; charset=utf-8"
-        },
+        }
+    };
+
+    RegisteredDeleteParams = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageManager.getJWT(),
+            'Content-Type': "application/problem+json; charset=utf-8"
+        }
     };
 
     async unregisteredPost(path, body) {
@@ -28,8 +36,8 @@ export class Requests {
         return await fetch(path, this.unregisteredPostParams)
     }
 
-    async registeredDelete(){
-
+    async registeredDelete(path, guid){
+        await fetch(path + '/' + guid, this.RegisteredDeleteParams)
     }
 
     async registeredGet(path){

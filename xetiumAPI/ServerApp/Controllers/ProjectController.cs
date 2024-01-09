@@ -45,7 +45,7 @@ public class ProjectController: Controller
         return userID;
     }
 
-    [HttpDelete("delete/{projectId:guid}")]
+    [HttpDelete("{projectId:guid}")]
     public async Task<IActionResult> DeleteProject([FromRoute] Guid projectId)
     {
         var userID = GetUserId();

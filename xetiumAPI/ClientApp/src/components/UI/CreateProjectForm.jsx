@@ -3,6 +3,7 @@ import CreateProject from "./CreateProject";
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 import Styles from "../../styles/CreateProject.module.css";
 import {Requests} from "../../API/Requests";
+import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const CreateProjectForm = ({modal, setModal}) => {
     const [projectName, setProjectName] = useState("")
@@ -27,16 +28,17 @@ const CreateProjectForm = ({modal, setModal}) => {
         }
 
         const API = new Requests()
-        API.registeredPost('/project/create', res).then(resp => {
-            if (resp.ok) {
-                setNameIsCorrect(true)
-                const newProject = res;
-                const a = resp.json()
-                newProject.id = a.id;
-                setCurrentProject(newProject)
-                setUserProjects([...userProjects, newProject])
-                setModal(false)
-            }
+        API.registeredPost('/project/create', res)
+            .then(res => res.json())
+            .then(resp => {
+            setNameIsCorrect(true)
+            const newProject = res;
+            newProject.id = resp.id;
+            LocalStorageManager.setCurrentProject(newProject)
+            setCurrentProject(newProject)
+            LocalStorageManager.setUserProjects([...userProjects, newProject])
+            setUserProjects([...userProjects, newProject])
+            setModal(false)
         })
     }
 

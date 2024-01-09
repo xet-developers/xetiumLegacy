@@ -9,6 +9,7 @@ const context = [
   "/account/login",
   "/account/info",
   "/account",
+  "/project/:id",
   "/clustering",
   "/project/create",
   "/project",
