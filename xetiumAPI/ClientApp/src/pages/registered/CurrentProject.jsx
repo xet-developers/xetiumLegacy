@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import ProjectMenu from "../../components/UI/ProjectMenu";
 import Tutorial from "../../components/Tutorial";
 import Styles from "../../styles/currentProject.module.css";
+import Styles1 from "../../styles/clastering.module.css";
 
 import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
 import {Requests} from "../../API/Requests";
@@ -47,8 +48,10 @@ const CurrentProject = () => {
                     <p className={Styles.nameP}>Ссылка:</p>
                     <p>{currentProject.url}</p>
                 </p>
+                <div style={{display: 'flex', justifyContent:'center'}}>
+                    <button className={Styles1.inputButton2} onClick={deleteProject}>Удалить проект</button>
+                </div>
             </div>
-            <button onClick={deleteProject}>Удалить проект</button>
         </div>
     );
 };
