@@ -3,7 +3,7 @@ import Styles from "../../styles/navMenu.module.css";
 import dot from "../../images/Ellipse.svg";
 import {Link} from "react-router-dom";
 import plus from "../../images/icon-plus.svg";
-import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext, UserProjectsContext} from "../../context/CurrentProject";
 import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const MyProject = ({setModal}) => {

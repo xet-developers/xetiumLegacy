@@ -4,7 +4,7 @@ import Line from "../images/line.svg";
 import LogOut from "../images/logout.svg";
 import {Requests} from "../API/Requests";
 import {LocalStorageManager} from "../misc/LocalStorageManager";
-import {AuthContext} from "../contex/IsAuth";
+import {AuthContext} from "../context/IsAuth";
 
 const PersonalAccountSpace = () => {
     const [userInfo, setUserInfo] = useState({})

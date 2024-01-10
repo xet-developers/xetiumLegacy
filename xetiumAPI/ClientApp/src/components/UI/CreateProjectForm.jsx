@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import CreateProject from "./CreateProject";
-import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext, UserProjectsContext} from "../../context/CurrentProject";
 import Styles from "../../styles/CreateProject.module.css";
 import {Requests} from "../../API/Requests";
 import {LocalStorageManager} from "../../misc/LocalStorageManager";

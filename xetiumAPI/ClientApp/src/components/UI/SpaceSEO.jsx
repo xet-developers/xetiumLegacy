@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import Styles from "../../styles/searchPosition.module.css";
 import Line from "../../images/line.svg";
 import {UserData} from './UserData';
-import {CurrentProjectContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext} from "../../context/CurrentProject";
 import {Requests} from "../../API/Requests";
 import Loader from "../../images/loader.gif";
 

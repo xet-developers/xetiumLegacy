@@ -10,7 +10,7 @@ import search from "../../images/icon-position.svg";
 import claster from "../../images/icon-claster.svg";
 import report from "../../images/icon-report.svg";
 import MyProject from "./MyProject";
-import {CurrentProjectContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext} from "../../context/CurrentProject";
 
 const UpperProjectMenu = ({projects, setModal}) => {
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)

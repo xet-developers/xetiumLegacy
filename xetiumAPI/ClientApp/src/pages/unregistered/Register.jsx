@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import '../../styles/Register-authentication.css';
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../contex/IsAuth";
+import {AuthContext} from "../../context/IsAuth";
 import {Link} from "react-router-dom";
 import Styles from "../../styles/Register-authentication.css";
 import {Requests} from "../../API/Requests";

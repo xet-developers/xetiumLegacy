@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {AuthContext} from "../contex/IsAuth";
+import {AuthContext} from "../context/IsAuth";
 import publicAppRoutes from "../router/PublicAppRoutes";
 import authAppRoutes from "../router/AuthAppRoutes";
 import {Route, Routes} from "react-router-dom";

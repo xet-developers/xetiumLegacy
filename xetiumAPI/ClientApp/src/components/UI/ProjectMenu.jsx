@@ -5,7 +5,7 @@ import Styles from "../../styles/navMenu.module.css";
 import logo from "../../images/logo.svg";
 import CreateProjectForm from "./CreateProjectForm";
 import UpperProjectMenu from "./UpperProjectMenu";
-import {UserProjectsContext} from "../../contex/CurrentProject";
+import {UserProjectsContext} from "../../context/CurrentProject";
 
 
 const ProjectMenu = ({projects}) => {

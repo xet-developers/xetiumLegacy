@@ -4,7 +4,7 @@ import Tutorial from "../../components/Tutorial";
 import Styles from "../../styles/currentProject.module.css";
 import Styles1 from "../../styles/clastering.module.css";
 
-import {CurrentProjectContext, UserProjectsContext} from "../../contex/CurrentProject";
+import {CurrentProjectContext, UserProjectsContext} from "../../context/CurrentProject";
 import {Requests} from "../../API/Requests";
 import {LocalStorageManager} from "../../misc/LocalStorageManager";
 

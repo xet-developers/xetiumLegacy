@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import {AuthContext} from "./contex/IsAuth";
+import {AuthContext} from "./context/IsAuth";
 import CreateRouter from "./components/CreateRouter";
-import {CurrentProjectContext, UserProjectsContext} from "./contex/CurrentProject";
+import {CurrentProjectContext, UserProjectsContext} from "./context/CurrentProject";
 import {Requests} from "./API/Requests";
 import {LocalStorageManager} from "./misc/LocalStorageManager";
 

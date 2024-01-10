@@ -8,7 +8,6 @@ import Loader from "../../images/loader.gif";
 const SpaceReport = () => {
     const [startData, setStartData] = useState('')
     const [endData, setEndData] = useState('')
-    const [downloadLink, setDownloadLink] = useState('')
     const [isLoading, setLoading] = useState(false)
 
     const sendData = async () => {
@@ -26,7 +25,15 @@ const SpaceReport = () => {
 
         const API = new Requests()
         API.registeredPost('report', res).then(res => res.blob())
-            .then(blob => setDownloadLink(URL.createObjectURL(blob)))
+            .then(blob => {
+                const link = document.createElement('a')
+
+                link.setAttribute('href', URL.createObjectURL(blob))
+                link.setAttribute('download', 'report.xlsx')
+
+                console.log(link)
+                link.click()
+            })
             .then(() => setLoading(false))
     }
 
@@ -54,40 +61,46 @@ const SpaceReport = () => {
                 <div>
                     <p className={Styles.date}>
                         <p>Начало интервала:</p>
-                        <input onChange={e => setStartData(e.target.value)} type="date" className={Styles.choosen}></input>
+                        <input onChange={e => setStartData(e.target.value)} type="date"
+                               className={Styles.choosen}></input>
                     </p>
 
                     <p className={Styles.date}>
                         <p>Конец интервала:</p>
-                        <input onChange={e => setEndData(e.target.value)} type="date" className={Styles.choosen}></input>
+                        <input onChange={e => setEndData(e.target.value)} type="date"
+                               className={Styles.choosen}></input>
                     </p>
                 </div>
 
                 <div className={Styles.generate}>
                     <button onClick={sendData} className={Styles.buttonDownloadReport1}>
-                        {isLoading ? <div><p className={Styles.loading}>Loading...</p><img src={Loader} alt="loader" className={Styles.loader}/></div> : <a download='report.xlsx' href={downloadLink} className={Styles.generateReport}>
-                            Сгенерировать отчёт
-                        </a>}
+                        {isLoading ?
+                            <div>
+                                <p className={Styles.loading}>Loading...</p>
+                                <img src={Loader} alt="loader" className={Styles.loader}/></div> :
+                            <a id='download' className={Styles.generateReport}>
+                                Сгенерировать отчёт
+                            </a>}
                     </button>
                 </div>
             </section>
 
-            {false&&<section>
+            {false && <section>
                 <p>
                     Все отчёты находятся в таблице ниже:
                 </p>
                 <table className={Styles.tableReport}>
                     <thead>
-                        <tr>
-                            <th>Дата</th>
-                            <th>Тип отчёта</th>
-                            <th>Интервал</th>
-                            <th>Ссылка для скачивания</th>
-                        </tr>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Тип отчёта</th>
+                        <th>Интервал</th>
+                        <th>Ссылка для скачивания</th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <ReportData/>
+                    <ReportData/>
                     </tbody>
                 </table>
             </section>}

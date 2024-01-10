@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {AuthContext} from "../../contex/IsAuth";
+import {AuthContext} from "../../context/IsAuth";
 import {useNavigate} from "react-router-dom";
 import Styles from "../../styles/authorization.module.css";
 import {Link} from "react-router-dom";
