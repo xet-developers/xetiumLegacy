@@ -33,7 +33,7 @@ const App = () => {
                 setUserProjects(res)
                 LocalStorageManager.setUserProjects(res)
 
-                if(!LocalStorageManager.getCurrentProject()){
+                if(!LocalStorageManager.getCurrentProject() &&  typeof res[0] !== 'undefined'){
                     LocalStorageManager.setCurrentProject(res[0])
                     setCurrentProject(res[0])
                 }
