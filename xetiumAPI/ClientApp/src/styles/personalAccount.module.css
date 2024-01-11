@@ -74,9 +74,14 @@
 
 .dataspace {
     background-image: url(../images/dataspace.png);
+    background-repeat: no-repeat;
     width: 473px;
     height: 51px;
     margin-left: 20px;
+    display: flex;
+    align-items: center;
+    color: #485274;
+    padding-left: 10px;
 }
 
 .logoutButton {

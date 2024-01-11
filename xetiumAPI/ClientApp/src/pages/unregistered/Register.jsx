@@ -1,85 +1,133 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import '../../styles/Register-authentication.css';
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/IsAuth";
 import {Link} from "react-router-dom";
 import Styles from "../../styles/Register-authentication.css";
 import {Requests} from "../../API/Requests";
+import { Validator } from '../../misc/Validator.js';
+import {LocalStorageManager} from "../../misc/LocalStorageManager";
 
 const Register = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate()
+    const validator = new Validator()
+
+    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
+
+    const [dataIsCorrect, setDataIsCorrect] = useState(false)
+
+    const [checkboxData, setCheckboxData] = useState(false)
+    const [checkboxConf, setCheckboxConf] = useState(false)
+    const [checkboxSpam, setCheckboxSpam] = useState(false)
+
     return (
-        <div className={Styles.bodyPart}>
-            <form  className="form" id="form" onSubmit={sendData}>
-                <div className="register-Field-left">
-                    <div className="register-Field-left-header">
-                        <h1>Регистрация</h1>
-                        <p>Уже есть аккаунт? <Link to="/authorization" className={Styles.iserIn}>Войти</Link></p>
+        <div style={{background:'#252525', width:'100%', height:'100%', paddingTop:'70px', paddingBottom:'70px'}}>
+            <div className={Styles.bodyPart}>
+                <form  className="form" id="form" onSubmit={sendData}>
+                    <div className="register-Field-left">
+                        <div className="register-Field-left-header">
+                            <h1>Регистрация</h1>
+                            <p>Уже есть аккаунт? <Link to="/authorization" className={Styles.userIn} style={{color:'#F66450'}}>Войти</Link></p>
+                        </div>
+                        <div>
+                            <input placeholder="Имя пользователя" type="text" name="userName"
+                            required onChange={e => setUserName(e.target.value)}/>
+
+                            {!validator.validateUserName(userName) && 
+                            <p style={{fontSize:'12px', width:'500px', height:'40px', marginLeft:'50px', color:'rgb(246, 100, 80)'}}>
+                                Имя пользователя может содержать только латинские буквы и иметь длину от 5 до 20 символов!
+                            </p>}
+                        </div>
+                        
+                        <div>
+                            <input placeholder="Е-mail: example@mail.ru" type="email" name="email" required
+                            onChange={e => setEmail(e.target.value)}/>
+
+                            {!validator.validateEmail(email) && 
+                            <p style={{fontSize:'12px', width:'500px', height:'40px', marginLeft:'50px', color:'rgb(246, 100, 80)'}}>
+                                Почта должна содержать домен, например, example@mail.ru!
+                            </p>}
+                        </div>
+                        
+                        <div>
+                            <input placeholder="Пароль" type="password" name="password" required
+                            onChange={e => setPassword(e.target.value)}/>
+
+                            {!validator.validatePassword(password) && 
+                            <p style={{fontSize:'12px', width:'500px', height:'40px', marginLeft:'50px', color:'rgb(246, 100, 80)'}}>
+                                Пароль должен состоять содержать заглавную букву, цифру и иметь длину не менее 6 символов!
+                            </p>} 
+                        </div>
+    
+                        <div>
+                            <input placeholder="Повторите пароль" type="password" name="repeatPassword"
+                            required onChange={e => setRepeatPassword(e.target.value)}/>
+
+                            {!validator.validateRepeatPassword(password, repeatPassword) && 
+                            <p style={{fontSize:'12px', width:'500px', height:'40px', marginLeft:'50px', color:'rgb(246, 100, 80)'}}>
+                                Пароли не совпадают!
+                            </p>} 
+                        </div>
+                        
+                        <button type="submit" className='login'>Зарегистрироваться</button>
                     </div>
 
-                    <input placeholder="Имя пользователя" type="text" maxLength="20" name="name"
-                        pattern="[A-Za-z]{5,20}"
-                        title="Минимум 5 символов" required/>
-
-                    <input placeholder="Е-mail" type="email" name="email"
-                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" required/>
-
-                    <input placeholder="Пароль" type="password" id="password" name="password" minLength="8"
-                        maxLength="16"
-
-                        title="Длина от 8 до 16 символов, должна быть заглавная буква и спец.символ" required/>
-
-                    <input placeholder="Повторите пароль" type="password" id="secpass" name="secpassword" minLength="8"
-                        maxLength="16"
-                        title="Пароли не совпадают" required/>
-
-                    <input type="submit" id="register-button" value="Зарегистрироваться"/>
-                </div>
-
-                <div className="register-Field-right">
-                    <div>
-                        <input type="checkbox" id="checkboxData" name="checkboxData" required/>
-                        <label htmlFor="checkboxData">Даю свое согласие на обработку персональных данных</label>
+                    <div className="register-Field-right">
+                        <div>
+                            <input type="checkbox" id="checkboxData" name="checkboxData" required onChange={e => setCheckboxData(!checkboxData)}/>
+                            <label htmlFor="checkboxData">Даю свое согласие на обработку персональных данных</label>
+                        </div>
+                        {!validator.validateCheckboxData(checkboxData) && 
+                            <p style={{fontSize:'12px', width:'300px', height:'40px', marginLeft:'40px', marginTop:'-30px', color:'rgb(246, 100, 80)'}}>
+                                Необходимо поставить флажок!
+                        </p>}
+                        <div>
+                            <input type="checkbox" id="checkboxConf" name="checkboxConf" required onChange={e => setCheckboxConf(!checkboxConf)}/>
+                            <label htmlFor="checkboxConf">Согласен с условиями пользования и политикой конфиденциальности</label>
+                        </div>
+                        {!validator.validateCheckboxConf(checkboxConf) && 
+                            <p style={{fontSize:'12px', width:'300px', height:'40px', marginLeft:'40px', marginTop:'-30px', color:'rgb(246, 100, 80)'}}>
+                                Необходимо поставить флажок!
+                        </p>}
                     </div>
-                    <div>
-                        <input type="checkbox" id="checkboxConf" name="checkboxConf" required/>
-                        <label htmlFor="checkboxConf">Согласен с условиями пользования и политикой
-                            конфиденциальности</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="checkboxSpam" name="checkboxSpam"/>
-                        <label htmlFor="checkboxSpam">Хочу получать информационную рассылку</label>
-                    </div>
-                </div>
-            </form>    
+                </form>    
+            </div>
         </div>
     )
 
     async function sendData(event) {
-        event.preventDefault()
-        const form = document.querySelector("#form")
-        const formData = new FormData(form)
-        form.addEventListener('submit', event => {
-            event.preventDefault()
-        })
+        event.preventDefault();
 
-        const res = {
-            username: formData.get("name"),
-            name: formData.get("name"),
-            email: formData.get("email"),
-            password: formData.get("password"),
-            checkboxData: !!formData.get("checkboxData"),
-            checkboxConf: !!formData.get("checkboxConf"),
-            checkboxSpam: !!formData.get("checkboxSpam")
+        if(
+            validator.validateUserName(userName) && validator.validateEmail(email)
+            && validator.validatePassword(password) && validator.validateRepeatPassword(password, repeatPassword)
+        ) {
+            setDataIsCorrect(true)
         }
+        
+        if (dataIsCorrect) {
+            const res = {
+            username: userName,
+            name: userName,
+            email: email,
+            password: password,
+            checkboxData: checkboxData,
+            checkboxConf: checkboxConf,
+            checkboxSpam: checkboxSpam
+            }
 
-        const API = new Requests()
-        const result = await API.unregisteredPost("account/register",res)
+            const API = new Requests()
+            const result = await API.unregisteredPost("account/register", res)
 
-        if (result.ok) {
-            navigate("/authorization")
+            if (result.ok) {
+                navigate("/authorization")
+            }
         }
+        
     }
 };
 

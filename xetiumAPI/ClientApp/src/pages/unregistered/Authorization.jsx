@@ -5,12 +5,15 @@ import Styles from "../../styles/authorization.module.css";
 import {Link} from "react-router-dom";
 import {Requests} from "../../API/Requests";
 import {LocalStorageManager} from "../../misc/LocalStorageManager";
+import { Validator } from '../../misc/Validator.js';
 
 const Authorization = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const [userName, setUserName] = useState()
     const [password, setPassword] = useState()
+    const [dataIsCorrect, setDataIsCorrect] = useState(false)
     const navigate = useNavigate()
+    const validator = new Validator()
 
     const sendUserData = async (event) => {
         event.preventDefault()
@@ -22,7 +25,7 @@ const Authorization = () => {
         const API = new Requests()
         const result = await API.unregisteredPost("account/login", res)
 
-        if(result.ok){
+        if (result.ok){
             const respJSON = await result.json()
             LocalStorageManager.setJWT(respJSON.token)
             LocalStorageManager.setIsAuth(true)
@@ -40,12 +43,23 @@ const Authorization = () => {
                 </p>
 
                 <div className={Styles.inputDiv}>
-                    <input placeholder="Имя пользователя" type="text" onChange={event => setUserName(event.target.value)}
+                    <div>
+                        <input placeholder="Имя пользователя" type="text" onChange={event => setUserName(event.target.value)}
                         required className={Styles.inputData}/>
-
-                    <input placeholder="Пароль" type="password" onChange=
+                        
+                    </div>
+                    
+                    <div>
+                        <input placeholder="Пароль" type="password" onChange=
                         {event => setPassword(event.target.value)} required className={Styles.inputData}/>
+
+                    </div>
+                    
                 </div>
+
+                {!isAuth && 
+                    <p style={{fontSize:'12px', width:'300px', height:'40px', marginBottom:'-50px',color:'rgb(246, 100, 80)'}}>
+                    Неправильное имя пользователя или пароль!</p>}
                 
                 <button className={Styles.userIn} onClick={sendUserData}>ВОЙТИ</button>
                 

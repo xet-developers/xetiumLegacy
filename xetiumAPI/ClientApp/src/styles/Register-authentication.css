@@ -1,5 +1,5 @@
 .bodyPart {
-    background-color: #252525;
+    background: #252525;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -80,20 +80,6 @@ section h1{
     padding: 2.3%;
 }
 
-#register-button{
-    font-weight: 500;
-    margin-top: 5%;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 35px;
-    background: #F66450;
-    justify-self: center;
-    border: none;
-    width: 67%;
-    height: 60%;
-    color: white;
-    text-transform: uppercase;
-}
-
 .register-Field-right div{
     font-size: 12px;
     display: grid;
@@ -117,9 +103,33 @@ section h1{
 .userIn {
     color: #F66450;
     text-decoration: none;
-    font-weight: 500;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 400;
 }
 
 .userIn:hover {
     font-weight: 600;
+}
+
+.login{
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 5%;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 35px;
+    background: #F66450;
+    justify-self: center;
+    border: none;
+    width: 67%;
+    height: 60%;
+    color: white;
+    text-transform: uppercase;
+}
+
+.login:hover {
+    box-shadow: 0 0 12px #F66450;
+    -moz-box-shadow: 0 0 12px #F66450;
+    -o-box-shadow: 0 0 12px #F66450;
+    -ms-box-shadow: 0 0 12px #F66450;
+    -webkit-box-shadow: 0 0 12px #F66450;
 }

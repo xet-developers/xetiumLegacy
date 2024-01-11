@@ -4,37 +4,51 @@ import {ReportData} from './ReportData';
 import Line from "../../images/line.svg";
 import {Requests} from "../../API/Requests";
 import Loader from "../../images/loader.gif";
+import { Validator } from '../../misc/Validator.js';
 
 const SpaceReport = () => {
-    const [startData, setStartData] = useState('')
-    const [endData, setEndData] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
     const [isLoading, setLoading] = useState(false)
+    const [startDateIsCorrect, setStartDateIsCorrect] = useState(true)
+    const [endDateIsCorrect, setEndDateIsCorrect] = useState(true)
+
+    const validator = new Validator()
 
     const sendData = async () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 3500);
-        const startDataToSend = startData + 'T00:00:00.00Z';
-        const endDataToSend = endData + 'T00:00:00.00Z';
 
-        const res = {
-            FirstDate: startDataToSend,
-            LastDate: endDataToSend
+        if (validator.validateStartDate(startDate)) {
+            setStartDateIsCorrect(true)
+        } else setStartDateIsCorrect(false)
+
+        if (validator.validateStartDate(startDate)) {
+            setEndDateIsCorrect(true)
+        } else setEndDateIsCorrect(false)
+
+        if (startDateIsCorrect && endDateIsCorrect) {
+            setLoading(true);
+            const startDataToSend = startDate + 'T00:00:00.00Z';
+            const endDataToSend = endDate + 'T00:00:00.00Z';
+
+            const res = {
+                FirstDate: startDataToSend,
+                LastDate: endDataToSend
+            }
+
+            const API = new Requests()
+            API.registeredPost('report', res).then(res => res.blob())
+                .then(blob => {
+                    const link = document.createElement('a')
+
+                    link.setAttribute('href', URL.createObjectURL(blob))
+                    link.setAttribute('download', 'report.xlsx')
+
+                    console.log(link)
+                    link.click()
+                })
+                .then(() => setLoading(false))
         }
-
-        const API = new Requests()
-        API.registeredPost('report', res).then(res => res.blob())
-            .then(blob => {
-                const link = document.createElement('a')
-
-                link.setAttribute('href', URL.createObjectURL(blob))
-                link.setAttribute('download', 'report.xlsx')
-
-                console.log(link)
-                link.click()
-            })
-            .then(() => setLoading(false))
+        
     }
 
     return (
@@ -59,17 +73,28 @@ const SpaceReport = () => {
                 </div>
 
                 <div>
-                    <p className={Styles.date}>
+                    <div className={Styles.date}>
                         <p>Начало интервала:</p>
-                        <input onChange={e => setStartData(e.target.value)} type="date"
-                               className={Styles.choosen}></input>
-                    </p>
+                        <input onChange={e => setStartDate(e.target.value)} type="date"
+                            className={Styles.choosen}></input>
+                        
+                    </div>
 
-                    <p className={Styles.date}>
+                    {!validator.validateStartDate(startDate) && 
+                    <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-10px', color:'rgb(246, 100, 80)'}}>
+                        Некорректная дата начала интервала!
+                    </p>}
+
+                    <div className={Styles.date}>
                         <p>Конец интервала:</p>
-                        <input onChange={e => setEndData(e.target.value)} type="date"
+                        <input onChange={e => setEndDate(e.target.value)} type="date"
                                className={Styles.choosen}></input>
-                    </p>
+                    </div>
+
+                    {!validator.validateEndDate(startDate, endDate) && 
+                    <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-10px', color:'rgb(246, 100, 80)'}}>
+                        Некорректная дата конца интервала!
+                    </p>}
                 </div>
 
                 <div className={Styles.generate}>
@@ -78,7 +103,7 @@ const SpaceReport = () => {
                             <div>
                                 <p className={Styles.loading}>Loading...</p>
                                 <img src={Loader} alt="loader" className={Styles.loader}/></div> :
-                            <a id='download' className={Styles.generateReport}>
+                                <a id='download' className={Styles.generateReport}>
                                 Сгенерировать отчёт
                             </a>}
                     </button>

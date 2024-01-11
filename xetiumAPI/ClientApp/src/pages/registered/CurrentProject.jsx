@@ -41,7 +41,7 @@ const CurrentProject = () => {
 
                 <p className={Styles.dataLi}>
                     <p className={Styles.nameP}>Описание:</p>
-                    <p>{currentProject.description}</p>
+                    <p style={{width:'630px'}}>{currentProject.description}</p>
                 </p>
 
                 <p className={Styles.dataLi}>

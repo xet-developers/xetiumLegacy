@@ -14,9 +14,7 @@ const ClasteringReport = () => {
 
     const sendData = async () => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 3500);
+        
         const res = {
             query: keywords
         }
