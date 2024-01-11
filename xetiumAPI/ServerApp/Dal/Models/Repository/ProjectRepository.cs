@@ -33,8 +33,9 @@ public class ProjectRepository: IProjectRepository
     public async Task<ProjectDal?> GetProjectByIdAsync(Guid id)
     {
         var dbSet = _applicationContextDb.ProjectDbSet;
-        var project = await dbSet.FindAsync(id);
-        
+        var project = await dbSet
+            .Include(p => p.User) 
+            .SingleOrDefaultAsync(p => p.ProjID == id);
         return project;
     }
 

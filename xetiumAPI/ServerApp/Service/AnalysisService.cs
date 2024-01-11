@@ -31,12 +31,12 @@ public class AnalysisService : IAnalysisService
         _projectRepository = projectRepository;
     }
 
-    public async Task<SearchesDto> GetPositionAsync(AnalysisData model, HttpClient client)
+    public async Task<SearchesDto> GetPositionAsync(AnalysisData model, HttpClient client, Guid userId)
     {
         var project = await _projectRepository.GetProjectByIdAsync(model.ProjId);
-        if (project is null)
+        if (project is null || project.User.Id != userId)
         {
-            throw new KeyNotFoundException("Project doesn't found");
+            return null;
         }
 
         var searchDal = new SearchDal()

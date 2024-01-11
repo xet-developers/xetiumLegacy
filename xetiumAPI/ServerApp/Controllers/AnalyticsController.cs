@@ -27,8 +27,17 @@ namespace xetiumAPI.ServerApp.Controllers
                 return BadRequest("invalid search system");
             }
  
-            var positionResult = await _analysisService.GetPositionAsync(site, _client);
-            return Ok(positionResult);
+            var userId = GetUserId();
+            var positionResult = await _analysisService.GetPositionAsync(site, _client,userId);
+
+            return positionResult is null ? BadRequest("Project not found or it's not your Project") :
+                Ok(positionResult);
+        }
+        private Guid GetUserId()
+        {
+            var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
+            var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
+            return userID;
         }
     }
 }
