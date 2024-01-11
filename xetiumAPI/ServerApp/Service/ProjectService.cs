@@ -40,7 +40,7 @@ public class ProjectService: IProjectService
         await _projectRepository.CreateProjectAsync(project);
         return new ProjectResponseDto()
         {
-            projectId = projectId
+            ProjectId = projectId
         };
     }
 

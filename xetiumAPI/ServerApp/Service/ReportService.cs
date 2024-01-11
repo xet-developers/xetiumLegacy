@@ -19,19 +19,25 @@ namespace xetiumAPI.ServerApp.Service
         public async Task<FileStream> GetReportAsync(ReportInfoDto reportInfo, Guid userID)
         {
             var projects = await _projectRepository.GetAllUserProjectAsync(userID);
+
+            if (projects == null || projects.Count == 0)
+            {
+                return null;
+            }
+
             var fileName = new Uuid7().ToString();
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (var package = new ExcelPackage())
             {
-                await CreateAndFillSheetAsync(projects, fileName, package, reportInfo);
+                await FillSheetAsync(projects, fileName, package, reportInfo);
             }
 
             var fs = File.Open($"{Directory.GetCurrentDirectory()}{fileName}.xlsx", FileMode.Open);
             return await Task.FromResult(fs);
         }
 
-        private static async Task CreateAndFillSheetAsync(List<ProjectDal> projects, string fileName,
+        private static async Task FillSheetAsync(List<ProjectDal> projects, string fileName,
             ExcelPackage package, ReportInfoDto reportInfo)
         {
             ExcelWorksheet sheet = package.Workbook.Worksheets.Add("report");

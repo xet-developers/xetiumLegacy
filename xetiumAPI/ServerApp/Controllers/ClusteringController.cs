@@ -22,7 +22,7 @@ public class ClusteringController: Controller
     [HttpPost]
     public async Task<IActionResult> GetClustering([FromBody] ClusteringData clusteringData)
     {
-        var clustering = await _clusteringService.GetClusterQueriesUsingAiAsync(clusteringData.query);
+        var clustering = await _clusteringService.GetClusterQueriesUsingAiAsync(clusteringData.Query);
 
         if (clustering is null)
         {

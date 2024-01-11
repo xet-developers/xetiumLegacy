@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace xetiumAPI.Models
 {
@@ -6,6 +7,8 @@ namespace xetiumAPI.Models
     {
         public Guid ProjId { get; set; }
         public string URI { get; set; }
+
+        [MaxLength(15)]
         public string[] Keywords { get; set; }
         public int Top { get; set; }
         public int SearchSystem { get; set; }
