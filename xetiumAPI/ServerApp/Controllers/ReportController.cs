@@ -20,12 +20,17 @@ public class ReportController : Controller
     }
 
     [HttpPost]
-    public async Task<FileStreamResult> GetReport([FromBody] ReportInfoDto reportDto)
+    public async Task<ActionResult<FileStreamResult>> GetReport([FromBody] ReportInfoDto reportDto)
     {
         var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
         var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
 
         var rep = await _reportService.GetReportAsync(reportDto, userID);
+
+        if (rep == null) 
+        {
+            return BadRequest("User doesn't have any projects or cannot find.");
+        }
 
         return new FileStreamResult(rep, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         {

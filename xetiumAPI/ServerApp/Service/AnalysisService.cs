@@ -68,7 +68,6 @@ public class AnalysisService : IAnalysisService
         
         foreach (var keyword in model.Keywords)
         {
-            
             await Task.Delay(3000);
             var position = await method(model, client, keyword);
 
@@ -95,7 +94,6 @@ public class AnalysisService : IAnalysisService
         return result;
     }
 
-    //todo написать exception filter
     private static async Task<int> GetGooglePositionAsync(AnalysisData model, HttpClient client, string keyword)
     {
         var response = await client.GetAsync($"https://google.com/search?q={keyword}&num={model.Top}");
@@ -118,6 +116,7 @@ public class AnalysisService : IAnalysisService
             }
             index++;
         }
+
         return -1;
     }
 

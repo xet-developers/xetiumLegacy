@@ -27,7 +27,7 @@ public class ProjectController: Controller
     {
         var userID = GetUserId();
         var result = await _projectService.CreateProjectAsync(modelCreate, userID);
-        return Created("Slon Kuplen",new {Id = result.projectId});
+        return Created("Slon Kuplen",new {Id = result.ProjectId});
     }
 
     [HttpGet]

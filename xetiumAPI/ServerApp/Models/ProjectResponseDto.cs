@@ -2,5 +2,5 @@ namespace xetiumAPI.Models;
 
 public class ProjectResponseDto
 {
-    public Guid projectId;
+    public Guid ProjectId { get; set; }
 }

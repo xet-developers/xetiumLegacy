@@ -26,7 +26,7 @@ namespace xetiumAPI.ServerApp.Controllers
             {
                 return BadRequest("invalid search system");
             }
-
+ 
             var positionResult = await _analysisService.GetPositionAsync(site, _client);
             return Ok(positionResult);
         }
