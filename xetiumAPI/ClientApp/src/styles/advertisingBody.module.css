@@ -11,6 +11,7 @@ body {
     padding-top: 5%;
     justify-content: space-between;
     text-decoration: none;
+    margin-bottom: 120px;
 }
 
 .nameService {
@@ -37,7 +38,6 @@ body {
     font-size: 45px;
     font-style: normal;
     font-weight: 800;
-    margin-top: 270px;
 }
 
 .advertisingDescription {
@@ -147,6 +147,7 @@ body {
     display: flex;
     justify-content: center;
     margin: auto;
+    margin-bottom: -50px;
 }
 
 .buttonFreeSectionTwo:hover {
@@ -212,4 +213,14 @@ body {
     font-weight: 500;
     line-height: 100px;
     justify-content: center;
+}
+
+.thirdPart {
+    padding-left: 11.3%;
+    padding-right: 11.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
 }

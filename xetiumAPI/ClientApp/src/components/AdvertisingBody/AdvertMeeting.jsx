@@ -6,7 +6,7 @@ import mainImage from '../../images/mainImage.svg';
 
 const FirstPart = () => {
     return (
-        <section className={Styles.body}>
+        <section className={Styles.body} id='meeting'>
             <div>
                 <p className={Styles.nameService}>Xetium</p>
                 <h1 className={Styles.advertisingH1}>

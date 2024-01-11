@@ -10,6 +10,12 @@
     text-decoration: none;
 }
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
 .menuItem {
     margin-right: 45px;
     color: #cccccc;

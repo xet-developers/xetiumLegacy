@@ -35,7 +35,7 @@ const content = [
 
 const SecondPart = () => {
     return (
-        <section className={Styles.body}>
+        <section className={Styles.body} id="function">
             <div>
                 <h2 className={Styles.advertisingH2}>
                     Какие <span style={{color: '#F66450'}}>инструменты</span><br/>мы предлагаем?

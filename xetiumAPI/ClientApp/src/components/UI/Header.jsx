@@ -10,9 +10,8 @@ const Header = ({headers}) => {
         <header className={Styles.header}>
             <img src={logo} alt="Logo"/>
             <div className={Styles.menuItems}>
-                {headers.map(el =>
-                    <a key={el} className={Styles.menuItem} href={el}>{el}</a>)
-                }
+                <a className={Styles.menuItem} href='#meeting'>О сервисе</a>
+                <a className={Styles.menuItem} href='#function'>Инструменты</a>
             </div>
 
             <div className={Styles.headerRight}>
