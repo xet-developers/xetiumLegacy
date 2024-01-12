@@ -20,7 +20,7 @@ public class ReportController : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult<FileStreamResult>> GetReport([FromBody] ReportInfoDto reportDto)
+    public async Task<IActionResult> GetReport([FromBody] ReportInfoDto reportDto)
     {
         var token = Request.Headers["Authorization"].FirstOrDefault().ParseJWT();
         var userID = Guid.Parse(token.Claims.FirstOrDefault(c => c.Type == "id").Value);
