@@ -27,8 +27,8 @@ public class DateRangeAttribute : ValidationAttribute
             return new ValidationResult($"{_otherPropertyName} should be of type  DateTime.");
         }
 
-        var todayDate = DateTime.Today.AddHours(23).AddMinutes(59);
-        return firstDate >= lastDate || lastDate >= todayDate
+        var todayDate = DateTime.Today.AddDays(1);
+        return firstDate > lastDate || lastDate > todayDate
             ? new ValidationResult(
                 $"{validationContext.DisplayName} should be earlier than {_otherPropertyName} and not later than today at 23:59.")
             : ValidationResult.Success;
