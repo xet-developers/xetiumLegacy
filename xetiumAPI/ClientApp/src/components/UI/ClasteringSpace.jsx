@@ -5,28 +5,42 @@ import Line from "../../images/line.svg";
 import Warning from "../../images/warning.png";
 import {Requests} from "../../API/Requests";
 import Loader from "../../images/loader.gif";
+import {Validator} from '../../misc/Validator.js';
 
 const ClasteringReport = () => {
     const [keywords, setKeywords] = useState('')
     const [downloadLink, setDownloadLink] = useState('')
     const [view, setView] = useState(false)
     const [isLoading, setLoading] = useState(false)
+    const validator = new Validator();
+    const [validateInputValueClastering, setValidateInputValueClastering] = useState(false)
 
     const sendData = async () => {
-        setLoading(true);
+        if (validate()) {
+            setLoading(true);
         
-        const res = {
-            query: keywords
-        }
+            const res = {
+                query: keywords
+            }
 
-        const API = new Requests()
-        API.registeredPost('clustering', res)
-            .then(res => {
-            setView(true);
-            return res.blob();
-            })
-            .then(blob => setDownloadLink(URL.createObjectURL(blob)))
-            .then(() => setLoading(false))
+            const API = new Requests()
+            API.registeredPost('clustering', res)
+                .then(res => {
+                setView(true);
+                return res.blob();
+                })
+                .then(blob => setDownloadLink(URL.createObjectURL(blob)))
+                .then(() => setLoading(false))
+        }
+        
+    }
+
+    function validate() {
+        let invc = validator.validateInputValueClastering(keywords)
+
+        setValidateInputValueClastering(!invc)
+
+        return invc;
     }
 
     return (
@@ -44,19 +58,36 @@ const ClasteringReport = () => {
                         Список запросов
                     </p>
 
-                    <textarea className={Styles.textInputClaster} onChange={e=>setKeywords(e.target.value)}/>
+                    <div>
+                        <textarea className={Styles.textInputClaster} value={keywords} 
+                        onChange={e => setKeywords(e.target.value)} id="keyWords" 
+                        placeholder='Пример: "скачать фильм, лучшие фильмы 2023 года, как снять короткометражку"'/>
+
+                        {validateInputValueClastering && 
+                            <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-40px', color:'rgb(246, 100, 80)'}}>
+                                Количество запросов должно быть в диапазоне от 4 до 15! 
+                            </p>
+                        }
+                    </div>
 
                     <p className={Styles.inputWarning}>
                         Введите запросы - каждый запрос через запятую. 
                     </p>
+                    
+                    <div style={{display:'flex', flexDirection:'row', columnGap:'30px'}}>
+                        <button className={Styles.inputButton1} disabled>
+                            Прикрепить файл
+                        </button>
 
-                    <button className={Styles.inputButton1} disabled>
-                        Прикрепить файл
-                    </button>
+                        <button onClick={sendData} className={Styles.inputButton2}>
+                            Отправить
+                        </button>
 
-                    <button onClick={sendData} className={Styles.inputButton2}>
-                        Отправить
-                    </button>
+                        <p style={{fontSize:'15px', color: '#757575'}}>
+                            {keywords ==='' ? 0 : keywords.trim().split(', ').length} / 15
+                        </p>
+                    </div>
+                    
                 </div>
 
                 <div className={Styles.warning}>

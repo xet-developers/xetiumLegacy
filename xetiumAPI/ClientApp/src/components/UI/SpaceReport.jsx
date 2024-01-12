@@ -7,28 +7,36 @@ import Loader from "../../images/loader.gif";
 import { Validator } from '../../misc/Validator.js';
 
 const SpaceReport = () => {
+    const validator = new Validator()
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [isLoading, setLoading] = useState(false)
-    const [startDateIsCorrect, setStartDateIsCorrect] = useState(true)
-    const [endDateIsCorrect, setEndDateIsCorrect] = useState(true)
+    const [validateStartDate, setValidateStartDate] = useState(false)
+    const [validateEndDate, setValidateEndDate] = useState(false)
+    const [emptyDate, setEmptyDate] = useState(false)
 
-    const validator = new Validator()
+    function validate() {
+        
+        if (startDate === '' || endDate === '') {
+            setEmptyDate(true)
+            return false
+        }
+        setEmptyDate(false)
+        let st = validator.validateStartDate(startDate)
+        let en = validator.validateEndDate(startDate, endDate)
+
+        setValidateStartDate(!st)
+        setValidateEndDate(!en)
+
+        return st && en;
+    }
 
     const sendData = async () => {
-
-        if (validator.validateStartDate(startDate)) {
-            setStartDateIsCorrect(true)
-        } else setStartDateIsCorrect(false)
-
-        if (validator.validateStartDate(startDate)) {
-            setEndDateIsCorrect(true)
-        } else setEndDateIsCorrect(false)
-
-        if (startDateIsCorrect && endDateIsCorrect) {
+        
+        if (validate()) {
             setLoading(true);
             const startDataToSend = startDate + 'T00:00:00.00Z';
-            const endDataToSend = endDate + 'T00:00:00.00Z';
+            const endDataToSend = endDate + 'T23:59:59.00Z';
 
             const res = {
                 FirstDate: startDataToSend,
@@ -80,7 +88,7 @@ const SpaceReport = () => {
                         
                     </div>
 
-                    {!validator.validateStartDate(startDate) && 
+                    {validateStartDate && 
                     <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-10px', color:'rgb(246, 100, 80)'}}>
                         Некорректная дата начала интервала!
                     </p>}
@@ -91,11 +99,16 @@ const SpaceReport = () => {
                                className={Styles.choosen}></input>
                     </div>
 
-                    {!validator.validateEndDate(startDate, endDate) && 
+                    {validateEndDate && 
                     <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-10px', color:'rgb(246, 100, 80)'}}>
                         Некорректная дата конца интервала!
                     </p>}
                 </div>
+
+                {emptyDate &&
+                <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-30px', marginLeft:'400px', marginBottom:'-50px', color:'rgb(246, 100, 80)'}}>
+                    Выберите интервал!
+                </p>}
 
                 <div className={Styles.generate}>
                     <button onClick={sendData} className={Styles.buttonDownloadReport1}>

@@ -37,8 +37,7 @@ export class Validator {
     }
 
     validateDescProject(projectDesc) {
-        const reg = /^[a-zA-Zа-яА-Я0-9]{0,150}$/
-        return reg.test(projectDesc)
+        return projectDesc >= 0 && projectDesc <= 150
     }
 
     validateStartDate(startDate) {
@@ -76,5 +75,12 @@ export class Validator {
         if (inputValue.length === 0) value = 0
         else value = inputValue.split(', ').length
         return value >= 1 && value <= 15;
+    }
+
+    validateInputValueClastering(inputValue) {
+        let value;
+        if (inputValue.length === 0) value = 0
+        else value = inputValue.split(', ').length
+        return value >= 4 && value <= 15;
     }
 }

@@ -33,7 +33,7 @@ const Authorization = () => {
             setIsAuth(true)
         }
 
-        if(result.status === 401){
+        if (result.status === 401){
             setError(true)
         }
     }

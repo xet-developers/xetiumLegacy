@@ -61,12 +61,6 @@ section h1{
     text-align: center;
 }
 
-.register-Field-left-header p{
-    position: relative;
-    bottom: 22%;
-    font-size: 15px;
-}
-
 .register-Field-left input{
     font-weight: 500;
     width: 475px;
@@ -104,7 +98,9 @@ section h1{
     color: #F66450;
     text-decoration: none;
     font-family: 'Montserrat Alternates', sans-serif;
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 5px;
 }
 
 .userIn:hover {

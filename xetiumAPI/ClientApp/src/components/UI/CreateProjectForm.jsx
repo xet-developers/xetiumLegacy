@@ -12,9 +12,9 @@ const CreateProjectForm = ({modal, setModal}) => {
     const [url, setUrl] = useState("")
     const [projectDescription, setProjectDescription] = useState("")
     
-    const [nameIsCorrect, setNameIsCorrect] = useState(false)
-    const [UrlIsCorrect, setUrlIsCorrect] = useState(false)
-    const [descIsCorrect, setDescIsCorrect] = useState(false)
+    const [validateNameProject, setValidateNameProject] = useState(false)
+    const [validateUrlProject, setValidateUrlProject] = useState(false)
+    const [validateDescProject, setValidateDescProject] = useState(false)
 
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
@@ -22,22 +22,13 @@ const CreateProjectForm = ({modal, setModal}) => {
 
     const sendProjectData = async (e) => {
         e.preventDefault()
-        
-        if (validator.validateNameProject(projectName)) {
-            setNameIsCorrect(true)
-        }
 
-        if (validator.validateUrlProject(url)) {
-            setUrlIsCorrect(true)
-        }
-
-        if (validator.validateDescProject(projectDescription)) {
-            setDescIsCorrect(true)
-        }
-
-        if (nameIsCorrect && UrlIsCorrect && descIsCorrect) {
+        if (validate()) {
             let desc = '[Информация о проекте отсутствует]'
             if (projectDescription.length !== 0) desc = projectDescription
+            if (projectDescription.length > 95) {
+                desc = projectDescription.match(/(.|\s){1,75}/g).join("\n")
+            }
 
             const res = {
             name: projectName,
@@ -75,7 +66,7 @@ const CreateProjectForm = ({modal, setModal}) => {
                            onChange={event => setProjectName(event.target.value)}
                            className={Styles.nameProject}/>
 
-                        {!validator.validateNameProject(projectName) && 
+                        {validateNameProject && 
                         <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-40px', color:'rgb(246, 100, 80)'}}>
                             Название проекта должно начинаться с буквы и иметь длину от 1 до 30 символов!
                         </p>}
@@ -86,7 +77,7 @@ const CreateProjectForm = ({modal, setModal}) => {
                            onChange={event => setUrl(event.target.value)}
                            className={Styles.urlProject}/>
                            
-                        {!validator.validateUrlProject(url) && 
+                        {validateUrlProject && 
                         <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-40px', color:'rgb(246, 100, 80)'}}>
                             Некорректные данные. Введите ссылку по примеру: HTTPS://EXAMPLE.COM/
                         </p>}
@@ -97,19 +88,28 @@ const CreateProjectForm = ({modal, setModal}) => {
                               onChange={event => { setProjectDescription(event.target.value)}}
                               className={Styles.descProject}/>
 
-                        {!validator.validateDescProject(projectDescription) && 
-                        <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-40px', color:'rgb(246, 100, 80)'}}>
-                            Описание проекта должно иметь длину не более 150 символов!
+                        {validateDescProject && 
+                        <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-30px', color:'rgb(246, 100, 80)'}}>
+                            Описание проекта должно содержать только буквы, цифры и иметь длину не более 150 символов!
                         </p>}      
                     </div>
-
-                    
                 </div>
-
                 <button onClick={sendProjectData} className={Styles.buttonCreate}>СОЗДАТЬ</button>
             </form>
         </CreateProject>
     );
+
+    function validate() {
+        let pr = validator.validateNameProject(projectName)
+        let urlpr = validator.validateUrlProject(url)
+        let prdesc = validator.validateDescProject(projectDescription.length)
+
+        setValidateNameProject(!pr)
+        setValidateUrlProject(!urlpr)
+        setValidateDescProject(!prdesc)
+
+        return pr && urlpr && prdesc;
+    }
 };
 
 export default CreateProjectForm;
