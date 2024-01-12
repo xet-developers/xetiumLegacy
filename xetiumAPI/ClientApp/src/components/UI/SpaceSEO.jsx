@@ -19,17 +19,12 @@ const SpaceSEO = () => {
     const [usersReq, setUsersReq] = useState(currentProject?.searches || [] );
     const [isLoading, setLoading] = useState(false);
     const [value, setValue] = useState();
-    const [dataIsCorrect, setDataIsCorrect] = useState(false)
-    const [checkboxIsCorrect, setCheckboxIsCorrect] = useState(true)
-    const [reqIsCorrect, setReqIsCorrect] = useState(false)
+    const [validateInputValue, setValidateInputValue] = useState(false)
+    const [validateSystem, setValidateSystem] = useState(false)
 
     const sendData = async () => {
 
-        if (validator.validateInputValue(inputValue)) setReqIsCorrect(true);
-        if(!firstSearchSystem && !secondSearchSystem) setCheckboxIsCorrect(false);
-        if (checkboxIsCorrect && reqIsCorrect) setDataIsCorrect(true);
-
-        if (dataIsCorrect) {
+        if (validate()) {
             const keyWordsArray = inputValue.trim().split(', ')
             const res = {
                 projid: currentProject.id,
@@ -64,19 +59,27 @@ const SpaceSEO = () => {
         setValue(evt.target.value);
         setFirstSearchSystem(true);
         setSecondSearchSystem(false);
-        setCheckboxIsCorrect(true);
     }
 
     function changeValueSecond(evt) {
         setValue(evt.target.value);
         setSecondSearchSystem(true);
         setFirstSearchSystem(false);
-        setCheckboxIsCorrect(true);
     }
 
     const addResp = (resp) => {
         console.log(resp)
         setUsersReq(usersReq.concat(resp))
+    }
+
+    function validate() {
+        let inv = validator.validateInputValue(inputValue)
+        let sys = firstSearchSystem || secondSearchSystem;
+
+        setValidateInputValue(!inv)
+        setValidateSystem(!sys)
+
+        return inv && sys;
     }
 
     return (
@@ -131,7 +134,7 @@ const SpaceSEO = () => {
                         </p>
                     </div>
 
-                    {(!checkboxIsCorrect) && 
+                    {(validateSystem) && 
                     <p style={{fontSize:'12px', width:'500px', height:'20px', marginTop:'-10px', marginBottom:'0', color:'rgb(246, 100, 80)'}}>
                         Необходимо выбрать систему поиска! 
                     </p>}
@@ -141,7 +144,7 @@ const SpaceSEO = () => {
                         onChange={e => setInputValue(e.target.value)} id="keyWords" 
                         placeholder='Пример: "новости, сенсация, город"'/>
 
-                        {!reqIsCorrect && 
+                        {validateInputValue && 
                             <p style={{fontSize:'12px', width:'500px', height:'40px', marginBottom:'-40px', color:'rgb(246, 100, 80)'}}>
                                 Количество запросов должно быть в диапазоне от 1 до 15! 
                             </p>

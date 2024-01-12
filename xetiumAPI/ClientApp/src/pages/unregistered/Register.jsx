@@ -22,6 +22,11 @@ const Register = () => {
     const [checkboxSpam, setCheckboxSpam] = useState(false)
 
     const [validateUserName, setValidateUserName] = useState(false)
+    const [validateEmail, setValidateEmail] = useState(false)
+    const [validatePassword, setValidatePassword] = useState(false)
+    const [validateRepeatPassword, setValidateRepeatPassword] = useState(false)
+    const [validateCheckboxData, setValidateCheckboxData] = useState(false)
+    const [validateCheckboxConf, setValidateCheckboxConf] = useState(false)
 
     return (
         <div style={{background: '#252525', width: '100%', height: '100%', paddingTop: '70px', paddingBottom: '70px'}}>
@@ -30,8 +35,13 @@ const Register = () => {
                     <div className="register-Field-left">
                         <div className="register-Field-left-header">
                             <h1>Регистрация</h1>
-                            <p>Уже есть аккаунт? <Link to="/authorization" className={Styles.userIn}
-                                                       style={{color: '#F66450'}}>Войти</Link></p>
+                            
+                            <div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:'-20px'}}>
+                                Уже есть аккаунт? 
+                                <Link to="/authorization" style={{color: '#F66450'}}>
+                                    <p className='userIn'>Войти</p>
+                                </Link>
+                            </div>
                         </div>
                         <div>
                             <input placeholder="Имя пользователя" type="text" name="userName"
@@ -54,7 +64,7 @@ const Register = () => {
                             <input placeholder="Е-mail: example@mail.ru" type="email" name="email" required
                                    onChange={e => setEmail(e.target.value)}/>
 
-                            {!validator.validateEmail(email) &&
+                            {validateEmail &&
                                 <p style={{
                                     fontSize: '12px',
                                     width: '500px',
@@ -70,7 +80,7 @@ const Register = () => {
                             <input placeholder="Пароль" type="password" name="password" required
                                    onChange={e => setPassword(e.target.value)}/>
 
-                            {!validator.validatePassword(password) &&
+                            {validatePassword &&
                                 <p style={{
                                     fontSize: '12px',
                                     width: '500px',
@@ -87,7 +97,7 @@ const Register = () => {
                             <input placeholder="Повторите пароль" type="password" name="repeatPassword"
                                    required onChange={e => setRepeatPassword(e.target.value)}/>
 
-                            {!validator.validateRepeatPassword(password, repeatPassword) &&
+                            {validateRepeatPassword &&
                                 <p style={{
                                     fontSize: '12px',
                                     width: '500px',
@@ -108,7 +118,7 @@ const Register = () => {
                                    onChange={e => setCheckboxData(!checkboxData)}/>
                             <label htmlFor="checkboxData">Даю свое согласие на обработку персональных данных</label>
                         </div>
-                        {!validator.validateCheckboxData(checkboxData) &&
+                        {validateCheckboxData &&
                             <p style={{
                                 fontSize: '12px',
                                 width: '300px',
@@ -125,7 +135,7 @@ const Register = () => {
                             <label htmlFor="checkboxConf">Согласен с условиями пользования и политикой
                                 конфиденциальности</label>
                         </div>
-                        {!validator.validateCheckboxConf(checkboxConf) &&
+                        {validateCheckboxConf &&
                             <p style={{
                                 fontSize: '12px',
                                 width: '300px',
@@ -143,26 +153,27 @@ const Register = () => {
     )
 
     function validate() {
-        let a = validator.validateUserName(userName)
-        let b = validator.validateUserName(userName)
-        let c = validator.validateUserName(userName)
-        let d = validator.validateUserName(userName)
+        let un = validator.validateUserName(userName)
+        let em = validator.validateEmail(email)
+        let pass = validator.validatePassword(password)
+        let rep = validator.validateRepeatPassword(password, repeatPassword)
+        let data = validator.validateCheckboxData(checkboxData)
+        let conf = validator.validateCheckboxConf(checkboxConf)
 
-        setValidateUserName(!a)
-        setValidateUserName(!b)
-        setValidateUserName(!c)
-        setValidateUserName(!d)
+        setValidateUserName(!un)
+        setValidateEmail(!em)
+        setValidatePassword(!pass)
+        setValidateRepeatPassword(!rep)
+        setValidateCheckboxData(!data)
+        setValidateCheckboxConf(!conf)
 
-        return a && b &&c && d
+        return un && em && pass && rep && data && conf;
     }
 
     async function sendData(event) {
         event.preventDefault();
 
-        if (
-            !validate()
-        ) {
-            console.log("dadada")
+        if (!validate()) {
             return
         }
 
