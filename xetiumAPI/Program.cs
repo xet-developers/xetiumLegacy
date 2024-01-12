@@ -25,10 +25,10 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>(options =>
     {
         options.User.RequireUniqueEmail = true;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireDigit = false;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireDigit = true;
         options.Password.RequireLowercase = false;
-        options.Password.RequireUppercase = false;
+        options.Password.RequireUppercase = true;
     })
     .AddEntityFrameworkStores<ApplicationContextDb>()
     .AddDefaultTokenProviders();
