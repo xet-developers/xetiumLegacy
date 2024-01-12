@@ -25,7 +25,7 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddIdentity<UserDal, IdentityRole<Guid>>(options =>
     {
         options.User.RequireUniqueEmail = true;
-        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = false;
         options.Password.RequireUppercase = true;
