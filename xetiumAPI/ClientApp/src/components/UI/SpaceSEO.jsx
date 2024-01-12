@@ -153,7 +153,7 @@ const SpaceSEO = () => {
                     
 
                     <p className={Styles.inputWarning}>
-                        Введите запросы - каждый запрос через запятую. 
+                        Введите запросы - каждый запрос через запятую. Поиск осуществляется в топ-100. 
                     </p>
 
                     <div style={{display:'flex', flexDirection:'row', columnGap: '30px'}}>

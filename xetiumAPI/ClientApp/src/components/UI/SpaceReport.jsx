@@ -119,7 +119,7 @@ const SpaceReport = () => {
                 </p>}
 
                 {error &&
-                    <p style={{fontSize:'12px', width:'600px', height:'40px', marginBottom:'-20px', marginLeft:'200px',color:'rgb(246, 100, 80)'}}>
+                    <p style={{fontSize:'12px', width:'600px', height:'40px', marginTop:'-30px', marginBottom:'-50px', marginLeft:'200px',color:'rgb(246, 100, 80)'}}>
                      За данный интервал отсутсвует информация о проверках!</p>}
 
                 <div className={Styles.generate}>
