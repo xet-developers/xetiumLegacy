@@ -64,7 +64,6 @@ const SpaceReport = () => {
                     link.click()
                 })
                 .then(() => setLoading(false))
-                .catch(setError(true))
         }
     }
 
@@ -120,8 +119,8 @@ const SpaceReport = () => {
                 </p>}
 
                 {error &&
-                    <p style={{fontSize:'12px', width:'300px', height:'40px', marginBottom:'-20px', marginLeft:'150px',color:'rgb(246, 100, 80)'}}>
-                    Недостаточно данных</p>}
+                    <p style={{fontSize:'12px', width:'600px', height:'40px', marginBottom:'-20px', marginLeft:'200px',color:'rgb(246, 100, 80)'}}>
+                     За данный интервал отсутсвует информация о проверках!</p>}
 
                 <div className={Styles.generate}>
                     <button onClick={sendData} className={Styles.buttonDownloadReport1}>

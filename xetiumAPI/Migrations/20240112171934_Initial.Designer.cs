@@ -12,7 +12,7 @@ using xetiumAPI.ServerApp.Dal.Models.Repository;
 namespace xetiumAPI.Migrations
 {
     [DbContext(typeof(ApplicationContextDb))]
-    [Migration("20240108130252_Initial")]
+    [Migration("20240112171934_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
