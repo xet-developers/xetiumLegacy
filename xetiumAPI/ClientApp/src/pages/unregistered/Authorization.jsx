@@ -11,9 +11,8 @@ const Authorization = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const [userName, setUserName] = useState()
     const [password, setPassword] = useState()
-    const [dataIsCorrect, setDataIsCorrect] = useState(false)
     const navigate = useNavigate()
-    const validator = new Validator()
+    const [error, setError] = useState(false)
 
     const sendUserData = async (event) => {
         event.preventDefault()
@@ -30,7 +29,12 @@ const Authorization = () => {
             LocalStorageManager.setJWT(respJSON.token)
             LocalStorageManager.setIsAuth(true)
             navigate("/")
+            setError(false)
             setIsAuth(true)
+        }
+
+        if(result.status === 401){
+            setError(true)
         }
     }
 
@@ -57,11 +61,11 @@ const Authorization = () => {
                     
                 </div>
 
-                {!isAuth && 
+                {error &&
                     <p style={{fontSize:'12px', width:'300px', height:'40px', marginBottom:'-50px',color:'rgb(246, 100, 80)'}}>
                     Неправильное имя пользователя или пароль!</p>}
                 
-                <button className={Styles.userIn} onClick={sendUserData}>ВОЙТИ</button>
+                <button className={Styles.userIn} disabled={error} onClick={sendUserData}>ВОЙТИ</button>
                 
             </form>
         </div>

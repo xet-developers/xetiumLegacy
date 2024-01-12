@@ -40,9 +40,7 @@ const SpaceSEO = () => {
 
             const fetchData = async (searchSystem, res) => {
                 setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                }, 3500);
+
                 res.searchSystem = searchSystem;
                 const API = new Requests()
                 API.registeredPost('analytics', res)
@@ -122,13 +120,13 @@ const SpaceSEO = () => {
 
                         <p className={Styles.inputWarning}>
                             Yandex
-                            <input type="radio" value="yandex" checked ={value === 'yandex' ? true : false} onChange={changeValueFirst} 
+                            <input type="radio" value="yandex" checked ={value === 'yandex'} onChange={changeValueFirst}
                             onClick={()=>setFirstSearchSystem(firstSearchSystem)}/>
                         </p>
 
                         <p className={Styles.inputWarning}>
                             Google
-                            <input type="radio" value="google" checked ={value === 'google' ? true : false} onChange={changeValueSecond}
+                            <input type="radio" value="google" checked ={value === 'google'} onChange={changeValueSecond}
                             onClick={()=>setSecondSearchSystem(secondSearchSystem)}/>
                         </p>
                     </div>
