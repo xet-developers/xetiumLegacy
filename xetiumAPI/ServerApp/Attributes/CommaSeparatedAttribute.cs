@@ -13,7 +13,7 @@ public class CommaSeparatedAttribute: ValidationAttribute
         
         var values = strValue.Split(',');
 
-        return values.Length is < 4 or > 15 ? new ValidationResult("The number of elements must be greater than 3 and less than 15.") 
+        return values.Length is < 4 or > 15 ? new ValidationResult("The number of elements must be greater than 3 and less than 16.") 
             : ValidationResult.Success;
     }
 }

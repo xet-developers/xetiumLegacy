@@ -93,7 +93,7 @@ const SpaceSEO = () => {
             </section>
 
             <div style={{display:'flex', flexDirection:'row-reverse', justifyContent: 'flex-end', alignItems: 'center'}}>
-                <section className={Styles.dataTable} style={{width: '600px', height:'400px'}}>
+                <section className={Styles.dataTable} style={{width: '770px', height:'400px'}}>
                     <p className={StylesCP.dataLi} style={{marginLeft:'20px'}}>
                         <p className={StylesCP.nameP}>Название:</p>
                         <p>{currentProject.name}</p>

@@ -14,6 +14,7 @@ const SpaceReport = () => {
     const [validateStartDate, setValidateStartDate] = useState(false)
     const [validateEndDate, setValidateEndDate] = useState(false)
     const [emptyDate, setEmptyDate] = useState(false)
+    const [error, setError] = useState(false)
 
     function validate() {
         
@@ -22,12 +23,12 @@ const SpaceReport = () => {
             return false
         }
         setEmptyDate(false)
+
         let st = validator.validateStartDate(startDate)
         let en = validator.validateEndDate(startDate, endDate)
 
         setValidateStartDate(!st)
         setValidateEndDate(!en)
-
         return st && en;
     }
 
@@ -44,7 +45,15 @@ const SpaceReport = () => {
             }
 
             const API = new Requests()
-            API.registeredPost('report', res).then(res => res.blob())
+            API.registeredPost('report', res).then((res, reject) => {
+                if (res.status === 500) {
+                    setError(true)
+                    setLoading(false)
+                    reject()
+                }
+                setError(false)
+                return res
+            }).then(res => res.blob())
                 .then(blob => {
                     const link = document.createElement('a')
 
@@ -55,8 +64,8 @@ const SpaceReport = () => {
                     link.click()
                 })
                 .then(() => setLoading(false))
+                .catch(setError(true))
         }
-        
     }
 
     return (
@@ -109,6 +118,10 @@ const SpaceReport = () => {
                 <p style={{fontSize:'12px', width:'500px', height:'40px', marginTop:'-30px', marginLeft:'400px', marginBottom:'-50px', color:'rgb(246, 100, 80)'}}>
                     Выберите интервал!
                 </p>}
+
+                {error &&
+                    <p style={{fontSize:'12px', width:'300px', height:'40px', marginBottom:'-20px', marginLeft:'150px',color:'rgb(246, 100, 80)'}}>
+                    Недостаточно данных</p>}
 
                 <div className={Styles.generate}>
                     <button onClick={sendData} className={Styles.buttonDownloadReport1}>
