@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xetiumAPI", "xetiumAPI\xetiumAPI.csproj", "{D90B1BB8-2FEA-450E-B501-8C5D66AFDEDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{C36D605A-1749-4DE6-85D6-F9755A4F8299}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D90B1BB8-2FEA-450E-B501-8C5D66AFDEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D90B1BB8-2FEA-450E-B501-8C5D66AFDEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D90B1BB8-2FEA-450E-B501-8C5D66AFDEDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36D605A-1749-4DE6-85D6-F9755A4F8299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36D605A-1749-4DE6-85D6-F9755A4F8299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36D605A-1749-4DE6-85D6-F9755A4F8299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36D605A-1749-4DE6-85D6-F9755A4F8299}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
