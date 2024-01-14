@@ -12,7 +12,6 @@ const ClasteringReport = () => {
     const [downloadLink, setDownloadLink] = useState('')
     const [view, setView] = useState(false)
     const [isLoading, setLoading] = useState(false)
-    const validator = new Validator();
     const [validateInputValueClastering, setValidateInputValueClastering] = useState(false)
 
     const sendData = async () => {
@@ -32,11 +31,10 @@ const ClasteringReport = () => {
                 .then(blob => setDownloadLink(URL.createObjectURL(blob)))
                 .then(() => setLoading(false))
         }
-        
     }
 
     function validate() {
-        let invc = validator.validateInputValueClastering(keywords)
+        let invc = Validator.validateInputValueClustering(keywords)
 
         setValidateInputValueClastering(!invc)
 

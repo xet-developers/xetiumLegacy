@@ -10,7 +10,6 @@ import {LocalStorageManager} from "../../misc/LocalStorageManager";
 const Register = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate()
-    const validator = new Validator()
 
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
@@ -153,21 +152,19 @@ const Register = () => {
     )
 
     function validate() {
-        let un = validator.validateUserName(userName)
-        let em = validator.validateEmail(email)
-        let pass = validator.validatePassword(password)
-        let rep = validator.validateRepeatPassword(password, repeatPassword)
-        let data = validator.validateCheckboxData(checkboxData)
-        let conf = validator.validateCheckboxConf(checkboxConf)
+        let un = Validator.validateUserName(userName)
+        let em = Validator.validateEmail(email)
+        let pass = Validator.validatePassword(password)
+        let rep = Validator.validateRepeatPassword(password, repeatPassword)
 
         setValidateUserName(!un)
         setValidateEmail(!em)
         setValidatePassword(!pass)
         setValidateRepeatPassword(!rep)
-        setValidateCheckboxData(!data)
-        setValidateCheckboxConf(!conf)
+        setValidateCheckboxData(!checkboxData)
+        setValidateCheckboxConf(!checkboxConf)
 
-        return un && em && pass && rep && data && conf;
+        return un && em && pass && rep && checkboxData && checkboxConf;
     }
 
     async function sendData(event) {

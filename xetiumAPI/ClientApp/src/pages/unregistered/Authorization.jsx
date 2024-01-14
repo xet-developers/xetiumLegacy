@@ -65,7 +65,7 @@ const Authorization = () => {
                     <p style={{fontSize:'12px', width:'300px', height:'40px', marginBottom:'-50px',color:'rgb(246, 100, 80)'}}>
                     Неправильное имя пользователя или пароль!</p>}
                 
-                <button className={Styles.userIn} disabled={error} onClick={sendUserData}>ВОЙТИ</button>
+                <button className={Styles.userIn} onClick={sendUserData}>ВОЙТИ</button>
                 
             </form>
         </div>

@@ -11,7 +11,6 @@ import { Validator } from '../../misc/Validator.js';
 const API = '';
 
 const SpaceSEO = () => {
-    const validator = new Validator()
     const [inputValue, setInputValue] = useState('');
     const [firstSearchSystem, setFirstSearchSystem] = useState(false)
     const [secondSearchSystem, setSecondSearchSystem] = useState(false)
@@ -73,7 +72,7 @@ const SpaceSEO = () => {
     }
 
     function validate() {
-        let inv = validator.validateInputValue(inputValue)
+        let inv = Validator.validateInputValue(inputValue)
         let sys = firstSearchSystem || secondSearchSystem;
 
         setValidateInputValue(!inv)

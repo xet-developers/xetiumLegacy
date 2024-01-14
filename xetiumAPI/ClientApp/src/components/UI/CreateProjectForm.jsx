@@ -18,7 +18,7 @@ const CreateProjectForm = ({modal, setModal}) => {
 
     const {userProjects, setUserProjects} = useContext(UserProjectsContext)
     const {currentProject, setCurrentProject} = useContext(CurrentProjectContext)
-    const validator = new Validator()
+
 
     const sendProjectData = async (e) => {
         e.preventDefault()
@@ -100,9 +100,9 @@ const CreateProjectForm = ({modal, setModal}) => {
     );
 
     function validate() {
-        let pr = validator.validateNameProject(projectName)
-        let urlpr = validator.validateUrlProject(url)
-        let prdesc = validator.validateDescProject(projectDescription.length)
+        let pr = Validator.validateNameProject(projectName)
+        let urlpr = Validator.validateUrlProject(url)
+        let prdesc = Validator.validateDescProject(projectDescription.length)
 
         setValidateNameProject(!pr)
         setValidateUrlProject(!urlpr)

@@ -7,7 +7,6 @@ import Loader from "../../images/loader.gif";
 import { Validator } from '../../misc/Validator.js';
 
 const SpaceReport = () => {
-    const validator = new Validator()
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [isLoading, setLoading] = useState(false)
@@ -24,8 +23,8 @@ const SpaceReport = () => {
         }
         setEmptyDate(false)
 
-        let st = validator.validateStartDate(startDate)
-        let en = validator.validateEndDate(startDate, endDate)
+        let st = Validator.validateStartDate(startDate)
+        let en = Validator.validateEndDate(startDate, endDate)
 
         setValidateStartDate(!st)
         setValidateEndDate(!en)
