@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using xetiumAPI.ServerApp.Attributes;
 
 namespace xetiumAPI.Models
 {
@@ -21,6 +22,7 @@ namespace xetiumAPI.Models
         public int Top { get; set; } = 100;
         
         [Required]
+        [ValidEnumValue(typeof(SearchSystem))]
         public int SearchSystem { get; set; }
     }
 

@@ -43,7 +43,9 @@ public class AccountTest
         var dbContext = new ApplicationContextDb(options);
         dbContext.Database.EnsureCreated();
         var userStore = new UserStore<UserDal, IdentityRole<Guid>, ApplicationContextDb, Guid>(dbContext);
-        _userManager = new UserManager<UserDal>(userStore, null, new PasswordHasher<UserDal>(), null, null, null, null, null, null);
+        var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+        var logger = loggerFactory.CreateLogger<UserManager<UserDal>>();
+        _userManager = new UserManager<UserDal>(userStore, null, new PasswordHasher<UserDal>(), null, null, null, null, null, logger);;
         var roleStore = new RoleStore<IdentityRole<Guid>, ApplicationContextDb, Guid>(dbContext);
         _roleManager = new RoleManager<IdentityRole<Guid>>(roleStore, null, null, null, null);
         
@@ -78,5 +80,34 @@ public class AccountTest
         IsNotNull(result);
 
         await _userManager.DeleteAsync(_testUser);
+    }
+
+    [Test]
+    public async Task IncorectPaswordLogin()
+    {
+        await _userManager.CreateAsync(_testUser,_userPassword);
+        
+        var userLogin = new UserLoginModel()
+        {
+            UserName = _testUser.UserName,
+            Password = "FakePasword"
+        };
+
+        var result = await _accountService.LoginUserAsync(userLogin);
+        IsNull(result);
+        
+        await _userManager.DeleteAsync(_testUser);
+    }
+
+    [Test]
+    public async Task DoesntExistUser()
+    {
+        var userLogin = new UserLoginModel()
+        {
+            UserName = _testUser.UserName,
+            Password = "FakePasword"
+        };
+        var result = await _accountService.LoginUserAsync(userLogin);
+        IsNull(result);
     }
 }
