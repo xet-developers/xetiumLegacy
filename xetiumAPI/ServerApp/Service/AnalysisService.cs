@@ -150,7 +150,5 @@ public class AnalysisService : IAnalysisService
 
         return -1;
     }
-
-
 }
 
